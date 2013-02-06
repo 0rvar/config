@@ -1,6 +1,8 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
+
+" Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -40,25 +42,89 @@ let g:EasyMotion_leader_key = '§'
 " sparkup
 " c-r to expand html
 
-""""""""""""""""""""""""""2
+""""""""""""""""""""""""""
+
+
 
 " Indentation
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
 " for command mode
 nmap <S-Tab> <<
 " for insert mode
 imap <S-Tab> <Esc><<i
-
 " Tab/shift-tab to indent/outdent in visual mode.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-
 " Keep selection when indenting/outdenting.
 vnoremap > >gv
 vnoremap < <gv
 
-" Line numbers
-set nu
+set nu " Line numbers
+set scrolloff=5
+set autoindent
+set showmode
+set showcmd
+set hidden
+set wildmenu " Autocompletion on commands
+set wildmode=list:longest,full
+set visualbell
+set cursorline " Highlight current line
+set ttyfast " Fast scrolling
+set ruler
+
+set backspace=indent,eol,start
+set laststatus=2
+set relativenumber
+
+let mapleader = ","
+
+" Match globally on lines
+nnoremap / /\v 
+vnoremap / /\v
+
+" Match case insensitive
+set ignorecase
+set smartcase
+
+set gdefault " Apply substitutions globally on lines
+
+" Highlight search results
+set incsearch
+set showmatch
+set hlsearch
+
+nnoremap <leader><space> :noh<cr>
+" nnoremap <tab> %
+" vnoremap <tab> %
+
+" handle long lines correctly
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=85
+
+" Show invisible chars
+set list
+set listchars=tab:▸\ ,eol:¬
+
+" Disable arrow keys, make jk behave sanely
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+
+" Accidentally hitting ;
+nnoremap ; :
+
+" Save when window loses focus
+au FocusLost * :wa
+
+
