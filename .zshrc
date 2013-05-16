@@ -14,13 +14,23 @@ export EDITOR=vim
 #I don't like this feature. I think no one does. It corrects you, when you are trying to create new files, for example.
 unsetopt correctall 
 
+
 # Ruby
 export RBENV_ROOT="${HOME}/.rbenv"
-
 if [ -d "${RBENV_ROOT}" ]; then
   export PATH="${RBENV_ROOT}/bin:${PATH}"
   eval "$(rbenv init -)"
 fi
+
+# Golang
+export GOROOT=$HOME/apps/go
+if [ -d "${GOROOT}" ]; then
+  export PATH=$PATH:$GOROOT/bin
+  export GOPATH=$HOME/develop/go
+fi
+
+# tomcat
+export CATALINA_HOME="${HOME}/apps/tomcat"
 
 
 # Functions
