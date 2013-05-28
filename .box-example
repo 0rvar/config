@@ -17,3 +17,6 @@ fi
 
 # tomcat
 export CATALINA_HOME="${HOME}/apps/tomcat"
+
+# svn-color
+alias svn=svn-color
