@@ -20,3 +20,12 @@ export CATALINA_HOME="${HOME}/apps/tomcat"
 
 # svn-color
 alias svn=svn-color
+
+# ls solarized color
+eval `dircolors $HOME/.dircolors`
+
+# tree charset, for nicely formatted 'tree'
+export TREE_CHARSET=utf8
+
+# Use ctrl+d to disconnect
+unsetopt ignoreeof
