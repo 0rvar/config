@@ -11,15 +11,17 @@ HISTORY_BASE=$ZSH/.directory_history
 COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
-plugins=(git bundler extract gem nyan ruby)
+plugins=(git extract gem bundler nyan lol web-search)
 
 ## Run before-config if exists
 if [ -f ".zshrc.before" ]; then
   source .zshrc.before
 fi
 
+
 # Load oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+
 
 # Settings
 
