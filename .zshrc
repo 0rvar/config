@@ -14,8 +14,8 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(git extract gem bundler nyan lol web-search)
 
 ## Run before-config if exists
-if [ -f ".zshrc.before" ]; then
-  source .zshrc.before
+if [ -f "$HOME/.zshrc.before" ]; then
+  source $HOME/.zshrc.before
 fi
 
 
@@ -48,6 +48,6 @@ function ft() {
 }
 
 ## Run after-config if exists
-if [ -f ".zshrc.after" ]; then
-  source .zshrc.after
+if [ -f "$HOME/.zshrc.after" ]; then
+  source $HOME/.zshrc.after
 fi
