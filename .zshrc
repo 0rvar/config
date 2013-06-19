@@ -47,6 +47,9 @@ function ft() {
   find $P | egrep "(.*)\.$EXT$"
 }
 
+# git pull rebase
+alias glr='git pull --rebase'
+
 ## Run after-config if exists
 if [ -f "$HOME/.zshrc.after" ]; then
   source $HOME/.zshrc.after
