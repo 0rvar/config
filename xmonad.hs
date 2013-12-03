@@ -10,6 +10,9 @@ myManageHook = composeAll (
     , className =? "Unity-2d-shell"     --> doFloat
     , resource  =? "Do"                 --> doFloat
     , resource  =? "xmessage"           --> doFloat
+
+    , resource =? "google-chrome"      --> doShift "1"
+    , resource =? "chromium-browser"   --> doShift "1"
     ])
 
 myAdditionalKeys = 
@@ -19,8 +22,8 @@ myAdditionalKeys =
 
     , ((mod1Mask .|. shiftMask, xK_t ), spawn "gnome-terminal") -- %! Launch terminal
     , ((mod1Mask .|. shiftMask, xK_c ), spawn "chromium-browser || google-chrome") -- %! Launch browser
-    , ((mod1Mask,               xK_p ), spawn "kupfer")
-    , ((mod4Mask .|. shiftMask, xK_c ), spawn "xprop WM_CLASS | cut -d\\\" -f2 | xargs notify-send 'Window Class'") -- %! Show window class in notification
+    , ((mod1Mask,               xK_p ), spawn "kupfer || gnome-do")
+    , ((mod4Mask,               xK_c ), spawn "xprop WM_CLASS | cut -d\\\" -f2 | xargs notify-send 'Window Class'") -- %! Show window class in notification
     ]
 
 myNormalBorderColor  = "#888888"
