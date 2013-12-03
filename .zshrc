@@ -11,7 +11,7 @@ HISTORY_BASE=$ZSH/.directory_history
 COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
-plugins=(git extract gem bundler nyan lol web-search)
+plugins=(git extract gem nyan lol web-search)
 
 ## Run before-config if exists
 if [ -f "$HOME/.zshrc.before" ]; then
