@@ -11,7 +11,7 @@ HISTORY_BASE=$ZSH/.directory_history
 COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
-plugins=(git extract gem nyan lol web-search)
+plugins=(git extract nyan lol web-search rbenv gem bundler)
 
 ## Run before-config if exists
 if [ -f "$HOME/.zshrc.before" ]; then
@@ -49,6 +49,8 @@ function ft() {
 
 # git pull rebase
 alias glr='git pull --rebase'
+
+alias o='xdg-open'
 
 ## Run after-config if exists
 if [ -f "$HOME/.zshrc.after" ]; then
