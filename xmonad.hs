@@ -26,6 +26,7 @@ myManageHook = composeAll (
 
     , resource =? "google-chrome"       --> doShift "1"
     , resource =? "chromium-browser"    --> doShift "1"
+    
     ])
     where windowRectFloat = doRectFloat $ W.RationalRect (1/10) (1/10) (4/5) (4/5)
           doSink = ask >>= \w -> liftX (reveal w) >> doF (W.sink w)
@@ -42,7 +43,8 @@ myAdditionalKeys =
     ]
 
 myNormalBorderColor  = "#888888"
-myFocusedBorderColor = "#f9f9f9"
+--myFocusedBorderColor = "#f9f9f9"
+myFocusedBorderColor = "#000"
 
 main = xmonad $ gnomeConfig 
         { manageHook = myManageHook 
