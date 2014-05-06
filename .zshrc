@@ -4,14 +4,11 @@ ZSH=$HOME/.oh-my-zsh
 ## Set theme
 ZSH_THEME="bira"
 
-## Set history directory
-HISTORY_BASE=$ZSH/.directory_history
-
 ## Display '...' when waiting for completion to complete
 COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
-plugins=(git extract nyan lol web-search rbenv gem bundler)
+plugins=(git extract nyan web-search rbenv bundler jump)
 
 ## Run before-config if exists
 if [ -f "$HOME/.zshrc.before" ]; then
