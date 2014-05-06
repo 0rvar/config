@@ -23,6 +23,9 @@ myManageHook = composeAll (
     , resource =? "FEZ.bin.x86"         --> doFloat
     , resource =? "gnuplot"             --> doCenterFloat
     , resource =? "sun-awt-X11-XFramePeer" --> doFloat
+    , resource =? "FLOAT"               --> doFloat
+    , resource =? "guake"               --> doFloat
+    , resource =? "zeal"                --> doFloat
 
     , resource =? "google-chrome"       --> doShift "1"
     , resource =? "chromium-browser"    --> doShift "1"
@@ -41,10 +44,14 @@ myAdditionalKeys =
     , ((mod1Mask,               xK_p ), spawn "kupfer || gnome-do")
     , ((mod4Mask,               xK_c ), spawn "xprop WM_CLASS | cut -d\\\" -f2 | xargs notify-send 'Window Class'") -- %! Show window class in notification
     ]
+myRemovedKeys = 
+    [ (mod1Mask, xK_r) 
+    , (mod1Mask .|. shiftMask, xK_r)
+    ]
 
-myNormalBorderColor  = "#888888"
+myNormalBorderColor  = "#000"
 --myFocusedBorderColor = "#f9f9f9"
-myFocusedBorderColor = "#000"
+myFocusedBorderColor = "#0092e6"
 
 main = xmonad $ gnomeConfig 
         { manageHook = myManageHook 
@@ -52,5 +59,6 @@ main = xmonad $ gnomeConfig
         , normalBorderColor = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
         } `additionalKeys` myAdditionalKeys
+        `removeKeys` myRemovedKeys
 
 
