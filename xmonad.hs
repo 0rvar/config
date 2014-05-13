@@ -1,5 +1,10 @@
 import System.Exit
 
+{-
+Needed packages:
+haskell-platform libghc-xmonad-dev libghc-xmonad-contrib-dev
+-}
+
 import XMonad
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
