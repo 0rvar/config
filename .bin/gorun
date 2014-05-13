@@ -1,0 +1,5 @@
+#!/bin/bash
+go build -o _gorun && ./_gorun
+if [ -f "_gorun" ]; then
+  rm _gorun
+fi
