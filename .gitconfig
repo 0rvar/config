@@ -5,7 +5,7 @@
 	plog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' 
 [user]
 	name = Orvar Segerström
-	email = OrvarSegerstrom@gmail.com
+	email = orvarsegerstrom@gmail.com
 [branch "master"]
 	remote = origin
 	merge = refs/heads/master

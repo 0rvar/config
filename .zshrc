@@ -49,6 +49,9 @@ alias glr='git pull --rebase'
 
 alias o='xdg-open'
 
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
+
 ## Run after-config if exists
 if [ -f "$HOME/.zshrc.after" ]; then
   source $HOME/.zshrc.after
