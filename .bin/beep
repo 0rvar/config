@@ -1,0 +1,2 @@
+#!/usr/bin/env ruby
+`paplay #{File.dirname(__FILE__)}/files/smw_coin.wav`

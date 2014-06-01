@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+
+WIDTH = 50
+PLAYER = "paplay --volume #{65536/2}"
+ALARMSOUND = "#{File.dirname(__FILE__)}/files/alarm.wav"
+
+class Fixnum
+  def s
+    self
+  end
+  def m
+    self * 60
+  end
+  def h
+    m * 60
+  end
+  def d
+    h * 24
+  end
+end
+class Numeric
+  def duration
+    s  = self.to_int
+    m  = s / 60
+    h = m / 60
+    d  = h / 24
+
+    if d > 0
+      "#{d}d#{h % 24}h"
+    elsif h > 0
+      "#{h}h#{m % 60}m"
+    elsif m > 0
+      "#{m}m#{s % 60}s"
+    elsif s >= 0
+      "#{s}s"
+    end
+  end
+end
+
+delay = eval(ARGV.join(' ')).to_f
+
+if delay <= 0
+  puts "Usage: timer 1 | 2.s | 3.m | 4.h | 3.m + 8.s"
+  puts "Accepts any ruby expression"
+  exit 1
+end
+
+puts ''
+start = Time.now
+
+while Time.now - start < delay do
+  elapsed = Time.now - start
+  p = (elapsed / delay)
+
+  printf "\r%04.1f%% [%s%s] ", p*100, "★" * (p*WIDTH), "✩" * (WIDTH-(p*WIDTH))
+  printf "%s / %s ", elapsed.duration, delay.duration
+
+  `sleep 0.2`
+end
+printf "\r100%%  [%s] %s / %s\n\n", "★"*WIDTH, delay.duration, delay.duration
+
+puts 'Time\'s up!'
+while true do
+  `#{PLAYER} #{ALARMSOUND}`
+end
