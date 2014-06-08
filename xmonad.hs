@@ -7,6 +7,7 @@ haskell-platform libghc-xmonad-dev libghc-xmonad-contrib-dev
 
 import XMonad
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Layout.NoBorders
 import qualified XMonad.StackSet as W
 
@@ -55,11 +56,15 @@ myRemovedKeys =
     ]
 
 myNormalBorderColor  = "#000"
---myFocusedBorderColor = "#f9f9f9"
-myFocusedBorderColor = "#0092e6"
+myFocusedBorderColor = "#0092e6" -- nice blue
+
+-- This makes some java programs magically start working
+-- (added due to Android Studio white&unresponsive screen)
+myStartupHook = setWMName "LG3D"
 
 main = xmonad $ gnomeConfig 
         { manageHook = myManageHook 
+        , startupHook = myStartupHook
         , layoutHook = smartBorders $ layoutHook gnomeConfig
         , normalBorderColor = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
