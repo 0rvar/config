@@ -23,14 +23,8 @@ myManageHook = composeAll (
     , resource  =? "xmessage"           --> doFloat
     , resource  =? "zenity"             --> doFloat
 
-    --, resource  =? "keepass2"           --> doCenterFloat
-
     , isFullscreen                      --> doFullFloat
-    , resource =? "FEZ.bin.x86"         --> doFloat
-    , resource =? "gnuplot"             --> doCenterFloat
     , resource =? "sun-awt-X11-XFramePeer" --> doFloat
-    , resource =? "FLOAT"               --> doFloat
-    , resource =? "guake"               --> doFloat
     , resource =? "zeal"                --> doFloat
 
     , resource =? "google-chrome"       --> doShift "1"
@@ -47,6 +41,7 @@ myAdditionalKeys =
 
     , ((mod1Mask .|. shiftMask, xK_t ), spawn "gnome-terminal") -- %! Launch terminal
     , ((mod1Mask .|. shiftMask, xK_c ), spawn "chromium-browser || google-chrome") -- %! Launch browser
+    , ((mod1Mask .|. shiftMask, xK_f ), spawn "firefox") -- %! Launch browser
     , ((mod1Mask,               xK_p ), spawn "kupfer || gnome-do")
     , ((mod4Mask,               xK_c ), spawn "xprop WM_CLASS | cut -d\\\" -f2 | xargs notify-send 'Window Class'") -- %! Show window class in notification
     ]
@@ -64,7 +59,7 @@ myStartupHook = setWMName "LG3D"
 
 main = xmonad $ gnomeConfig 
         { manageHook = myManageHook 
-        , startupHook = myStartupHook
+        , startupHook = startupHook gnomeConfig >> myStartupHook
         , layoutHook = smartBorders $ layoutHook gnomeConfig
         , normalBorderColor = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
