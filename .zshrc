@@ -23,10 +23,12 @@ source $ZSH/oh-my-zsh.sh
 # Settings
 
 ## Text editor
-export EDITOR=vim
+export EDITOR=sublime-text
 
 ## ZSH Customization
-unsetopt correctall 
+unsetopt correctall
+setopt inc_append_history
+setopt share_history
 
 ## Functions
 function ft() {

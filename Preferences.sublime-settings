@@ -1,6 +1,9 @@
 {
+	"bold_folder_labels": true,
 	"color_scheme": "Packages/Theme - Spacegray/base16-eighties.dark.tmTheme",
-	"font_size": 14.0,
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 14,
+	"highlight_modified_tabs": true,
 	"hot_exit": false,
 	"ignored_packages":
 	[
@@ -24,5 +27,7 @@
 	"tab_size": 2,
 	"theme": "Spacegray Eighties.sublime-theme",
 	"translate_tabs_to_spaces": true,
+	"tree_animation_enabled": false,
+	"trim_trailing_white_space_on_save": true,
 	"wrap_width": 80
 }

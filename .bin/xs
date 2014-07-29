@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+def usage()
+  puts "Usage: ex <command> [args]"
+  puts "          sync      Synchronize all experiments"
+  puts "          publish   Synchronize current dir or experiment named arg1"
+  puts "          open      Open current dir or experiment named args in browser"
+end
+
+if ARGV.length < 1 then
+  usage
+  exit 1
+end
+
+if ARGV.first == 'sync' then
+  exec 'rsync -avzC --delete ~/develop/experiments orvar.me:apps/'
+elsif ARGV.first == 'publish' then
+  experiment = Dir.pwd
+  if ARGV.length > 1 then
+    experiment = "~/develop/experiments/#{ARGV[1]}"
+  end
+  cmd = "rsync -avzC --delete #{experiment} orvar.me:apps/experiments/"
+
+  print "#{cmd} ? (y/n) "
+  if STDIN.gets.chomp == 'y' then
+    exec cmd
+  end
+elsif ARGV.first == 'open' then
+  experiment = File.basename Dir.pwd
+  if ARGV.length > 1 then
+    experiment = ARGV[1]
+  end
+  url = "http://experiments.orvarsegerstrom.se/#{experiment}"
+  cmd = "chromium-browser #{url}"
+  puts url
+  exec "bash -c '#{cmd} &> /dev/null' &> /dev/null"
+end
