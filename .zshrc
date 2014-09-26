@@ -48,11 +48,12 @@ function ft() {
 
 # git pull rebase
 alias glr='git pull --rebase'
-
 alias o='xdg-open'
+alias upg='sudo apt-get update && sudo apt-get upgrade'
 
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
+
 
 ## Run after-config if exists
 if [ -f "$HOME/.zshrc.after" ]; then
