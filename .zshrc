@@ -8,7 +8,21 @@ ZSH_THEME="bira"
 COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
-plugins=(git extract nyan web-search rbenv bundler jump)
+plugins=(
+
+    git           # git aliases, like gst, ga, gc (see alias | grep git)
+    rbenv         # Set up rbenv (if ~/.rbenv exists)
+    bundler       # bundle aliases like bi, be. dynamic bundle aliases like rails, rake, cap
+
+    extract       # `extract` command for any archive type
+    web-search    # `google`, `ddg`, `youtube` search for terminal
+
+    jump          # `mark`, `marks`, `jump` commands, like wd
+    autojump      # Learns common directories, provides shortcuts like `j dir` to go there
+    z             # like autojump, but takes several regexes and doesn't require autojump installed
+    dircycle      # Nondestructive pushd/popd with ctrl+shift+{left,right}
+    )
+# Maybe try fasd? git-extras? git-flow?
 
 ## Run before-config if exists
 if [ -f "$HOME/.zshrc.before" ]; then
