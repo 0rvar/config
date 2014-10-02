@@ -6,35 +6,39 @@ haskell-platform libghc-xmonad-dev libghc-xmonad-contrib-dev
 -}
 
 import XMonad
-import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName (setWMName)
-import XMonad.Layout.NoBorders
-import qualified XMonad.StackSet as W
+import XMonad.Config.Gnome (gnomeConfig)
+import XMonad.Util.EZConfig (additionalKeys, removeKeys)
 
-import XMonad.Config.Gnome
-import XMonad.Util.EZConfig
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doRectFloat)
 
-myManageHook = composeAll (
+import XMonad.StackSet (RationalRect(..), sink)
+import XMonad.Layout.NoBorders (smartBorders)
+import XMonad.Layout.Grid (Grid(..))
+import XMonad.Hooks.ManageDocks (avoidStruts)
+
+layout = smartBorders . avoidStruts $ tiled ||| Grid ||| Full ||| Mirror tiled
+    where
+        tiled  = Tall 1 (2/100) (1/2)  -- numInMasterPane RatioChangeDelta InitialMasterRatio
+
+manageRules = composeAll (
     [ manageHook gnomeConfig
-    , className =? "Unity-2d-panel"     --> doIgnore
-    , className =? "Unity-2d-launcher"  --> doFloat
-    , className =? "Unity-2d-shell"     --> doFloat
-    , resource  =? "Do"                 --> doFloat
-    , resource  =? "xmessage"           --> doFloat
-    , resource  =? "zenity"             --> doFloat
+    , className =? "Unity-2d-panel"        --> doIgnore
+    , className =? "Unity-2d-launcher"     --> doFloat
+    , className =? "Unity-2d-shell"        --> doFloat
 
-    , isFullscreen                      --> doFullFloat
+    , isFullscreen                         --> doFullFloat
     , resource =? "sun-awt-X11-XFramePeer" --> doFloat
-    , resource =? "zeal"                --> doFloat
+    , resource  =? "zenity"                --> doFloat
 
-    , resource =? "google-chrome"       --> doShift "1"
-    , resource =? "chromium-browser"    --> doShift "1"
+    , resource =? "google-chrome"          --> doShift "1"
+    , resource =? "chromium-browser"       --> doShift "1"
 
     ])
-    where windowRectFloat = doRectFloat $ W.RationalRect (1/10) (1/10) (4/5) (4/5)
-          doSink = ask >>= \w -> liftX (reveal w) >> doF (W.sink w)
+    where windowRectFloat = doRectFloat $ RationalRect (1/10) (1/10) (4/5) (4/5)
+          doSink = ask >>= \w -> liftX (reveal w) >> doF (sink w)
 
-myAdditionalKeys =
+plusKeys =
     [ ((mod1Mask,               xK_q ), kill)
     , ((mod4Mask,               xK_q ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad))
     , ((mod1Mask .|. shiftMask, xK_q ), io (exitWith ExitSuccess)) -- %! Quit xmonad
@@ -47,7 +51,7 @@ myAdditionalKeys =
     , ((mod1Mask,               xK_s ), spawn "~/develop/image-surface/scripts/linux-screenshot")
     , ((mod1Mask .|. shiftMask, xK_s ), spawn "~/develop/image-surface/scripts/linux-screenshot-select")
     ]
-myRemovedKeys =
+minusKeys =
     [ (mod1Mask, xK_r)
     , (mod1Mask .|. shiftMask, xK_r)
     ]
@@ -60,12 +64,12 @@ myFocusedBorderColor = "#0092e6" -- nice blue
 myStartupHook = setWMName "LG3D"
 
 main = xmonad $ gnomeConfig
-        { manageHook = myManageHook
+        { manageHook = manageRules
         , startupHook = startupHook gnomeConfig >> myStartupHook
-        , layoutHook = smartBorders $ layoutHook gnomeConfig
+        , layoutHook = layout
         , normalBorderColor = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        } `additionalKeys` myAdditionalKeys
-        `removeKeys` myRemovedKeys
+        } `additionalKeys` plusKeys
+        `removeKeys` minusKeys
 
 
