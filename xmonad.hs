@@ -61,11 +61,11 @@ myFocusedBorderColor = "#0092e6" -- nice blue
 
 -- This makes some java programs magically start working
 -- (added due to Android Studio white&unresponsive screen)
-myStartupHook = setWMName "LG3D"
+startup = setWMName "LG3D"
 
 main = xmonad $ gnomeConfig
         { manageHook = manageRules
-        , startupHook = startupHook gnomeConfig >> myStartupHook
+        , startupHook = startupHook gnomeConfig >> startup
         , layoutHook = layout
         , normalBorderColor = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
