@@ -9,7 +9,6 @@ COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
 plugins=(
-
     git           # git aliases, like gst, ga, gc (see alias | grep git)
     rbenv         # Set up rbenv (if ~/.rbenv exists)
     bundler       # bundle aliases like bi, be. dynamic bundle aliases like rails, rake, cap
@@ -37,7 +36,7 @@ source $ZSH/oh-my-zsh.sh
 # Settings
 
 ## Text editor
-export EDITOR=sublime-text
+export EDITOR=vim
 
 ## ZSH Customization
 unsetopt correctall
@@ -63,12 +62,12 @@ function ft() {
 # git pull rebase
 alias glr='git pull --rebase'
 alias o='xdg-open'
-alias upg='sudo apt-get update && sudo apt-get upgrade'
+alias upg='sudo apt-get update && sudo apt-get dist-upgrade -yy'
 
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
+alias cbcopy='xsel --clipboard --input'
+alias cbpaste='xsel --clipboard --output'
 
-
+alias upgrade-rust='curl -s https://static.rust-lang.org/rustup.sh | sudo sh'
 
 # Percol functions
 function ppgrep() {
