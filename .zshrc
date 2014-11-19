@@ -69,6 +69,11 @@ alias cbpaste='xsel --clipboard --output'
 
 alias upgrade-rust='curl -s https://static.rust-lang.org/rustup.sh | sudo sh'
 
+haste() {
+  a=$(cat)
+  curl -X POST -s -d "$a" http://hastebin.com/documents | awk -F '"' '{print "http://hastebin.com/"$4}'
+}
+
 # Percol functions
 function ppgrep() {
   if [[ $1 == "" ]]; then
