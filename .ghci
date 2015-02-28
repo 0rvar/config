@@ -1,4 +1,4 @@
-:set prompt "λ: "
+:set prompt "\ESC[38;5;105m λ \ESC[m"
 :set editor subl
 :set -XOverloadedStrings
 
