@@ -1,0 +1,2 @@
+#!/bin/bash
+xdg-open "https://www.haskell.org/hoogle/?hoogle=$@" &> /dev/null &

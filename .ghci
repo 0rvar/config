@@ -9,3 +9,5 @@ let replaceBash x = x
 let escapeBash x = concat . map replaceBash $ x
 
 :def pf \str -> return $ ":! pointfree \"" ++ str ++ "\""
+
+:def hoogle \str -> return $ ":! hoogle \"" ++ str ++ "\""
