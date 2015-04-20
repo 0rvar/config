@@ -76,7 +76,9 @@ function ft() {
 # git pull rebase
 alias glr='git pull --rebase'
 alias o='xdg-open'
-alias upg='sudo apt-get update && sudo apt-get dist-upgrade -yy'
+alias upg='sudo echo "Complete system upgrade" && \
+  sudo apt-get update && \
+  sudo apt-get dist-upgrade -yy'
 
 alias cbcopy='xsel --clipboard --input'
 alias cbpaste='xsel --clipboard --output'

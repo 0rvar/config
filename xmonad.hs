@@ -15,8 +15,10 @@ import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doRectFloat)
 import XMonad.StackSet (RationalRect(..), sink)
 import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.Grid (Grid(..))
+import XMonad.Layout.Spacing (spacing, smartSpacing)
 import XMonad.Hooks.ManageDocks (avoidStruts)
 
+-- spacing 10 .
 layout = smartBorders . avoidStruts $ tiled ||| Grid ||| Full ||| Mirror tiled
     where
         tiled  = Tall 1 (2/100) (1/2)  -- numInMasterPane RatioChangeDelta InitialMasterRatio
