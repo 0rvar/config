@@ -1,2 +1,0 @@
-#!/bin/bash
-sublime-text "$@" 2> /dev/null &
