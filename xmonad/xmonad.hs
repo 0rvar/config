@@ -56,8 +56,8 @@ plusKeys =
     [ ((noModMask, xF86XK_MonBrightnessUp),   spawn "light -A 5")
     , ((noModMask, xF86XK_MonBrightnessDown), spawn "light -U 5")
     , ((noModMask, xF86XK_AudioMute),         spawn "pactl set-sink-mute 0 toggle")
-    , ((noModMask, xF86XK_AudioLowerVolume),  spawn "pactl set-sink-volume 0 -5% && paplay /home/orvar/.xmonad/files/volume.wav")
-    , ((noModMask, xF86XK_AudioRaiseVolume),  spawn "pactl set-sink-volume 0 +5% && paplay /home/orvar/.xmonad/files/volume.wav")
+    , ((noModMask, xF86XK_AudioLowerVolume),  spawn "pactl set-sink-volume 0 -5% && paplay ~/.xmonad/files/volume.wav")
+    , ((noModMask, xF86XK_AudioRaiseVolume),  spawn "pactl set-sink-volume 0 +5% && paplay ~/.xmonad/files/volume.wav")
     , ((noModMask,              xK_Print),    spawn "scrot -e 'mv $f ~/Pictures'")
 
     , ((mod1Mask,               xK_q ), kill)
@@ -89,7 +89,7 @@ myFocusedBorderColor = "#0092e6" -- nice blue
 -- startup = setWMName "LG3D"
 
 main = do
-    xmproc <- spawnPipe "/usr/bin/tint2 /home/orvar/.config/tint2/tint2rc"
+    xmproc <- spawnPipe "/usr/bin/tint2 ~.xmonad/tint2rc"
     xmonad $ gnomeConfig
         { manageHook = manageRules <+> manageDocks
         , layoutHook = layout
