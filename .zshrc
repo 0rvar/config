@@ -9,9 +9,12 @@ COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
 plugins=(
+    zsh-syntax-highlighting
+
     git           # git aliases, like gst, ga, gc (see alias | grep git)
     rbenv         # Set up rbenv (if ~/.rbenv exists)
     bundler       # bundle aliases like bi, be. dynamic bundle aliases like rails, rake, cap
+    nyan
 
     extract       # `extract` command for any archive type
     web-search    # `google`, `ddg`, `youtube` search for terminal
