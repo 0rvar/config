@@ -1,10 +1,12 @@
 import System.Exit
+import System.IO (hPutStrLn)
 
 import XMonad
 import XMonad.Config.Gnome (gnomeConfig)
 import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doRectFloat)
 import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks, docksEventHook)
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, xmobarPP, ppOutput, ppTitle, xmobarColor, shorten)
 import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.Grid (Grid(..))
 import XMonad.Layout.Spacing (spacing, smartSpacing)
@@ -17,7 +19,7 @@ import Graphics.X11.ExtraTypes.XF86
 
 
 -- spacing 10 .
-layout = avoidStruts . smartBorders . gaps [(D,50)] $ tiled ||| Grid ||| Full ||| Mirror tiled
+layout = avoidStruts . smartBorders $ tiled ||| Grid ||| Full ||| Mirror tiled
     where
         tiled  = Tall 1 (2/100) (1/2)  -- numInMasterPane RatioChangeDelta InitialMasterRatio
 
@@ -89,14 +91,16 @@ myFocusedBorderColor = "#0092e6" -- nice blue
 startup = setWMName "LG3D"
 
 main = do
-    xmproc <- spawnPipe "/usr/bin/tint2 ~.xmonad/tint2rc"
-    nmproc <- spawnPipe "/usr/bin/nm-applet"
-    paproc <- spawnPipe "/usr/bin/pa-applet"
+    xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobarrc"
     xmonad $ gnomeConfig
         { manageHook = manageRules <+> manageDocks
         , layoutHook = layout
         , handleEventHook = handleEventHook gnomeConfig <+> docksEventHook
         , normalBorderColor = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
+        , logHook = dynamicLogWithPP xmobarPP
+                        { ppOutput = hPutStrLn xmproc
+                        , ppTitle = xmobarColor "green" "" . shorten 50
+                        }
         } `additionalKeys` plusKeys
           `removeKeys` minusKeys
