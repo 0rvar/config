@@ -95,6 +95,7 @@ main = do
     xmonad $ gnomeConfig
         { manageHook = manageRules <+> manageDocks
         , layoutHook = layout
+        , startupHook = startup
         , handleEventHook = handleEventHook gnomeConfig <+> docksEventHook
         , normalBorderColor = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
