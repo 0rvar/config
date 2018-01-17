@@ -1,3 +1,4 @@
 /.vim/bundle
 *.swp
 bin/subl
+.DS_Store

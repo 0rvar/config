@@ -1,0 +1,11 @@
+[color]
+	ui = auto
+
+[user]
+	name = Orvar Segerström
+	email = orvar.segerstrom@miniumtech.com
+
+[core]
+	autocrlf = false
+[push]
+	default = current
