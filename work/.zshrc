@@ -9,16 +9,18 @@ COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
 plugins=(
-    zsh-syntax-highlighting
+  zsh-syntax-highlighting
 
-    git           # git aliases, like gst, ga, gc (see alias | grep git)
-    nyan
+  git           # git aliases, like gst, ga, gc (see alias | grep git)
+  brew          # homebrew completion
+  gradle        # dynamic gradle completion
+  npm           # npm completion
 
-    extract       # `extract` command for any archive type
+  extract       # `extract` command for any archive type
 
-    jump          # `mark`, `marks`, `jump` commands, like wd
-    z             # like autojump, but takes several regexes and doesn't require autojump installed
-    )
+  jump          # `mark`, `marks`, `jump` commands, like wd
+  z             # like autojump, but takes several regexes and doesn't require autojump installed
+)
 
 ## Run before-config if exists
 if [ -f "$HOME/.zshrc.before" ]; then
