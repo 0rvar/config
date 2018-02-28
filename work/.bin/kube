@@ -1,0 +1,45 @@
+#!/usr/local/bin/node
+
+const child_process = require('child_process')
+
+const shell = command => () => {
+    console.log(`Running '${command}'`)
+    child_process.execSync(command, { stdio: 'inherit' })
+}
+
+const portForward = args => {
+    const [identifier] = args
+    const pods = child_process.execSync('kubectl get pods')
+        .toString()
+        .split('\n')
+        .slice(1)
+        .map(line => line.split(' ')[0])
+    const matchingPods = pods.filter(pod => pod.includes(identifier))
+    if (matchingPods.length === 0) {
+        console.error(`'${identifier}' did not match any pods`)
+    } else if (matchingPods.length > 1) {
+        console.error(`Ambigious identifier '${identifier}' matched all these:`)
+        matchingPods.forEach(pod => console.error(`* ${pod}`))
+    } else {
+        shell(`kubectl port-forward ${matchingPods[0]} 5005:5005`)()
+    }
+}
+
+const actions = {
+    push: shell('gradle distDocker && gradle kubeDeleteDeployment kubeApplyDeployment'),
+    pushtocluster: shell('gradle distDocker -Pcluster && gradle kubeDeleteDeployment kubeApplyDeployment -Pcluster'),
+    pods: shell('kubectl get pods'),
+    forward: portForward,
+}
+
+const actionName = process.argv[2]
+const action = actions[actionName && actionName.toLowerCase()]
+if (action == null ) {
+    console.error('Could not find command: ', actionName)
+    console.log('Available actions:')
+    Object.keys(actions).forEach(k => console.log(`* ${k}`))
+    return 1
+}
+
+action(process.argv.slice(3))
+

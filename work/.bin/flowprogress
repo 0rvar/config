@@ -1,0 +1,5 @@
+#!/bin/bash
+echo .js files with @flow
+rg --no-heading '@flow' | wc -l
+echo Total .js files
+git ls-files | grep .js | wc -l

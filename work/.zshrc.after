@@ -6,3 +6,10 @@ export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
 
 # Use ctrl+d to disconnect
 unsetopt ignoreeof
+
+# Use python installs (pipenv etc)
+export PATH="$HOME/Library/Python/3.6/bin:$PATH"
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
