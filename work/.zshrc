@@ -20,6 +20,7 @@ plugins=(
 
   jump          # `mark`, `marks`, `jump` commands, like wd
   z             # like autojump, but takes several regexes and doesn't require autojump installed
+  zsh-syntax-highlighting
 )
 
 ## Run before-config if exists
