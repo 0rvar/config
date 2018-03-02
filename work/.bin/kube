@@ -25,9 +25,11 @@ const portForward = args => {
     }
 }
 
+const pushToCluster = shell('gradle distDocker -Pcluster && gradle kubeDeleteDeployment kubeApplyDeployment -Pcluster')
 const actions = {
-    push: shell('gradle distDocker && gradle kubeDeleteDeployment kubeApplyDeployment'),
-    pushtocluster: shell('gradle distDocker -Pcluster && gradle kubeDeleteDeployment kubeApplyDeployment -Pcluster'),
+    push: pushToCluster,
+    pushtocluster: pushToCluster,
+    ptc: pushToCluster,
     pods: shell('kubectl get pods'),
     forward: portForward,
 }

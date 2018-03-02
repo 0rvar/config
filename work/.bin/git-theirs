@@ -1,0 +1,9 @@
+#!/bin/bash
+
+branchName=`git rev-parse --abbrev-ref HEAD`
+referenceName=origin/$branchName
+if [ "$1" != "" ]
+then
+    referenceName=$1
+fi
+git log $branchName..$referenceName

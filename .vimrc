@@ -1,6 +1,6 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
-
+syntax on
 
 " Vundle
 set rtp+=~/.vim/bundle/vundle/
@@ -21,6 +21,7 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'L9'
 " Bundle 'FuzzyFinder'
 Bundle 'kien/ctrlp.vim'
+Plugin 'editorconfig/editorconfig-vim'
 
 " non github repos
 " Bundle 'wincent/Command-T'
