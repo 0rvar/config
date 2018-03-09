@@ -13,3 +13,6 @@ export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
+export LESS=" -R "
+

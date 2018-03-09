@@ -7,22 +7,43 @@ const shell = command => () => {
     child_process.execSync(command, { stdio: 'inherit' })
 }
 
-const portForward = args => {
-    const [identifier] = args
+const getPodByIdentifier = (identifier, callback) => {
     const pods = child_process.execSync('kubectl get pods')
         .toString()
         .split('\n')
         .slice(1)
-        .map(line => line.split(' ')[0])
-    const matchingPods = pods.filter(pod => pod.includes(identifier))
+        .map(line => line.split(/ +/))
+        .map(([name, _, status]) => ({ name, status }))
+    const matchingPods = pods.filter(pod => pod.name.includes(identifier))
     if (matchingPods.length === 0) {
         console.error(`'${identifier}' did not match any pods`)
     } else if (matchingPods.length > 1) {
         console.error(`Ambigious identifier '${identifier}' matched all these:`)
         matchingPods.forEach(pod => console.error(`* ${pod}`))
     } else {
-        shell(`kubectl port-forward ${matchingPods[0]} 5005:5005`)()
+        const pod = matchingPods[0]
+        if (pod.status != 'Running') {
+            console.log(`Pod ${pod.name} not ready: ${pod.status}`)
+            setTimeout(() => getPodByIdentifier(identifier, callback), 1000);
+        } else {
+            callback(pod.name)
+        }
     }
+}
+
+const portForward = args => {
+    const [identifier] = args
+    getPodByIdentifier(identifier, pod => shell(`kubectl port-forward ${pod} 5005:5005`)())
+}
+
+const logs = args => {
+    const [identifier, ...extraArgs] = args
+    getPodByIdentifier(identifier, pod => shell(`kubectl logs ${(extraArgs || []).join(' ')} ${pod}`)())
+}
+
+const wait = args => {
+    const [identifier] = args
+    getPodByIdentifier(identifier, pod => console.log('Pod ready:', pod))
 }
 
 const pushToCluster = shell('gradle distDocker -Pcluster && gradle kubeDeleteDeployment kubeApplyDeployment -Pcluster')
@@ -32,6 +53,8 @@ const actions = {
     ptc: pushToCluster,
     pods: shell('kubectl get pods'),
     forward: portForward,
+    logs: logs,
+    wait: wait,
 }
 
 const actionName = process.argv[2]

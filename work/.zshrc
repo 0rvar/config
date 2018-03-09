@@ -9,17 +9,18 @@ COMPLETION_WAITING_DOTS="true"
 
 ## Set omz plugins
 plugins=(
-  zsh-syntax-highlighting
-
   git           # git aliases, like gst, ga, gc (see alias | grep git)
   brew          # homebrew completion
-  gradle        # dynamic gradle completion
   npm           # npm completion
+  bundler
+  rbenv
 
   extract       # `extract` command for any archive type
 
   jump          # `mark`, `marks`, `jump` commands, like wd
   z             # like autojump, but takes several regexes and doesn't require autojump installed
+
+  per-directory-history
   zsh-syntax-highlighting
 )
 
