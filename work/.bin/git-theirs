@@ -6,4 +6,4 @@ if [ "$1" != "" ]
 then
     referenceName=$1
 fi
-git log $branchName..$referenceName
+git log --no-merges $branchName..$referenceName
