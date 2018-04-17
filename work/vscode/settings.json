@@ -1,0 +1,32 @@
+{
+    "editor.renderWhitespace": "boundary",
+    "javascript.validate.enable": false,
+    "files.associations": {
+        ".eslintrc": "jsonc",
+        "Pipfile": "toml"
+    },
+    "window.zoomLevel": 1,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true,
+        "suppressUpdateNotice": false,
+        "suppressWelcomeNotice": true
+    },
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "extensions.ignoreRecommendations": true,
+    "gitlens.keymap": "alternate",
+    // Make the guides a bit more visible
+    // I keep min at 3 to really notice them.
+    "guides.normal.width": 3,
+
+    // Shows two arrows (<>) in the gutter to help find those missing brackets.
+    "guides.active.gutter": true,
+    "editor.renderIndentGuides": false
+}

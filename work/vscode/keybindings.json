@@ -1,0 +1,21 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+        "key": "cmd+k right",
+        "command": "workbench.action.splitEditor"
+    },
+    {
+        "key": "ctrl+shift+alt+cmd+7",
+        "command": "-workbench.action.splitEditor"
+    },
+    {
+        "key": "shift+alt+7",
+        "command": "-gitlens.showCommitSearch",
+        "when": "gitlens:enabled && gitlens:keymap == 'standard'"
+    },
+    {
+        "key": "shift+alt+7",
+        "command": "-gitlens.showCommitSearch",
+        "when": "gitlens:enabled && gitlens:keymap == 'alternate'"
+    }
+]
