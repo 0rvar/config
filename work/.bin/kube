@@ -37,8 +37,11 @@ const portForward = args => {
 }
 
 const logs = args => {
-    const [identifier, ...extraArgs] = args
-    getPodByIdentifier(identifier, pod => shell(`kubectl logs ${(extraArgs || []).join(' ')} ${pod}`)())
+    const identifier = args.find(a => !a.startsWith("-"))
+    getPodByIdentifier(identifier, pod => {
+        const extraArgs = args.filter(a => a != identifier)
+        shell(`kubectl logs ${(extraArgs || []).join(' ')} ${pod}`)()
+    })
 }
 
 const wait = args => {
@@ -46,11 +49,7 @@ const wait = args => {
     getPodByIdentifier(identifier, pod => console.log('Pod ready:', pod))
 }
 
-const pushToCluster = shell('gradle distDocker -Pcluster && gradle kubeDeleteDeployment kubeApplyDeployment -Pcluster')
 const actions = {
-    push: pushToCluster,
-    pushtocluster: pushToCluster,
-    ptc: pushToCluster,
     pods: shell('kubectl get pods'),
     forward: portForward,
     logs: logs,
@@ -59,8 +58,10 @@ const actions = {
 
 const actionName = process.argv[2]
 const action = actions[actionName && actionName.toLowerCase()]
-if (action == null ) {
-    console.error('Could not find command: ', actionName)
+if (action == null) {
+    if (actionName != null) {
+        console.error('Could not find command: ', actionName)
+    }
     console.log('Available actions:')
     Object.keys(actions).forEach(k => console.log(`* ${k}`))
     return 1
