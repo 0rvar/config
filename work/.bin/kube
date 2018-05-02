@@ -19,7 +19,7 @@ const getPodByIdentifier = (identifier, callback) => {
         console.error(`'${identifier}' did not match any pods`)
     } else if (matchingPods.length > 1) {
         console.error(`Ambigious identifier '${identifier}' matched all these:`)
-        matchingPods.forEach(pod => console.error(`* ${pod}`))
+        matchingPods.forEach(pod => console.error(`* '${pod.name}'`))
     } else {
         const pod = matchingPods[0]
         if (pod.status != 'Running') {

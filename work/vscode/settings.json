@@ -3,7 +3,8 @@
     "javascript.validate.enable": false,
     "files.associations": {
         ".eslintrc": "jsonc",
-        "Pipfile": "toml"
+        "Pipfile": "toml",
+        ".prettierrc": "yaml"
     },
     "window.zoomLevel": 1,
     "gitlens.advanced.messages": {
