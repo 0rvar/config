@@ -29,5 +29,8 @@
 
     // Shows two arrows (<>) in the gutter to help find those missing brackets.
     "guides.active.gutter": true,
-    "editor.renderIndentGuides": false
+    "editor.renderIndentGuides": false,
+
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true
 }

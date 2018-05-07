@@ -14,6 +14,7 @@ plugins=(
   npm           # npm completion
   bundler
   rbenv
+  kubectl
 
   extract       # `extract` command for any archive type
 
