@@ -108,6 +108,6 @@ if exists percol; then
 fi
 
 ## Run after-config if exists
-if [ -f "$HOME/.zshrc.after" ]; then
-  source $HOME/.zshrc.after
+if [ -f "$HOME/.env" ]; then
+  source $HOME/.env
 fi
