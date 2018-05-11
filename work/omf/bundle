@@ -1,4 +1,8 @@
+package extract
+package hash
 package peco
+package rustup
+package sudope
 package z
 theme default
 theme gnuykeaj

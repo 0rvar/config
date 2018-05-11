@@ -21,25 +21,35 @@ set -xg MINIUM_DEVELOPER_BUILD 1
 
 # Aliases
 
-function abbr_add --description 'append abbreviations to universal list'
-	set -U fish_user_abbreviations $fish_user_abbreviations $argv
-end
-abbr_add 'ga=git add'
-abbr_add 'ga.=git add .'
-abbr_add 'gc=git commit'
-abbr_add 'gca=git commit --amend'
-abbr_add 'gco=git checkout'
-abbr_add 'gd=git diff'
-abbr_add 'gdca=git diff --cached'
-abbr_add 'gf=git fetch'
-abbr_add 'gl=git pull'
-abbr_add 'glf=git pull --ff-only'
-abbr_add 'glg=git log'
-abbr_add 'glr=git pull --rebase'
-abbr_add 'gp=git push'
-abbr_add 'gs=git status'
-abbr_add 'gsh=git show'
-abbr_add 'gst=git status'
+abbr -a ga      git add
+abbr -a ga.     git add .
+abbr -a gb      git branch
+abbr -a gc      git commit
+abbr -a gca     git commit --amend
+abbr -a gcp     git cherry-pick
+abbr -a gco     git checkout
+abbr -a gd      git diff
+abbr -a gdca    git diff --cached
+abbr -a gf      git fetch
+abbr -a gfa     git fetch --all --prune
+abbr -a gl      git pull
+abbr -a glf     git pull --ff-only
+abbr -a glg     git log
+abbr -a glr     git pull --rebase
+abbr -a glg     git log --stat --max-count=10
+abbr -a glgg    git log --graph --max-count=10
+abbr -a glgga   git log --graph --decorate --all
+abbr -a glo     git log --oneline --decorate --color
+abbr -a glog    git log --oneline --decorate --color --graph
+abbr -a gp      git push
+abbr -a grba    git rebase --abort
+abbr -a grbc    git rebase --continue
+abbr -a grbi    git rebase --interactive
+abbr -a gs      git status
+abbr -a gsh     git show
+abbr -a gst     git status
+abbr -a gwch    git whatchanged -p --abbrev-commit --pretty=medium
+
 
 # Functions
 function pco
