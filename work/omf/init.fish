@@ -67,3 +67,7 @@ end
 function pme
     git for-each-ref --count=10 --sort=-committerdate refs/heads/ --format=%\(refname:short\) | percol | xargs git merge
 end
+
+function rip
+  rg -C 10 -M 200 -p $argv | less -r
+end
