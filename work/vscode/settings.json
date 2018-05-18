@@ -32,5 +32,6 @@
     "editor.renderIndentGuides": false,
 
     "editor.fontFamily": "Fira Code",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "gitlens.historyExplorer.enabled": true
 }

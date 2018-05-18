@@ -10,8 +10,8 @@ set -xg PATH $PATH /usr/local/opt/findutils/libexec/gnubin
 # Use python installs (pipenv etc)
 set -xg PATH $PATH $HOME/Library/Python/3.6/bin
 
-# set -xg LANG en_US.UTF-8
-# set -xg LC_ALL en_US.UTF-8
+set -xg LANG en_US.UTF-8
+set -xg LC_ALL en_US.UTF-8
 
 set -xg LESSOPEN "| src-hilite-lesspipe.sh %s"
 set -xg LESS " -R "

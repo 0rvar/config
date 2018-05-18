@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+const { execSync } = require('child_process');
+
+const download = (url) => {
+    console.log('Downloading', url)
+    return JSON.parse(execSync(`curl -s -X GET --header 'Accept: application/json' '${url}'`).toString())
+}
+
+const say = (sentence) => {
+    console.log(sentence)
+    execSync(`say "${sentence.replace('"', '\'')}"`)
+}
+
+const options = [
+    () => say(download('http://api.adviceslip.com/advice').slip.advice),
+    () => say(download('https://catfact.ninja/fact').fact),
+    // () => say(download('https://api.whatdoestrumpthink.com/api/v1/quotes/random').message),
+]
+
+options[Math.floor(Math.random() * options.length)]()

@@ -1,5 +1,56 @@
-#!/bin/bash
-echo .js files with @flow
-rg --no-heading '@flow' | wc -l
-echo Total .js files
-git ls-files | grep .js | wc -l
+#!/usr/bin/env node
+
+const { execSync } = require('child_process');
+const { readFileSync } = require('fs');
+
+const files = execSync('git ls-files | egrep .js\\\$')
+    .toString()
+    .split('\n')
+    .map(x => x.trim())
+    .filter(x => x.length > 0)
+    .filter(x => !x.includes('flow-typed'))
+    .map(fileName => {
+        let contents = ''
+        try {
+            contents = readFileSync(fileName, 'utf8');
+        } catch (e) {
+            // ignore
+        }
+        const isFlowed = contents.includes(' @flow')
+        const lines = contents.split('\n').map(x => x.trim()).filter(x => x.length > 0)
+        return {
+            fileName: fileName,
+            isFlowed: isFlowed,
+            size: contents.length,
+            numLines: lines.length,
+        }
+    });
+
+const numTotalFiles = files.length;
+const numFlowedFiles = files.filter(f => f.isFlowed).length;
+const percentage = (numFlowedFiles * 100 / numTotalFiles).toFixed(2);
+console.log(`Flowed files: ${numFlowedFiles} of ${numTotalFiles} (${percentage}%)`);
+
+const countLines = fs => fs.reduce((acc, f) => acc + f.numLines, 0)
+const numTotalLines = countLines(files);
+const numFlowedLines = countLines(files.filter(f => f.isFlowed));
+const linesPercentage = (numFlowedLines * 100 / numTotalLines).toFixed(2);
+console.log(`Flowed lines ${numFlowedLines} of ${numTotalLines} (${linesPercentage}%)`)
+
+console.log();
+console.log('Largest non-flowed files: ');
+const largestNonFlowedFiles = files.filter(f => !f.isFlowed);
+largestNonFlowedFiles.sort((a, b) => b.size - a.size);
+largestNonFlowedFiles.slice(0, 10).forEach(f => console.log(`* ${f.fileName} (${f.size})`));
+
+console.log();
+console.log('Smallest non-flowed files: ');
+const smallestNonFlowedFiles = files.filter(f => !f.isFlowed);
+smallestNonFlowedFiles.sort((a, b) => a.size - b.size);
+smallestNonFlowedFiles.slice(0, 10).forEach(f => console.log(`* ${f.fileName} (${f.size})`));
+
+
+// echo .js files with @flow
+// rg --no-heading '@flow' | wc -l
+// echo Total .js files
+// git ls-files | egrep .js$ | wc -l
