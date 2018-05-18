@@ -35,7 +35,7 @@ const countLines = fs => fs.reduce((acc, f) => acc + f.numLines, 0)
 const numTotalLines = countLines(files);
 const numFlowedLines = countLines(files.filter(f => f.isFlowed));
 const linesPercentage = (numFlowedLines * 100 / numTotalLines).toFixed(2);
-console.log(`Flowed lines ${numFlowedLines} of ${numTotalLines} (${linesPercentage}%)`)
+console.log(`Flowed lines: ${numFlowedLines} of ${numTotalLines} (${linesPercentage}%)`)
 
 console.log();
 console.log('Largest non-flowed files: ');
