@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+git branch -r --merged |
+  grep origin |
+  grep -v '>' |
+  grep -v develop |
+  grep -v nightly |
+  grep -v feature/calcatron |
+  xargs -L1 |
+  sed 's|origin/||'

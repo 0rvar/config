@@ -2,13 +2,13 @@
 set -xg theme_short_path yes
 
 # bin dir
-set -xg PATH $PATH $HOME/.bin
+set -xg PATH $HOME/.bin $PATH
 
 # Use new gnu utils
-set -xg PATH $PATH /usr/local/opt/findutils/libexec/gnubin
+set -xg PATH /usr/local/opt/findutils/libexec/gnubin $PATH
 
 # Use python installs (pipenv etc)
-set -xg PATH $PATH $HOME/Library/Python/3.6/bin
+set -xg PATH $HOME/Library/Python/3.6/bin $PATH 
 
 set -xg LANG en_US.UTF-8
 set -xg LC_ALL en_US.UTF-8
@@ -60,8 +60,8 @@ function pcor
     set a (mktemp)
     set b (mktemp)
     git for-each-ref --sort=-committerdate refs/remotes/origin --format=%\(refname:short\) | grep -v HEAD | sed -e "s/^origin\///" > $a
-    and git for-each-ref --sort=-committerdate refs/heads --format=%\(refname:short\) > b
-    and grep -Fvxf $b $a | percol | xargs -i git checkout -t origin/{}
+    and git for-each-ref --sort=-committerdate refs/heads --format=%\(refname:short\) > $b
+    and grep -Fvxf $b $a | percol | xargs -i git checkout -t origin/\{\}
 end
 
 function pme

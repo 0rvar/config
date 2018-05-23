@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
+const { execSync } = require('child_process')
 
 const download = (url) => {
+    return JSON.parse(rawDownload(url))
+}
+
+const rawDownload = (url) => {
     console.log('Downloading', url)
-    return JSON.parse(execSync(`curl -s -X GET --header 'Accept: application/json' '${url}'`).toString())
+    return execSync(`curl -s -X GET --header 'Accept: application/json' '${url}'`).toString()
 }
 
 const say = (sentence) => {
@@ -15,7 +19,11 @@ const say = (sentence) => {
 const options = [
     () => say(download('http://api.adviceslip.com/advice').slip.advice),
     () => say(download('https://catfact.ninja/fact').fact),
-    // () => say(download('https://api.whatdoestrumpthink.com/api/v1/quotes/random').message),
+    () => say(rawDownload('https://insult.mattbas.org/api/insult')),
 ]
 
-options[Math.floor(Math.random() * options.length)]()
+try {
+    options[Math.floor(Math.random() * options.length)]()
+} catch(e) {
+    say('your shitty script doesn\'t work')
+}

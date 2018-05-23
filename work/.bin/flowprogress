@@ -41,13 +41,13 @@ console.log();
 console.log('Largest non-flowed files: ');
 const largestNonFlowedFiles = files.filter(f => !f.isFlowed);
 largestNonFlowedFiles.sort((a, b) => b.size - a.size);
-largestNonFlowedFiles.slice(0, 10).forEach(f => console.log(`* ${f.fileName} (${f.size})`));
+largestNonFlowedFiles.slice(0, 10).forEach(f => console.log(`* ${f.fileName} (${f.numLines} lines)`));
 
 console.log();
 console.log('Smallest non-flowed files: ');
 const smallestNonFlowedFiles = files.filter(f => !f.isFlowed);
 smallestNonFlowedFiles.sort((a, b) => a.size - b.size);
-smallestNonFlowedFiles.slice(0, 10).forEach(f => console.log(`* ${f.fileName} (${f.size})`));
+smallestNonFlowedFiles.slice(0, 10).forEach(f => console.log(`* ${f.fileName} (${f.numLines} lines)`));
 
 
 // echo .js files with @flow

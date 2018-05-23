@@ -1,0 +1,9 @@
+{
+	"autobind": {
+		"prefix": "autobind",
+		"body": [
+			"import autobind from 'react-autobind'"
+		],
+		"description": "react-autobind"
+	}
+}
