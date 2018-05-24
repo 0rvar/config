@@ -1,0 +1,4 @@
+#!/usr/bin/env fish
+
+git log --all --author="$argv" --pretty=format:"%h" | \
+    xargs -i fish -c "git log -n 1 {} --decorate --color=always; and echo; and echo Branches:; and git branch --all --contains {} --color=always; echo; echo" | less

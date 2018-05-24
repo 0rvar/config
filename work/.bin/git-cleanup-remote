@@ -6,7 +6,6 @@ git branch -r --merged |
   grep -v develop |
   grep -v nightly |
   grep -v feature/calcatron |
-  xargs -L1 |
-  sed 's|origin/||'
+  sed 's|  origin/||'
 
 # git-cleanup-remote | xargs --replace=\{\} git log -n 1 --pretty=format:"%at%x09 %<(35)%aD%x09 %<(20)%an%x09 %d" origin/\{\}
