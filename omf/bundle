@@ -1,7 +1,6 @@
 package extract
 package hash
 package peco
-package rbenv
 package rustup
 package sudope
 package z
