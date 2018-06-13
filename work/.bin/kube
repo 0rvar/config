@@ -31,6 +31,14 @@ const getPodByIdentifier = (identifier, callback) => {
     }
 }
 
+const getContainerByPodName = (podName, callback) => {
+    return child_process.execSync(`kubectl get pods ${podName} -o jsonpath='{.spec.containers[*].name}'`)
+        .toString()
+        .split(/[ \n\r\t]+/)
+        .map(c => c.trim())
+        .filter(c => c.length > 0)
+}
+
 const portForward = args => {
     const [identifier] = args
     getPodByIdentifier(identifier, pod => shell(`kubectl port-forward ${pod} 5005:5005`)())
@@ -39,8 +47,10 @@ const portForward = args => {
 const logs = args => {
     const identifier = args.find(a => !a.startsWith("-"))
     getPodByIdentifier(identifier, pod => {
+        const containerNames = getContainerByPodName(pod)
         const extraArgs = args.filter(a => a != identifier)
-        shell(`kubectl logs ${(extraArgs || []).join(' ')} ${pod}`)()
+        console.log(containerNames)
+        shell(`kubectl logs ${(extraArgs || []).join(' ')} ${pod} -c '${containerNames[0]}'`)()
     })
 }
 

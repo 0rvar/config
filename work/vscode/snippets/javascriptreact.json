@@ -5,5 +5,41 @@
 			"import autobind from 'react-autobind'"
 		],
 		"description": "react-autobind"
+	},
+	"##component": {
+		"prefix": "##component",
+		"body": [
+			"// @flow",
+			"",
+			"import React from 'react'",
+			"import autobind from 'react-autobind'",
+			"",
+			"type Props = {",
+			"}",
+			"",
+			"type State = {",
+			"}",
+			"",
+			"export default class MySweetComponent extends React.PureComponent<Props, State> {",
+			"   constructor(props: Props) {",
+			"      super(props)",
+			"",
+			"      this.state = {",
+			"      }",
+			"",
+			"      autobind(this)",
+			"   }",
+			"",
+			"   render() {",
+			"      return (",
+			"         <div className=\"my-sweet-component\">",
+			"            TOO",
+			"         </div>",
+			"      )",
+			"   }",
+			"}",
+			""
+		],
+		"description": "React component skeleton"
 	}
 }

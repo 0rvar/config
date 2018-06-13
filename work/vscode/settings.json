@@ -1,12 +1,28 @@
 {
     "editor.renderWhitespace": "boundary",
-    "javascript.validate.enable": false,
+    // "javascript.validate.enable": false,
     "files.associations": {
-        ".eslintrc": "jsonc",
         "Pipfile": "toml",
         ".prettierrc": "yaml"
     },
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 2,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+
+    "extensions.ignoreRecommendations": true,
+
+    // Make the guides a bit more visible
+    // I keep min at 3 to really notice them.
+    "guides.normal.width": 3,
+    // Shows two arrows (<>) in the gutter to help find those missing brackets.
+    "guides.active.gutter": true,
+    "editor.renderIndentGuides": false,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    
+    // Gitlens
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
         "suppressCommitNotFoundWarning": false,
@@ -19,19 +35,6 @@
         "suppressUpdateNotice": false,
         "suppressWelcomeNotice": true
     },
-    "explorer.confirmDragAndDrop": false,
-    "explorer.confirmDelete": false,
-    "extensions.ignoreRecommendations": true,
     "gitlens.keymap": "alternate",
-    // Make the guides a bit more visible
-    // I keep min at 3 to really notice them.
-    "guides.normal.width": 3,
-
-    // Shows two arrows (<>) in the gutter to help find those missing brackets.
-    "guides.active.gutter": true,
-    "editor.renderIndentGuides": false,
-
-    "editor.fontFamily": "Fira Code",
-    "editor.fontLigatures": true,
     "gitlens.historyExplorer.enabled": true
 }

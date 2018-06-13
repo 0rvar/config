@@ -1,2 +1,2 @@
 #!/bin/bash
-ssh orvar.me -t ./weechat
+ssh orvar@orvar.me -t ./weechat
