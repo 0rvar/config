@@ -24,3 +24,5 @@
 	whitespace = red reverse
 [commit]
 	verbose = true
+[sequence]
+	editor = git-interactive-rebase-tool

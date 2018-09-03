@@ -41,5 +41,24 @@
 			""
 		],
 		"description": "React component skeleton"
+	},
+	"miniumlog": {
+		"prefix": "##log",
+		"body": [
+			"const log = (functionName: string, ...args: Array<any>) => {",
+			"   const iconStyle = [",
+			"      'background: url(https://www.miniumtech.com/hubfs/logo/minium-favicon.png?t=1532866574242)',",
+			"      'background-size: contain',",
+			"      'background-repeat: no-repeat',",
+			"      'padding-right: 8px',",
+			"      'height: 10px',",
+			"      'margin-right: 5px',",
+			"   ].join(';')",
+			"   const logStyle = 'font-weight: bold;color: #999;'",
+			"   console.error(`%c %cMinium::\\${functionName} » %c`, iconStyle, logStyle, 'color: black;', ...args) // eslint-disable-line no-console",
+			"}",
+			""
+		],
+		"description": "Pretty console.log"
 	}
 }
