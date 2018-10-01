@@ -46,11 +46,13 @@ function pcor
     set b (mktemp)
     git for-each-ref --sort=-committerdate refs/remotes/origin --format=%\(refname:short\) | grep -v HEAD | sed -e "s/^origin\///" > $a
     and git for-each-ref --sort=-committerdate refs/heads --format=%\(refname:short\) > $b
-    and grep -Fvxf $b $a | percol | xargs -i git checkout -t origin/\{\}
+    and grep -Fvxf $b $a | fzf --preview="git cmp origin/{}" --height=40% | xargs -i git checkout -t origin/\{\}
 end
 
 function pme
-    git for-each-ref --count=10 --sort=-committerdate refs/heads/ --format=%\(refname:short\) | percol | xargs git merge
+    git for-each-ref --count=10 --sort=-committerdate refs/heads/ --format=%\(refname:short\) \
+        | fzf --preview="git cmp {}; echo; git theirs {}" --height=40% \
+        | xargs git merge
 end
 
 function rip
