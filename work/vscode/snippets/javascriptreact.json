@@ -60,5 +60,38 @@
 			""
 		],
 		"description": "Pretty console.log"
+	},
+	"Benchmark function": {
+		"prefix": "##bench",
+		"body": [
+			"const __benchResults: {[string]: Array<number>} = {}",
+			"function bench<T>(label: string, fn: () => T): T {",
+			"   const start = window.performance.now()",
+			"",
+			"   console.timeStamp(`\\${label} start`)",
+			"   const value = fn()",
+			"   console.timeStamp(`\\${label} end`)",
+			"",
+			"   const end = window.performance.now()",
+			"   const time = end - start",
+			"",
+			"   const measurements = [",
+			"      ...__benchResults[label] || [],",
+			"      time,",
+			"   ]",
+			"   __benchResults[label] = measurements",
+			"   const average = ms => ms.reduce((s, x) => s + x, 0) / ms.length",
+			"   const lastTenMeasurements = measurements.slice(Math.max(0, measurements.length - 10))",
+			"",
+			"   console.log('%c%s%c %sms (%sms a*%d, %sms a*%d)', 'font-weight: bold;', label, '',",
+			"      time.toFixed(1),",
+			"      average(measurements).toFixed(0), measurements.length,",
+			"      average(lastTenMeasurements).toFixed(0), lastTenMeasurements.length",
+			"",
+			"   )",
+			"   return value",
+			"}"
+		],
+		"description": ""
 	}
 }

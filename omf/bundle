@@ -1,6 +1,8 @@
+package bass
 package extract
 package hash
 package peco
+package pisces
 package rustup
 package sudope
 package z

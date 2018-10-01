@@ -1,23 +1,19 @@
 #!/usr/local/bin/node
 const execSync = require('child_process').execSync;
 
-const execute = (command, callback) => {
-	exec(command, function(error, stdout, stderr){ callback(stdout); });
-};
-
 let day = new Date();
 
-if(process.argv.includes('--last-week')) {
-	day = new Date( 
-		day.getFullYear(), 
-		day.getMonth(), 
+if (process.argv.includes('--last-week')) {
+	day = new Date(
+		day.getFullYear(),
+		day.getMonth(),
 		day.getDate() - day.getDay()
 	);
 	console.log('Override date: ' + day)
 }
 
 let referenceDayIndex = day.getDay() - 1;
-if(referenceDayIndex < 0) {
+if (referenceDayIndex < 0) {
 	// Sunday
 	referenceDayIndex = 6;
 }
@@ -33,12 +29,12 @@ const dayNames = [
 ];
 
 let gitFlags = '--reverse --all  --author="Orvar" --oneline --pretty=format:"[%Cblue%h%Creset]: %s - %Cgreen[%ct]<%at>%Creset';
-if(process.argv.includes('--full')) {
+if (process.argv.includes('--full')) {
 	gitFlags += ' %Cgreen%+b%Creset '
 }
 gitFlags += '"';
 
-for(let dayIndex = 0; dayIndex <= referenceDayIndex; dayIndex++) {
+for (let dayIndex = 0; dayIndex <= referenceDayIndex; dayIndex++) {
 	const dayDiff = referenceDayIndex - dayIndex;
 
 	const createFromDiff = diff => new Date(day.getFullYear(), day.getMonth(), day.getDate() - diff);
@@ -55,10 +51,10 @@ for(let dayIndex = 0; dayIndex <= referenceDayIndex; dayIndex++) {
 		}
 		const [originalCommitDate, originalCommitStamp] = line.match(/\[(\d{10})\]/);
 		const [originalAuthorDate, originalAuthorStamp] = line.match(/<(\d{10})>/);
-		
+
 		let logline = line.replace(originalCommitDate, formatTimestamp(originalCommitStamp));
 		let authorDateReplacement = '';
-		if(formatTimestamp(originalCommitStamp) !== formatTimestamp(originalAuthorStamp)) {
+		if (formatTimestamp(originalCommitStamp) !== formatTimestamp(originalAuthorStamp)) {
 			authorDateReplacement = ` (a ${formatTimestamp(originalAuthorStamp)})`;
 		}
 		logline = logline.replace(originalAuthorDate, authorDateReplacement);
@@ -71,7 +67,7 @@ function leftPad(str, pad = '00') {
 }
 
 function formatTimestamp(stamp) {
-	const time = new Date(Number(stamp)*1000);
+	const time = new Date(Number(stamp) * 1000);
 	const hour = leftPad(time.getHours().toString(), '00');
 	const minute = leftPad(time.getMinutes().toString(), '00');
 	return `${hour}:${minute}`;

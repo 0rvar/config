@@ -1,1 +1,2 @@
-bind \cr 'peco_select_history (commandline -b)'
+# bind \cr 'peco_select_history (commandline -b)'
+

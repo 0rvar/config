@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+branchName=`git rev-parse --abbrev-ref HEAD`
+referenceName=origin/$branchName
+if [ "$1" != "" ]
+then
+    referenceName=$1
+fi
+
+git rev-list --left-right ${branchName}...${referenceName} -- 2>/dev/null >/tmp/git_upstream_status_delta || continue
+LEFT_AHEAD=$(grep -c '^<' /tmp/git_upstream_status_delta)
+RIGHT_AHEAD=$(grep -c '^>' /tmp/git_upstream_status_delta)
+echo "$branchName: $LEFT_AHEAD ahead, $RIGHT_AHEAD behind $referenceName"
