@@ -58,3 +58,15 @@ end
 function rip
   rg -C 10 -M 200 -p $argv | less -r
 end
+
+function nuke
+    ./cluster_purge_all.sh
+    and ./cluster_setup_all.sh
+    and sleep 40
+    and kube wait api
+    and ./load_reference_data.sh
+    and say bid aboop mother fucker
+    and say Cluster (./which_cluster_am_i_on.sh | sed s/mincluster//), is ready for business
+    
+    or say what the fuck
+end
