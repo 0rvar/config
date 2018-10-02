@@ -1,81 +1,121 @@
 #!/usr/local/bin/node
+// @flow
 
-const child_process = require('child_process')
+const child_process = require('child_process');
+const path = require('path');
+const fuzzy = require('fuzzy');
 
-const shell = command => () => {
-    console.log(`Running '${command}'`)
-    child_process.execSync(command, { stdio: 'inherit' })
-}
+const REPO_ROOT = '/Users/orvar.segerstrom/develop/client_clearing';
+
+const shell = (command, cwd = null) => () => {
+  console.log(`Running '${command}'`);
+  const options = { stdio: 'inherit' };
+  if (cwd != null) {
+    options.cwd = cwd;
+  }
+
+  child_process.execSync(command, options);
+};
 
 const getPodByIdentifier = (identifier, callback) => {
-    const pods = child_process.execSync('kubectl get pods')
-        .toString()
-        .split('\n')
-        .slice(1)
-        .map(line => line.split(/ +/))
-        .map(([name, _, status]) => ({ name, status }))
-    const matchingPods = pods.filter(pod => pod.name.includes(identifier))
-    if (matchingPods.length === 0) {
-        console.error(`'${identifier}' did not match any pods`)
-    } else if (matchingPods.length > 1) {
-        console.error(`Ambigious identifier '${identifier}' matched all these:`)
-        matchingPods.forEach(pod => console.error(`* '${pod.name}'`))
+  const pods = child_process
+    .execSync('kubectl get pods')
+    .toString()
+    .split('\n')
+    .slice(1)
+    .map(line => line.split(/ +/))
+    .map(([name, _, status]) => ({ name, status }));
+  const matchingPods = pods.filter(pod => pod.name.includes(identifier));
+  if (matchingPods.length === 0) {
+    console.error(`'${identifier}' did not match any pods`);
+  } else if (matchingPods.length > 1) {
+    console.error(`Ambigious identifier '${identifier}' matched all these:`);
+    matchingPods.forEach(pod => console.error(`* '${pod.name}'`));
+  } else {
+    const pod = matchingPods[0];
+    if (pod.status != 'Running') {
+      console.log(`Pod ${pod.name} not ready: ${pod.status}`);
+      setTimeout(() => getPodByIdentifier(identifier, callback), 1000);
     } else {
-        const pod = matchingPods[0]
-        if (pod.status != 'Running') {
-            console.log(`Pod ${pod.name} not ready: ${pod.status}`)
-            setTimeout(() => getPodByIdentifier(identifier, callback), 1000);
-        } else {
-            callback(pod.name)
-        }
+      callback(pod.name);
     }
-}
+  }
+};
 
 const getContainerByPodName = (podName, callback) => {
-    return child_process.execSync(`kubectl get pods ${podName} -o jsonpath='{.spec.containers[*].name}'`)
-        .toString()
-        .split(/[ \n\r\t]+/)
-        .map(c => c.trim())
-        .filter(c => c.length > 0)
-}
+  return child_process
+    .execSync(
+      `kubectl get pods ${podName} -o jsonpath='{.spec.containers[*].name}'`
+    )
+    .toString()
+    .split(/[ \n\r\t]+/)
+    .map(c => c.trim())
+    .filter(c => c.length > 0);
+};
 
 const portForward = args => {
-    const [identifier] = args
-    getPodByIdentifier(identifier, pod => shell(`kubectl port-forward ${pod} 5005:5005`)())
-}
+  const [identifier] = args;
+  getPodByIdentifier(identifier, pod =>
+    shell(`kubectl port-forward ${pod} 5005:5005`)()
+  );
+};
 
 const logs = args => {
-    const identifier = args.find(a => !a.startsWith("-"))
-    getPodByIdentifier(identifier, pod => {
-        const containerNames = getContainerByPodName(pod)
-        const extraArgs = args.filter(a => a != identifier)
-        console.log(containerNames)
-        shell(`kubectl logs ${(extraArgs || []).join(' ')} ${pod} -c '${containerNames[0]}'`)()
-    })
-}
+  const identifier = args.find(a => !a.startsWith('-'));
+
+  getPodByIdentifier(identifier, pod => {
+    const containerNames = getContainerByPodName(pod);
+    const extraArgs = args.filter(a => a != identifier);
+    console.log(containerNames);
+    shell(
+      `kubectl logs ${(extraArgs || []).join(' ')} ${pod} -c '${
+        containerNames[0]
+      }'`
+    )();
+  });
+};
 
 const wait = args => {
-    const [identifier] = args
-    getPodByIdentifier(identifier, pod => console.log('Pod ready:', pod))
-}
+  const [identifier] = args;
+  getPodByIdentifier(identifier, pod => console.log('Pod ready:', pod));
+};
+
+const changeCluster = args => {
+  const [search] = args;
+  if (search == null) {
+    shell(`./which_cluster_am_i_on.sh`, path.join(REPO_ROOT, 'minium/mgmt'))();
+    return;
+  }
+  const clusters = [2, 3, 4].map(x => `mincluster${x}`);
+  const matching = clusters.find(c => fuzzy.match(search, c) != null);
+  if (matching == null) {
+    console.error(`No cluster for search '${search}'`);
+    return;
+  }
+  shell(
+    `./select_cluster.sh ${matching}`,
+    path.join(REPO_ROOT, 'minium/mgmt')
+  )();
+};
 
 const actions = {
-    pods: shell('kubectl get pods'),
-    forward: portForward,
-    logs: logs,
-    wait: wait,
-}
+  pods: shell('kubectl get pods'),
+  forward: portForward,
+  logs: logs,
+  wait: wait,
+  c: changeCluster,
+  cluster: changeCluster,
+};
 
-const actionName = process.argv[2]
-const action = actions[actionName && actionName.toLowerCase()]
+const actionName = process.argv[2];
+const action = actions[actionName && actionName.toLowerCase()];
 if (action == null) {
-    if (actionName != null) {
-        console.error('Could not find command: ', actionName)
-    }
-    console.log('Available actions:')
-    Object.keys(actions).forEach(k => console.log(`* ${k}`))
-    return 1
+  if (actionName != null) {
+    console.error('Could not find command: ', actionName);
+  }
+  console.log('Available actions:');
+  Object.keys(actions).forEach(k => console.log(`* ${k}`));
+  return 1;
 }
 
-action(process.argv.slice(3))
-
+action(process.argv.slice(3));

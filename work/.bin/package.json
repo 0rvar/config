@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "flow:check": "flow check",
+    "flow:stop": "flow stop",
+    "flow": "flow"
+  },
+  "dependencies": {
+    "fuzzy": "^0.1.3"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.82.0"
+  }
+}
