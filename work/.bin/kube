@@ -6,6 +6,7 @@ const path = require('path');
 const fuzzy = require('fuzzy');
 
 const REPO_ROOT = '/Users/orvar.segerstrom/develop/client_clearing';
+const MGMT_ROOT = path.join(REPO_ROOT, 'minium/mgmt');
 
 const shell = (command, cwd = null) => () => {
   console.log(`Running '${command}'`);
@@ -83,7 +84,7 @@ const wait = args => {
 const changeCluster = args => {
   const [search] = args;
   if (search == null) {
-    shell(`./which_cluster_am_i_on.sh`, path.join(REPO_ROOT, 'minium/mgmt'))();
+    shell(`./which_cluster_am_i_on.sh`, MGMT_ROOT)();
     return;
   }
   const clusters = [2, 3, 4].map(x => `mincluster${x}`);
@@ -92,10 +93,29 @@ const changeCluster = args => {
     console.error(`No cluster for search '${search}'`);
     return;
   }
+  shell(`./select_cluster.sh ${matching}`, MGMT_ROOT)();
+};
+
+const nukeCluster = args => {
   shell(
-    `./select_cluster.sh ${matching}`,
-    path.join(REPO_ROOT, 'minium/mgmt')
+    `fish -c '
+      ./cluster_purge_all.sh;
+      and ./cluster_setup_all.sh;
+      and sleep 40;
+      and kube wait api;
+      and ./load_reference_data.sh;
+      and say bid aboop mother fucker;
+      and say Cluster (./which_cluster_am_i_on.sh | sed s/mincluster//), is ready for business;
+
+      or say what the fuck;
+    '`
+      .replace(/\n( )*/g, ' ')
+      .trim(),
+    MGMT_ROOT
   )();
+  /*
+  	
+  */
 };
 
 const actions = {
@@ -105,6 +125,7 @@ const actions = {
   wait: wait,
   c: changeCluster,
   cluster: changeCluster,
+  nuke: nukeCluster,
 };
 
 const actionName = process.argv[2];
