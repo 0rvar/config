@@ -20,13 +20,14 @@ const shell = (command, cwd = null) => () => {
 
 const getPodByIdentifier = (identifier, callback) => {
   const pods = child_process
-    .execSync('kubectl get pods')
+    .execSync('kubectl get pods --no-headers')
     .toString()
+    .trim()
     .split('\n')
-    .slice(1)
     .map(line => line.split(/ +/))
     .map(([name, _, status]) => ({ name, status }));
   const matchingPods = pods.filter(pod => pod.name.includes(identifier));
+
   if (matchingPods.length === 0) {
     console.error(`'${identifier}' did not match any pods`);
   } else if (matchingPods.length > 1) {
@@ -96,6 +97,39 @@ const changeCluster = args => {
   shell(`./select_cluster.sh ${matching}`, MGMT_ROOT)();
 };
 
+const deploy = args => {
+  const [search] = args;
+  if (search === 'all' || search === 'simcoe') {
+    return shell(`./deploy.sh simcoe`, MGMT_ROOT)();
+  }
+  const deployments = child_process
+    .execSync('kubectl get deployments --no-headers')
+    .toString()
+    .split('\n')
+    .map(line => line.split(/ +/)[0]);
+  const matchingDeployments = deployments
+    .map(x => fuzzy.match(search, x))
+    .filter(x => x != null);
+  const maxScore = matchingDeployments.reduce(
+    (acc, x) => Math.max(acc, x.score),
+    0
+  );
+  const topScoring = matchingDeployments.filter(x => x.score === maxScore);
+
+  if (search == null || matchingDeployments.length < 1) {
+    console.error(`Available deployments (or 'all'):`);
+    deployments.forEach(x => console.error(`* '${x}'`));
+  } else if (topScoring.length > 1) {
+    console.error(`Ambigious identifier '${search}' matched all these:`);
+    matchingDeployments.forEach(x => console.error(`* '${x}'`));
+  } else {
+    return shell(
+      `./deploy.sh deployment ${topScoring[0].rendered}`,
+      MGMT_ROOT
+    )();
+  }
+};
+
 const nukeCluster = args => {
   shell(
     `fish -c '
@@ -104,10 +138,10 @@ const nukeCluster = args => {
       and sleep 40;
       and kube wait api;
       and ./load_reference_data.sh;
-      and say bid aboop mother fucker;
+      and say bid aboop, we made it;
       and say Cluster (./which_cluster_am_i_on.sh | sed s/mincluster//), is ready for business;
 
-      or say what the fuck;
+      or say FATAL CATASTROPHIC FAILURE;
     '`
       .replace(/\n( )*/g, ' ')
       .trim(),
@@ -126,6 +160,7 @@ const actions = {
   c: changeCluster,
   cluster: changeCluster,
   nuke: nukeCluster,
+  deploy: deploy,
 };
 
 const actionName = process.argv[2];

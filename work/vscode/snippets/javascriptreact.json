@@ -93,5 +93,20 @@
 			"}"
 		],
 		"description": ""
+	},
+	"ObjDiff object changes difference": {
+		"prefix": "##objdiff",
+		"body": [
+			"const objDiff = (object, base) => {",
+			"   const _transform = require('lodash/transform') // eslint-disable-line global-require",
+			"   const _isObject = require('lodash/isObject') // eslint-disable-line global-require",
+			"   return _transform(object, (result, value, key) => {",
+			"      if (!isEqual(value, base[key])) {",
+			"         result[key] = (_isObject(value) && _isObject(base[key])) ? objDiff(value, base[key]) : value",
+			"      }",
+			"   })",
+			"}"
+		],
+		"description": "Returns deep comparison object of two objects"
 	}
 }
