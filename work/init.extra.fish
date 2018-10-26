@@ -24,6 +24,10 @@ function get_esp32
     set -xg PATH $IDF_PATH/components/partition_table $PATH
 end
 
+# Android
+set -xg ANDROID_HOME $HOME/Library/Android/sdk/
+set -xg PATH $ANDROID_HOME/platform-tools/ $PATH
+
 set -xg LANG sv_SE.UTF-8
 set -xg LC_ALL sv_SE.UTF-8
 

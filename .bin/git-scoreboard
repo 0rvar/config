@@ -1,0 +1,3 @@
+#!/usr/local/bin/fish
+
+git log --format="%aN" --reverse | sort -u | uniq -i -u | xargs -L1 git-userstats

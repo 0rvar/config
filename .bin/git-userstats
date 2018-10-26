@@ -1,0 +1,5 @@
+#!/usr/local/bin/fish
+
+git log --author="$argv" --pretty=tformat: --numstat \
+    | awk "{ add += \$1; subs += \$2; loc += \$1 - \$2 } END { \
+        printf \"$argv: +%s lines, -%s lines, delta: %s\n\", add, subs, loc }" -

@@ -37,5 +37,6 @@
     "gitlens.historyExplorer.enabled": true,
     "editor.formatOnSave": true,
     "breadcrumbs.enabled": true,
-    "eslint.packageManager": "yarn"
+    "eslint.packageManager": "yarn",
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }

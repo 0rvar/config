@@ -106,9 +106,10 @@ const deploy = args => {
     .execSync('kubectl get deployments --no-headers')
     .toString()
     .split('\n')
-    .map(line => line.split(/ +/)[0]);
+    .map(line => line.split(/ +/)[0])
+    .filter(line => line.length > 0);
   const matchingDeployments = deployments
-    .map(x => fuzzy.match(search, x))
+    .map(x => fuzzy.match(search || '', x))
     .filter(x => x != null);
   const maxScore = matchingDeployments.reduce(
     (acc, x) => Math.max(acc, x.score),
