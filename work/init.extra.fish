@@ -10,6 +10,7 @@ set -xg PATH /usr/local/opt/findutils/libexec/gnubin $PATH
 
 # Use python installs (pipenv etc)
 set -xg PATH $HOME/Library/Python/3.6/bin $PATH
+set -xg PATH $HOME/Library/Python/2.7/bin $PATH
 
 # GO bin dir
 set -xg PATH $HOME/go/bin $PATH

@@ -38,5 +38,10 @@
     "editor.formatOnSave": true,
     "breadcrumbs.enabled": true,
     "eslint.packageManager": "yarn",
-    "typescript.updateImportsOnFileMove.enabled": "always"
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "files.autoSave": "onWindowChange",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "workbench.statusBar.feedback.visible": false,
+    "gitlens.views.fileHistory.enabled": true,
+    "gitlens.views.lineHistory.enabled": true
 }

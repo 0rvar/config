@@ -35,7 +35,7 @@ abbr -a gwch    git whatchanged -p --abbrev-commit --pretty=medium
 
 # Functions
 function pco
-    git for-each-ref --count=10 --sort=-committerdate refs/heads/ --format=%\(refname:short\) \
+    git for-each-ref --sort=-committerdate refs/heads/ --format=%\(refname:short\) \
         | fzf --preview="git cmp {}; echo; git theirs {}" --height=40% \
         | xargs git checkout
     # git for-each-ref --count=10 --sort=-committerdate refs/heads/ --format=%\(refname:short\) | percol | xargs git checkout

@@ -131,14 +131,14 @@ const deploy = args => {
   }
 };
 
-const nukeCluster = args => {
+const nukeCluster = small => args => {
   shell(
     `fish -c '
       ./cluster_purge_all.sh;
       and ./cluster_setup_all.sh;
       and sleep 40;
       and kube wait api;
-      and ./load_reference_data.sh;
+      and ./load_reference_data.sh ${small ? '--small' : ''};
       and say bid aboop, we made it;
       and say Cluster (./which_cluster_am_i_on.sh | sed s/mincluster//), is ready for business;
 
@@ -160,7 +160,8 @@ const actions = {
   wait: wait,
   c: changeCluster,
   cluster: changeCluster,
-  nuke: nukeCluster,
+  nuke: nukeCluster(true),
+  meganuke: nukeCluster(false),
   deploy: deploy,
 };
 

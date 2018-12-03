@@ -15,12 +15,15 @@ Bundle 'gmarik/vundle'
 " original repos on github
 " Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Bundle 'tpope/vim-rails.git'
 " vim-scripts repos
 Bundle 'L9'
 " Bundle 'FuzzyFinder'
+
+" ctrl + P like in VS Code
 Bundle 'kien/ctrlp.vim'
+" Editorconfig support
 Plugin 'editorconfig/editorconfig-vim'
 
 " non github repos
@@ -105,6 +108,7 @@ set wrap
 set textwidth=79
 set formatoptions=qrn1
 set colorcolumn=85
+set belloff=all" Avoid flashing
 
 " Show invisible chars
 set list
