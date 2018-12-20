@@ -20,6 +20,7 @@
     "editor.renderIndentGuides": false,
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
+    "editor.cursorBlinking": "phase",
     // Gitlens
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
@@ -43,5 +44,5 @@
     "javascript.updateImportsOnFileMove.enabled": "always",
     "workbench.statusBar.feedback.visible": false,
     "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": true
+    "gitlens.views.lineHistory.enabled": true,
 }

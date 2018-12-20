@@ -139,10 +139,9 @@ const nukeCluster = small => args => {
       and sleep 40;
       and kube wait api;
       and ./load_reference_data.sh ${small ? '--small' : ''};
-      and say bid aboop, we made it;
-      and say Cluster (./which_cluster_am_i_on.sh | sed s/mincluster//), is ready for business;
+      and say Cluster (./which_cluster_am_i_on.sh | sed s/mincluster//), rebuilt;
 
-      or say FATAL CATASTROPHIC FAILURE;
+      or say FAILURE;
     '`
       .replace(/\n( )*/g, ' ')
       .trim(),

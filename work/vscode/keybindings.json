@@ -37,5 +37,10 @@
         "key": "shift+alt+i",
         "command": "-editor.action.insertCursorAtEndOfEachLineSelected",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+7",
+        "command": "-gitlens.showCommitSearch",
+        "when": "gitlens:enabled && config.gitlens.keymap == 'alternate'"
     }
 ]

@@ -32,6 +32,8 @@ abbr -a gsh     git show
 abbr -a gst     git status
 abbr -a gwch    git whatchanged -p --abbrev-commit --pretty=medium
 
+abbr -a lx      exa -1 --group-directories-first
+
 
 # Functions
 function pco

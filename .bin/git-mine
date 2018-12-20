@@ -2,8 +2,10 @@
 
 branchName=`git rev-parse --abbrev-ref HEAD`
 referenceName=origin/$branchName
-if [ "$1" != "" ]
+args="${@:1}"
+if [ "$1" != "" ] && [[ "$1" != -* ]]
 then
     referenceName=$1
+    args="${@:2}"
 fi
-git log --no-merges $referenceName..$branchName "${@:2}"
+git log --no-merges $referenceName..$branchName $args
