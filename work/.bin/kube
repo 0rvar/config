@@ -18,7 +18,7 @@ const shell = (command, cwd = null) => () => {
   child_process.execSync(command, options);
 };
 
-const getPodByIdentifier = (identifier, callback) => {
+const getPodByIdentifier = (identifier, callback, onFail) => {
   const pods = child_process
     .execSync('kubectl get pods --no-headers')
     .toString()
@@ -29,10 +29,18 @@ const getPodByIdentifier = (identifier, callback) => {
   const matchingPods = pods.filter(pod => pod.name.includes(identifier));
 
   if (matchingPods.length === 0) {
-    console.error(`'${identifier}' did not match any pods`);
+    if (onFail) {
+      onFail(matchingPods.length);
+    } else {
+      console.error(`'${identifier}' did not match any pods`);
+    }
   } else if (matchingPods.length > 1) {
-    console.error(`Ambigious identifier '${identifier}' matched all these:`);
-    matchingPods.forEach(pod => console.error(`* '${pod.name}'`));
+    if (onFail) {
+      onFail(matchingPods.length);
+    } else {
+      console.error(`Ambigious identifier '${identifier}' matched all these:`);
+      matchingPods.forEach(pod => console.error(`* '${pod.name}'`));
+    }
   } else {
     const pod = matchingPods[0];
     if (pod.status != 'Running') {
@@ -79,7 +87,15 @@ const logs = args => {
 
 const wait = args => {
   const [identifier] = args;
-  getPodByIdentifier(identifier, pod => console.log('Pod ready:', pod));
+  getPodByIdentifier(
+    identifier,
+    pod => console.log('Pod ready:', pod),
+    numPods => {
+      console.log;
+      console.log('Waiting...');
+      setTimeout();
+    }
+  );
 };
 
 const changeCluster = args => {

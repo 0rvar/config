@@ -6,7 +6,7 @@
         ".prettierrc": "yaml",
         "*.css": "postcss"
     },
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 2,
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.editor.enablePreview": false,
