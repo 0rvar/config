@@ -1,0 +1,11 @@
+alfred
+android-studio
+calibre
+font-fira-code
+fork
+java
+kindle
+kitty
+macpass
+minikube
+rawtherapee

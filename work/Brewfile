@@ -1,0 +1,122 @@
+tap "boz/repo"
+tap "burntsushi/ripgrep", "https://github.com/BurntSushi/ripgrep.git"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "jmacdonald/amp"
+tap "tenzer/tap"
+cask "java"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
+# Programmable completion for Bash 3.2
+brew "bash-completion"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Interface bandwidth monitor
+brew "bmon"
+# Cross-platform make
+brew "cmake"
+# Color-highlighted diff(1) output
+brew "colordiff"
+# GNU grep, egrep and fgrep
+brew "grep", args: ["with-default-names"]
+# Tool for building toolchains
+brew "crosstool-ng"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Go dependency management tool
+brew "dep"
+# Good-lookin' diffs with diff-highlight and more
+brew "diff-so-fancy"
+# Modern replacement for 'ls'
+brew "exa"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Collection of GNU find, xargs, and locate
+brew "findutils"
+# User-friendly command-line shell for UNIX-like operating systems
+brew "fish"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Simple and efficient way to access statistics in git
+brew "git-quick-stats"
+# Open-source build automation tool based on the Groovy and Kotlin DSL
+brew "gradle"
+# Make JSON greppable
+brew "gron"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
+# Text-based web browser
+brew "lynx"
+# Extremely Fast Compression algorithm
+brew "lz4"
+# Interpreted, interactive, object-oriented programming language
+brew "python"
+# Intercept, modify, replay, save HTTP/S traffic
+brew "mitmproxy"
+# NCurses Disk Usage
+brew "ncdu"
+# Platform built on V8 to build network applications
+brew "node"
+# Open source computer vision library
+brew "opencv@2", link: true
+# 7-Zip (high compression file archiver) implementation
+brew "p7zip"
+# Simplistic interactive filtering tool
+brew "peco"
+# Interactive grep tool
+brew "percol"
+# Manage compile and link flags for libraries
+brew "pkg-config"
+# Object-relational database system
+brew "postgresql"
+# Python bindings for v5 of Qt
+brew "pyqt"
+# Install various Ruby versions and implementations
+brew "ruby-build"
+# Ruby version manager
+brew "rbenv"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Command-line Reddit client
+brew "rtv"
+# Source-code syntax highlighter
+brew "source-highlight"
+# Send macOS User Notifications from the command-line
+brew "terminal-notifier"
+# Program that allows you to count code, quickly
+brew "tokei"
+# Terminal-based Tetris clone
+brew "vitetris"
+# Command-line streaming torrent client
+brew "webtorrent-cli"
+# Internet file retriever
+brew "wget"
+# JavaScript package manager
+brew "yarn"
+# Modular BSD reimplementation of NASM
+brew "yasm"
+# Download YouTube videos from the command-line
+brew "youtube-dl"
+# Centralized server for distributed coordination of services
+brew "zookeeper", restart_service: true
+# kubernetes tail - pod log viewer
+brew "boz/repo/kail"
+# Text editor for your terminal
+brew "jmacdonald/amp/amp"
+# Time command execution over multiple executions
+brew "tenzer/tap/multitime"
+cask "alfred"
+cask "android-studio"
+cask "calibre"
+cask "font-fira-code"
+cask "fork"
+cask "kindle"
+cask "kitty"
+cask "macpass"
+cask "minikube"
+cask "rawtherapee"
