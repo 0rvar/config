@@ -25,4 +25,4 @@
 [commit]
 	verbose = true
 [sequence]
-	editor = git-interactive-rebase-tool
+	editor = interactive-rebase-tool

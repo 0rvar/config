@@ -1,46 +1,68 @@
 // Place your key bindings in this file to overwrite the defaults
 [
-    {
-        "key": "cmd+k right",
-        "command": "workbench.action.splitEditor"
-    },
-    {
-        "key": "ctrl+shift+alt+cmd+7",
-        "command": "-workbench.action.splitEditor"
-    },
-    {
-        "key": "shift+alt+7",
-        "command": "-gitlens.showCommitSearch",
-        "when": "gitlens:enabled && gitlens:keymap == 'standard'"
-    },
-    {
-        "key": "shift+alt+7",
-        "command": "-gitlens.showCommitSearch",
-        "when": "gitlens:enabled && gitlens:keymap == 'alternate'"
-    },
-    {
-        "key": "cmd+k cmd+e",
-        "command": "editor.action.marker.nextInFiles",
-        "when": "editorFocus && !editorReadonly"
-    },
-    {
-        "key": "f8",
-        "command": "-editor.action.marker.nextInFiles",
-        "when": "editorFocus && !editorReadonly"
-    },
-    {
-        "key": "shift+cmd+l",
-        "command": "editor.action.insertCursorAtEndOfEachLineSelected",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "shift+alt+i",
-        "command": "-editor.action.insertCursorAtEndOfEachLineSelected",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "shift+alt+7",
-        "command": "-gitlens.showCommitSearch",
-        "when": "gitlens:enabled && config.gitlens.keymap == 'alternate'"
-    }
+  {
+    "key": "cmd+k right",
+    "command": "workbench.action.splitEditor"
+  },
+  {
+    "key": "ctrl+shift+alt+cmd+7",
+    "command": "-workbench.action.splitEditor"
+  },
+  {
+    "key": "shift+alt+7",
+    "command": "-gitlens.showCommitSearch",
+    "when": "gitlens:enabled && gitlens:keymap == 'standard'"
+  },
+  {
+    "key": "shift+alt+7",
+    "command": "-gitlens.showCommitSearch",
+    "when": "gitlens:enabled && gitlens:keymap == 'alternate'"
+  },
+  {
+    "key": "cmd+k cmd+e",
+    "command": "editor.action.marker.nextInFiles",
+    "when": "editorFocus && !editorReadonly"
+  },
+  {
+    "key": "f8",
+    "command": "-editor.action.marker.nextInFiles",
+    "when": "editorFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "editor.action.insertCursorAtEndOfEachLineSelected",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+i",
+    "command": "-editor.action.insertCursorAtEndOfEachLineSelected",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+7",
+    "command": "-gitlens.showCommitSearch",
+    "when": "gitlens:enabled && config.gitlens.keymap == 'alternate'"
+  },
+  {
+    "key": "cmd+k cmd+r",
+    "command": "-workbench.action.keybindingsReference"
+  },
+  {
+    "key": "cmd+k cmd+t",
+    "command": "workbench.action.closeEditorsToTheRight"
+  },
+  {
+    "key": "cmd+k cmd+t",
+    "command": "-workbench.action.selectTheme"
+  },
+  {
+    "key": "cmd+k cmd+r",
+    "command": "editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "f2",
+    "command": "-editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  }
 ]

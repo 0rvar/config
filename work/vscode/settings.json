@@ -1,49 +1,56 @@
 {
-    "editor.renderWhitespace": "boundary",
-    // "javascript.validate.enable": false,
-    "files.associations": {
-        "Pipfile": "toml",
-        ".prettierrc": "yaml",
-        "*.css": "postcss"
-    },
-    "window.zoomLevel": 2,
-    "explorer.confirmDragAndDrop": false,
-    "explorer.confirmDelete": false,
-    "workbench.editor.enablePreview": false,
-    "workbench.editor.enablePreviewFromQuickOpen": false,
-    "extensions.ignoreRecommendations": true,
-    // Make the guides a bit more visible
-    // I keep min at 3 to really notice them.
-    "guides.normal.width": 3,
-    // Shows two arrows (<>) in the gutter to help find those missing brackets.
-    "guides.active.gutter": true,
-    "editor.renderIndentGuides": false,
-    "editor.fontFamily": "Fira Code",
-    "editor.fontLigatures": true,
-    "editor.cursorBlinking": "phase",
-    // Gitlens
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
-        "suppressResultsExplorerNotice": false,
-        "suppressShowKeyBindingsNotice": true,
-        "suppressUpdateNotice": false,
-        "suppressWelcomeNotice": true
-    },
-    "gitlens.keymap": "alternate",
-    "gitlens.historyExplorer.enabled": true,
-    "editor.formatOnSave": true,
-    "breadcrumbs.enabled": true,
-    "eslint.packageManager": "yarn",
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "files.autoSave": "onWindowChange",
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    "workbench.statusBar.feedback.visible": false,
-    "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": true,
-    "git.confirmSync": false,
+  "editor.renderWhitespace": "boundary",
+  // "javascript.validate.enable": false,
+  "files.associations": {
+    "Pipfile": "toml",
+    ".prettierrc": "yaml",
+    "*.css": "css"
+  },
+  "window.zoomLevel": 2,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "extensions.ignoreRecommendations": true,
+  // Make the guides a bit more visible
+  // I keep min at 3 to really notice them.
+  "guides.normal.width": 3,
+  // Shows two arrows (<>) in the gutter to help find those missing brackets.
+  "guides.active.gutter": true,
+  "editor.renderIndentGuides": false,
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+  "editor.cursorBlinking": "phase",
+  // Gitlens
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": false,
+    "suppressShowKeyBindingsNotice": true,
+    "suppressUpdateNotice": false,
+    "suppressWelcomeNotice": true
+  },
+  "gitlens.keymap": "alternate",
+  "gitlens.historyExplorer.enabled": true,
+  "editor.formatOnSave": true,
+  "breadcrumbs.enabled": true,
+  "eslint.packageManager": "yarn",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "files.autoSave": "onWindowChange",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "workbench.statusBar.feedback.visible": false,
+  "gitlens.views.fileHistory.enabled": true,
+  "gitlens.views.lineHistory.enabled": true,
+  "git.confirmSync": false,
+  "flow.useNPMPackagedFlow": true,
+  "javascript.validate.enable": false,
+  "typescript.referencesCodeLens.enabled": true,
+  "git.autofetch": true,
+  "ruby.codeCompletion": "rcodetools",
+  "ruby.intellisense": "rubyLocate",
+  "ruby.useLanguageServer": true
 }

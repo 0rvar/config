@@ -1,5 +1,6 @@
 package bass
 package extract
+package gi
 package hash
 package peco
 package rustup
