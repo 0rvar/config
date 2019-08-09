@@ -52,5 +52,12 @@
   "git.autofetch": true,
   "ruby.codeCompletion": "rcodetools",
   "ruby.intellisense": "rubyLocate",
-  "ruby.useLanguageServer": true
+  "ruby.useLanguageServer": true,
+  "html.autoClosingTags": false,
+  "javascript.autoClosingTags": false,
+  "typescript.autoClosingTags": false,
+  "zenMode.fullScreen": false,
+  "editor.wordBasedSuggestions": false,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "editor.tabSize": 2
 }

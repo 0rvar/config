@@ -5,6 +5,10 @@ set -xg theme_short_path yes
 set -xg PATH $HOME/.dotfiles/work/.bin $PATH
 set -xg PATH $HOME/.dotfiles/.bin $PATH
 set -xg PATH $HOME/.bin $PATH
+
+# Rust
+set -xg PATH $HOME/.cargo/bin $PATH
+
 # Use new gnu utils
 # set -xg PATH /usr/local/opt/findutils/libexec/gnubin $PATH
 
@@ -25,9 +29,18 @@ set -xg PATH $HOME/.bin $PATH
 #     set -xg PATH $IDF_PATH/components/partition_table $PATH
 # end
 
+# Java
+set -xg PATH $HOME/.jenv/bin $PATH
+source (jenv init -)
+
 # Android
 # set -xg ANDROID_HOME $HOME/Library/Android/sdk/
 # set -xg PATH $ANDROID_HOME/platform-tools/ $PATH
+set -xg ANDROID_HOME $HOME/Library/Android/sdk
+set -xg PATH $PATH $ANDROID_HOME/emulator
+set -xg PATH $PATH $ANDROID_HOME/tools
+set -xg PATH $PATH $ANDROID_HOME/tools/bin
+set -xg PATH $PATH $ANDROID_HOME/platform-tools
 
 set -xg LANG sv_SE.UTF-8
 set -xg LC_ALL sv_SE.UTF-8
@@ -45,3 +58,11 @@ function kb
     echo Ctrl-o\t\tOpen a file/dir using default editor \($EDITOR\)
     echo Ctrl-g\t\tOpen a file/dir using xdg-open or open command
 end
+
+# fuck
+thefuck --alias | source
+
+# Notify
+abbr -a no "and say rafiki; or say bazooka"
+
+abbr -a bn git rev-parse --abbrev-ref HEAD

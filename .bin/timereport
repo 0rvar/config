@@ -1,74 +1,93 @@
-#!/usr/local/bin/node
-const execSync = require('child_process').execSync;
+#!/usr/bin/env node
+const execSync = require("child_process").execSync;
 
 let day = new Date();
 
-if (process.argv.includes('--last-week')) {
-	day = new Date(
-		day.getFullYear(),
-		day.getMonth(),
-		day.getDate() - day.getDay()
-	);
-	console.log('Override date: ' + day)
+if (process.argv.includes("--last-week")) {
+  day = new Date(
+    day.getFullYear(),
+    day.getMonth(),
+    day.getDate() - day.getDay()
+  );
+  console.log("Override date: " + day);
 }
 
 let referenceDayIndex = day.getDay() - 1;
 if (referenceDayIndex < 0) {
-	// Sunday
-	referenceDayIndex = 6;
+  // Sunday
+  referenceDayIndex = 6;
 }
 
 const dayNames = [
-	'Monday',
-	'Tuesday',
-	'Wednesday',
-	'Thursday',
-	'Friday',
-	'Saturday',
-	'Sunday'
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
 ];
 
-let gitFlags = '--reverse --all  --author="Orvar" --oneline --pretty=format:"[%Cblue%h%Creset]: %s - %Cgreen[%ct]<%at>%Creset';
-if (process.argv.includes('--full')) {
-	gitFlags += ' %Cgreen%+b%Creset '
+let gitFlags =
+  '--reverse --all  --author="Orvar" --oneline --pretty=format:"[%Cblue%h%Creset]: %s - %Cgreen[%ct]<%at>%Creset';
+if (process.argv.includes("--full")) {
+  gitFlags += " %Cgreen%+b%Creset ";
 }
 gitFlags += '"';
 
 for (let dayIndex = 0; dayIndex <= referenceDayIndex; dayIndex++) {
-	const dayDiff = referenceDayIndex - dayIndex;
+  const dayDiff = referenceDayIndex - dayIndex;
 
-	const createFromDiff = diff => new Date(day.getFullYear(), day.getMonth(), day.getDate() - diff);
-	const since = createFromDiff(dayDiff);
-	const until = createFromDiff(dayDiff - 1);
+  const createFromDiff = diff =>
+    new Date(day.getFullYear(), day.getMonth(), day.getDate() - diff);
+  const since = createFromDiff(dayDiff);
+  const until = createFromDiff(dayDiff - 1);
 
-	const command = `git log --since="${since}" --until="${until}" ${gitFlags}`;
+  const command = `git log --since="${since}" --until="${until}" ${gitFlags}`;
 
-	console.log('\n--', dayNames[dayIndex], '--------------------------------------------------------------------');
-	const output = execSync(command, { encoding: 'utf-8' });
-	output.split('\n[').filter(x => x.length > 1).forEach(line => {
-		if (!line.startsWith('[')) {
-			line = '[' + line;
-		}
-		const [originalCommitDate, originalCommitStamp] = line.match(/\[(\d{10})\]/);
-		const [originalAuthorDate, originalAuthorStamp] = line.match(/<(\d{10})>/);
+  console.log(
+    "\n--",
+    dayNames[dayIndex],
+    "--------------------------------------------------------------------"
+  );
+  const output = execSync(command, { encoding: "utf-8" });
+  output
+    .split("\n[")
+    .filter(x => x.length > 1)
+    .forEach(line => {
+      if (!line.startsWith("[")) {
+        line = "[" + line;
+      }
+      const [originalCommitDate, originalCommitStamp] = line.match(
+        /\[(\d{10})\]/
+      );
+      const [originalAuthorDate, originalAuthorStamp] = line.match(
+        /<(\d{10})>/
+      );
 
-		let logline = line.replace(originalCommitDate, formatTimestamp(originalCommitStamp));
-		let authorDateReplacement = '';
-		if (formatTimestamp(originalCommitStamp) !== formatTimestamp(originalAuthorStamp)) {
-			authorDateReplacement = ` (a ${formatTimestamp(originalAuthorStamp)})`;
-		}
-		logline = logline.replace(originalAuthorDate, authorDateReplacement);
-		console.log(logline);
-	});
+      let logline = line.replace(
+        originalCommitDate,
+        formatTimestamp(originalCommitStamp)
+      );
+      let authorDateReplacement = "";
+      if (
+        formatTimestamp(originalCommitStamp) !==
+        formatTimestamp(originalAuthorStamp)
+      ) {
+        authorDateReplacement = ` (a ${formatTimestamp(originalAuthorStamp)})`;
+      }
+      logline = logline.replace(originalAuthorDate, authorDateReplacement);
+      console.log(logline);
+    });
 }
 
-function leftPad(str, pad = '00') {
-	return pad.substring(0, pad.length - str.length) + str;
+function leftPad(str, pad = "00") {
+  return pad.substring(0, pad.length - str.length) + str;
 }
 
 function formatTimestamp(stamp) {
-	const time = new Date(Number(stamp) * 1000);
-	const hour = leftPad(time.getHours().toString(), '00');
-	const minute = leftPad(time.getMinutes().toString(), '00');
-	return `${hour}:${minute}`;
+  const time = new Date(Number(stamp) * 1000);
+  const hour = leftPad(time.getHours().toString(), "00");
+  const minute = leftPad(time.getMinutes().toString(), "00");
+  return `${hour}:${minute}`;
 }

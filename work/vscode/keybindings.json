@@ -29,7 +29,7 @@
     "when": "editorFocus && !editorReadonly"
   },
   {
-    "key": "shift+cmd+l",
+    "key": "shift+cmd+d",
     "command": "editor.action.insertCursorAtEndOfEachLineSelected",
     "when": "editorTextFocus"
   },
@@ -64,5 +64,14 @@
     "key": "f2",
     "command": "-editor.action.rename",
     "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+cmd+l",
+    "command": "-editor.action.selectHighlights",
+    "when": "editorFocus"
+  },
+  {
+    "key": "shift+cmd+d",
+    "command": "-workbench.view.debug"
   }
 ]
