@@ -1,8 +1,10 @@
 package bass
 package extract
+package foreign-env
 package gi
 package hash
 package https://github.com/FabioAntunes/fish-nvm
+package nvm
 package peco
 package rustup
 package sudope

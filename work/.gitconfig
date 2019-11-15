@@ -26,3 +26,5 @@
 	verbose = true
 [sequence]
 	editor = interactive-rebase-tool
+[diff]
+	renameLimit = 1000

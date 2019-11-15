@@ -1,5 +1,16 @@
+# Editor
+set -xg EDITOR vim
+
 # Short path
 set -xg theme_short_path yes
+
+# Dir colors, ls
+if type -q vivid
+    set -xg LS_COLORS (vivid -m 8-bit generate molokai)
+end
+alias ls exa
+alias l "exa -l --group-directories-first --no-user --no-time --no-permissions --icons"
+alias lst "l --git --git-ignore"
 
 # bin dir
 set -xg PATH $HOME/.dotfiles/work/.bin $PATH
@@ -28,6 +39,30 @@ set -xg PATH $HOME/.cargo/bin $PATH
 #     set -xg PATH $IDF_PATH/components/espcoredump $PATH
 #     set -xg PATH $IDF_PATH/components/partition_table $PATH
 # end
+
+# ESP docker
+function esp_create
+    docker run -ti -v $PWD:/home/project rust-esp:latest create-project
+end
+function esp_menuconfig
+    docker run -ti -v $PWD:/home/project rust-esp:latest make menuconfig
+end
+function esp_build
+    docker run -ti -v $PWD:/home/project rust-esp:latest
+end
+function esp_xbuild
+    docker run -ti -v $PWD:/home/project rust-esp:latest xbuild-project
+end
+function esp_image
+    docker run -ti -v $PWD:/home/project rust-esp:latest image-project
+end
+function esp_bindgen
+    docker run -ti -v $PWD:/home/project rust-esp:latest bindgen-project
+end
+function esp_shell
+    docker run -ti -v $PWD:/home/project rust-esp:latest bash
+end
+abbr -a esp_flash esptool write_flash 0x10000 esp-app.bin
 
 # Java
 set -xg PATH $HOME/.jenv/bin $PATH

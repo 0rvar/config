@@ -1,0 +1,59 @@
+#!/usr/bin/env node
+
+const { readFileSync } = require('fs');
+
+var args = process.argv.slice(2);
+var input = args[0];
+
+var isTTY = process.stdin.isTTY;
+var stdin = process.stdin;
+var stdout = process.stdout;
+
+if (isTTY && args.length === 0) {
+  console.error('Pipe stdin or pass a file');
+} else if (isTTY && args.length !== 0) {
+  const contents = readFileSync(input, 'utf8');
+  processFile(contents);
+} else {
+  handlePipedContent();
+}
+
+function handlePipedContent() {
+  var data = '';
+
+  stdin.on('readable', function() {
+    var chuck = stdin.read();
+    if (chuck !== null) {
+      data += chuck;
+    }
+  });
+  stdin.on('end', function() {
+    processFile(data);
+  });
+}
+
+function processFile(data) {
+  const lines = data.split('\n');
+  const fileOccurrences = {};
+  const files = [];
+  lines.forEach(line => {
+    var match = line.match(/^([^ ]+\.(tsx?|jsx?))/i);
+    if (match) {
+      const fileName = match[1];
+      if (fileOccurrences[fileName] == null) {
+        files.push(fileName);
+      }
+      fileOccurrences[fileName] = (fileOccurrences[fileName] || 0) + 1;
+    }
+  });
+  files.sort((a, b) => fileOccurrences[a] - fileOccurrences[b]);
+  files.forEach(fileName => {
+    console.log(`${fileName}: ${fileOccurrences[fileName]} errors`);
+  });
+  const totalNumberOfErrors = files.reduce(
+    (sum, fileName) => sum + fileOccurrences[fileName],
+    0
+  );
+  console.log();
+  console.log(`Total: ${totalNumberOfErrors} errors in ${files.length} files`);
+}

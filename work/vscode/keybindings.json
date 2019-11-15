@@ -73,5 +73,19 @@
   {
     "key": "shift+cmd+d",
     "command": "-workbench.view.debug"
+  },
+  {
+    "key": "shift+cmd+b",
+    "command": "-workbench.action.tasks.build"
+  },
+  {
+    "key": "shift+cmd+b",
+    "command": "editor.action.jumpToBracket",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+cmd+7",
+    "command": "-editor.action.jumpToBracket",
+    "when": "editorTextFocus"
   }
 ]

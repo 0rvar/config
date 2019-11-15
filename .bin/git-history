@@ -1,0 +1,5 @@
+#!/bin/bash
+
+file="$1"
+git log --format=format:%H $file | rargs git show --color=always "{0}" -- $file | less
+

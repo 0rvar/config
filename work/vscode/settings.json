@@ -6,12 +6,11 @@
     ".prettierrc": "yaml",
     "*.css": "css"
   },
-  "window.zoomLevel": 2,
+  "window.zoomLevel": 3,
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
   "workbench.editor.enablePreview": false,
   "workbench.editor.enablePreviewFromQuickOpen": false,
-  "extensions.ignoreRecommendations": true,
   // Make the guides a bit more visible
   // I keep min at 3 to really notice them.
   "guides.normal.width": 3,
@@ -35,14 +34,11 @@
     "suppressWelcomeNotice": true
   },
   "gitlens.keymap": "alternate",
-  "gitlens.historyExplorer.enabled": true,
-  "editor.formatOnSave": true,
   "breadcrumbs.enabled": true,
   "eslint.packageManager": "yarn",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "files.autoSave": "onWindowChange",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "workbench.statusBar.feedback.visible": false,
   "gitlens.views.fileHistory.enabled": true,
   "gitlens.views.lineHistory.enabled": true,
   "git.confirmSync": false,
@@ -59,5 +55,96 @@
   "zenMode.fullScreen": false,
   "editor.wordBasedSuggestions": false,
   "typescript.disableAutomaticTypeAcquisition": true,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "rust.all_targets": false,
+  "editor.formatOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "codestream.email": "orvar@memory.ai",
+  "journal.base": "/Users/orvar/Dropbox (Personal)/memory/journal",
+  "diffEditor.renderSideBySide": true,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "text.html.markdown.journal.task.open.bullet",
+        "settings": {
+          "foreground": "#FFFF00"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.task.open.marker",
+        "settings": {
+          "foreground": "#FFFF00"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.task.open.keyword",
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.task.open.text",
+        "settings": {}
+      },
+      {
+        "scope": "text.html.markdown.journal.task.completed.keyword",
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.task.completed.marker",
+        "settings": {
+          "foreground": "#AAAAAA"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.task.completed.text",
+        "settings": {
+          "foreground": "#AAAAAA"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.task.completed.bullet",
+        "settings": {
+          "foreground": "#FFFF00"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.memo.keyword",
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.memo.bullet",
+        "settings": {
+          "foreground": "#FFFF00"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.scope",
+        "settings": {
+          "foreground": "#FFFF00"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.link.keyword",
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": "text.html.markdown.journal.link.bullet",
+        "settings": {
+          "foreground": "#FFFF00"
+        }
+      }
+    ]
+  },
 }

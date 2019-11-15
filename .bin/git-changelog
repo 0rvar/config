@@ -1,0 +1,10 @@
+#!/bin/bash
+
+from="$1"
+until="HEAD"
+if [ "$2" != "" ]
+then
+    until="$2"
+fi
+
+git diff $from..$until -- CHANGELOG.md
