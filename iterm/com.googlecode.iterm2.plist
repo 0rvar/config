@@ -491,19 +491,19 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>1280 852 400 129 0 0 1680 1027 </string>
+	<string>3040 1222 400 129 0 0 3440 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>530 476 620 392 0 0 1680 1027 </string>
+	<string>1410 768 620 392 0 0 3440 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>292 838 606 469 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>856 615 937 514 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1146 710 1173 707 0 0 3440 1417 </string>
+	<string>552 0 2881 1417 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2293 215 1145 1202 0 0 3440 1417 </string>
+	<string>2293 0 1145 1417 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>513 309 585 488 0 0 1680 1027 </string>
+	<string>1856 777 665 463 0 0 3440 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_5558F6E8-35DC-47B9-B76D-10F5BBC36099</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_5558F6E8-35DC-47B9-B76D-10F5BBC36099_selection</key>
@@ -1261,10 +1261,14 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
-		<string>3.3.2</string>
-		<string>3.3.1</string>
+		<string>3.3.6</string>
 		<string>3.2.8</string>
+		<string>3.3.1</string>
+		<string>3.3.3</string>
+		<string>3.3.5</string>
 		<string>3.3.0</string>
+		<string>3.3.2</string>
+		<string>3.3.4</string>
 	</array>
 	<key>NoSyncBFPFavorites</key>
 	<array>
@@ -1275,6 +1279,13 @@
 		<string>Hack Nerd Font</string>
 		<string>DroidSansMono Nerd Font</string>
 	</array>
+	<key>NoSyncFrame_SessionsPreferences</key>
+	<dict>
+		<key>screenFrame</key>
+		<string>{{0, 0}, {3440, 1440}}</string>
+		<key>topLeft</key>
+		<string>{1417, 1192}</string>
+	</dict>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
@@ -1291,9 +1302,9 @@
 	<key>NoSyncInstallationId</key>
 	<string>EFAA86B5-E33D-43A7-873A-704D51A37BBC</string>
 	<key>NoSyncLastTipTime</key>
-	<real>588413273.60801303</real>
+	<real>595165669.10205603</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>9</integer>
+	<integer>25</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1807,9 +1818,25 @@
 			</dict>
 			<dict>
 				<key>isTerminal</key>
+				<false/>
+				<key>name</key>
+				<string>title</string>
+				<key>nonterminalContext</key>
+				<integer>1</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
 				<string>tmuxWindowTitle</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>title</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -2008,54 +2035,65 @@
 	<real>573387864.55908597</real>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
-		<string>000</string>
-		<string>0000</string>
-		<string>0001</string>
-		<string>0002</string>
-		<string>0003</string>
-		<string>0004</string>
-		<string>0005</string>
-		<string>0006</string>
-		<string>0007</string>
-		<string>0008</string>
 		<string>0009</string>
-		<string>0010</string>
-		<string>0011</string>
-		<string>0012</string>
-		<string>0013</string>
-		<string>0014</string>
-		<string>0015</string>
 		<string>0016</string>
-		<string>0017</string>
-		<string>0018</string>
-		<string>0019</string>
-		<string>0020</string>
-		<string>0021</string>
-		<string>0022</string>
 		<string>0023</string>
-		<string>0024</string>
-		<string>0025</string>
-		<string>0026</string>
-		<string>0027</string>
-		<string>0028</string>
-		<string>0029</string>
 		<string>0030</string>
-		<string>0031</string>
-		<string>0032</string>
-		<string>0033</string>
-		<string>0034</string>
-		<string>0035</string>
-		<string>0036</string>
-		<string>0037</string>
+		<string>0002</string>
 		<string>0038</string>
-		<string>0039</string>
-		<string>0040</string>
-		<string>0041</string>
-		<string>0042</string>
-		<string>0043</string>
-		<string>0044</string>
 		<string>0045</string>
+		<string>0052</string>
+		<string>0017</string>
+		<string>0024</string>
+		<string>0031</string>
+		<string>0003</string>
+		<string>0010</string>
+		<string>0039</string>
 		<string>0046</string>
+		<string>0053</string>
+		<string>0018</string>
+		<string>0025</string>
+		<string>0032</string>
+		<string>0004</string>
+		<string>0011</string>
+		<string>0047</string>
+		<string>0054</string>
+		<string>0019</string>
+		<string>0026</string>
+		<string>0033</string>
+		<string>0040</string>
+		<string>0005</string>
+		<string>0012</string>
+		<string>0048</string>
+		<string>0055</string>
+		<string>0027</string>
+		<string>0034</string>
+		<string>0041</string>
+		<string>0006</string>
+		<string>0013</string>
+		<string>0020</string>
+		<string>0049</string>
+		<string>0056</string>
+		<string>0028</string>
+		<string>0035</string>
+		<string>0042</string>
+		<string>0007</string>
+		<string>0014</string>
+		<string>0021</string>
+		<string>0000</string>
+		<string>0029</string>
+		<string>0036</string>
+		<string>0043</string>
+		<string>0050</string>
+		<string>0008</string>
+		<string>0015</string>
+		<string>0022</string>
+		<string>0001</string>
+		<string>0037</string>
+		<string>000</string>
+		<string>0044</string>
+		<string>0051</string>
+		<string>0057</string>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
@@ -2109,13 +2147,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-08-29T12:16:03Z</date>
+	<date>2019-11-13T09:47:33Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
@@ -2131,7 +2169,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.2</string>
+	<string>3.3.6</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
