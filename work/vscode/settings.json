@@ -57,7 +57,6 @@
   "typescript.disableAutomaticTypeAcquisition": true,
   "editor.tabSize": 2,
   "rust.all_targets": false,
-  "editor.formatOnSave": true,
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -150,4 +149,6 @@
   "yaml.schemas": {
     "file:///Users/orvar/.vscode/extensions/me-dutour-mathieu.vscode-github-actions-2.2.2/schemas/action.schema.json": "/action.yml"
   },
+  "editor.gotoLocation.multiple": "gotoAndPeek",
+  "editor.formatOnSave": true,
 }

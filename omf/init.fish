@@ -29,8 +29,13 @@ abbr -a grbc    git rebase --continue
 abbr -a grbi    git rebase --interactive
 abbr -a gs      git status
 abbr -a gsh     git show
+abbr -a gshs    git show --shortstat
 abbr -a gst     git status
 abbr -a gwch    git whatchanged -p --abbrev-commit --pretty=medium
+abbr -a gcaa    git commit --amend -a
+abbr -a gcane   git commit --amend --no-edit
+abbr -a gcaane  git commit --amend -a --no-edit
+abbr -a gmc     git merge --continue
 
 abbr -a lx      exa -1 --group-directories-first
 

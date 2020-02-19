@@ -2,8 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AlternateMouseScroll</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
+	<key>ApplePressAndHoldEnabled</key>
+	<false/>
 	<key>AppleScrollAnimationEnabled</key>
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
@@ -491,7 +495,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>3040 1222 400 129 0 0 3440 1417 </string>
+	<string>2284 1111 400 129 0 0 3440 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>1410 768 620 392 0 0 3440 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
@@ -499,11 +503,13 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>856 615 937 514 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>552 0 2881 1417 0 0 3440 1417 </string>
+	<string>0 954 665 463 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>2293 0 1145 1417 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>1856 777 665 463 0 0 3440 1417 </string>
+	<string>847 0 833 1027 0 0 1680 1027 </string>
+	<key>NSWindow Frame iTerm Window 3</key>
+	<string>0 0 1680 1027 0 0 1680 1027 </string>
 	<key>NeverWarnAboutShortLivedSessions_5558F6E8-35DC-47B9-B76D-10F5BBC36099</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_5558F6E8-35DC-47B9-B76D-10F5BBC36099_selection</key>
@@ -1262,10 +1268,12 @@
 	<key>NoSyncAllAppVersions</key>
 	<array>
 		<string>3.3.6</string>
+		<string>3.3.8</string>
 		<string>3.2.8</string>
 		<string>3.3.1</string>
 		<string>3.3.3</string>
 		<string>3.3.5</string>
+		<string>3.3.7</string>
 		<string>3.3.0</string>
 		<string>3.3.2</string>
 		<string>3.3.4</string>
@@ -1302,9 +1310,9 @@
 	<key>NoSyncInstallationId</key>
 	<string>EFAA86B5-E33D-43A7-873A-704D51A37BBC</string>
 	<key>NoSyncLastTipTime</key>
-	<real>595165669.10205603</real>
+	<real>600430053.31251895</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>25</integer>
+	<integer>40</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2033,12 +2041,15 @@
 	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>573387864.55908597</real>
+	<key>NoSyncTipsDisabled</key>
+	<true/>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
 		<string>0009</string>
 		<string>0016</string>
 		<string>0023</string>
 		<string>0030</string>
+		<string>0059</string>
 		<string>0002</string>
 		<string>0038</string>
 		<string>0045</string>
@@ -2051,6 +2062,7 @@
 		<string>0039</string>
 		<string>0046</string>
 		<string>0053</string>
+		<string>0060</string>
 		<string>0018</string>
 		<string>0025</string>
 		<string>0032</string>
@@ -2058,6 +2070,7 @@
 		<string>0011</string>
 		<string>0047</string>
 		<string>0054</string>
+		<string>0061</string>
 		<string>0019</string>
 		<string>0026</string>
 		<string>0033</string>
@@ -2066,6 +2079,7 @@
 		<string>0012</string>
 		<string>0048</string>
 		<string>0055</string>
+		<string>0062</string>
 		<string>0027</string>
 		<string>0034</string>
 		<string>0041</string>
@@ -2074,12 +2088,15 @@
 		<string>0020</string>
 		<string>0049</string>
 		<string>0056</string>
+		<string>0063</string>
 		<string>0028</string>
 		<string>0035</string>
 		<string>0042</string>
 		<string>0007</string>
 		<string>0014</string>
 		<string>0021</string>
+		<string>0057</string>
+		<string>0064</string>
 		<string>0000</string>
 		<string>0029</string>
 		<string>0036</string>
@@ -2088,12 +2105,13 @@
 		<string>0008</string>
 		<string>0015</string>
 		<string>0022</string>
+		<string>0058</string>
 		<string>0001</string>
 		<string>0037</string>
 		<string>000</string>
 		<string>0044</string>
 		<string>0051</string>
-		<string>0057</string>
+		<string>0065</string>
 	</array>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
@@ -2147,7 +2165,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-11-13T09:47:33Z</date>
+	<date>2020-02-07T06:52:13Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -2169,7 +2187,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.6</string>
+	<string>3.3.8</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
