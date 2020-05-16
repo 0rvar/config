@@ -497,17 +497,17 @@
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>2284 1111 400 129 0 0 3440 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>1410 768 620 392 0 0 3440 1417 </string>
+	<string>530 476 620 392 0 0 1680 1027 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>292 838 606 469 0 0 2560 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>856 615 937 514 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 954 665 463 0 0 3440 1417 </string>
+	<string>0 0 3440 1417 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2293 0 1145 1417 0 0 3440 1417 </string>
+	<string>1720 0 1719 1417 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>847 0 833 1027 0 0 1680 1027 </string>
+	<string>1720 0 1719 1417 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>0 0 1680 1027 0 0 1680 1027 </string>
 	<key>NeverWarnAboutShortLivedSessions_5558F6E8-35DC-47B9-B76D-10F5BBC36099</key>
@@ -1274,6 +1274,7 @@
 		<string>3.3.3</string>
 		<string>3.3.5</string>
 		<string>3.3.7</string>
+		<string>3.3.9</string>
 		<string>3.3.0</string>
 		<string>3.3.2</string>
 		<string>3.3.4</string>
@@ -1312,7 +1313,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>600430053.31251895</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>40</integer>
+	<integer>57</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2165,19 +2166,25 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-02-07T06:52:13Z</date>
+	<date>2020-05-14T12:31:03Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
+	<key>SUUpdateGroupIdentifier</key>
+	<integer>505353605</integer>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.17949719551282056</real>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
+	<key>TerminalMargin</key>
+	<integer>40</integer>
+	<key>TerminalVMargin</key>
+	<integer>25</integer>
 	<key>TimeBetweenTips</key>
 	<real>604800</real>
 	<key>VisualIndicatorForEsc</key>
@@ -2187,7 +2194,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.8</string>
+	<string>3.3.9</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
