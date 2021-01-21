@@ -87,5 +87,10 @@
     "key": "ctrl+alt+cmd+7",
     "command": "-editor.action.jumpToBracket",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+7",
+    "command": "-gitlens.gitCommands",
+    "when": "!gitlens:disabled && config.gitlens.keymap == 'alternate'"
   }
 ]

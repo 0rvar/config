@@ -3,7 +3,7 @@
 
 [user]
 	name = Orvar Segerström
-	email = orvar@memory.ai
+	email = orvarsegerstrom@gmail.com
 
 [core]
 	autocrlf = false
@@ -28,3 +28,8 @@
 	editor = interactive-rebase-tool
 [diff]
 	renameLimit = 1000
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

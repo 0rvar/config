@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 echo "# Local merged branches"
-git branch --merged | egrep -v "(^\*|master|develop|edge)" | xargs -r echo git branch -d
+git branch --merged | egrep -v "(^\*|master|develop|edge)" | rargs -1 echo git branch -d

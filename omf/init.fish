@@ -37,6 +37,10 @@ abbr -a gcane   git commit --amend --no-edit
 abbr -a gcaane  git commit --amend -a --no-edit
 abbr -a gmc     git merge --continue
 
+abbr -a ghpc    gh pr checkout
+abbr -a ghpd    gh pr diff
+abbr -a ghpo    gh pr view -w
+
 abbr -a lx      exa -1 --group-directories-first
 
 
