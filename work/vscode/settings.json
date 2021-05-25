@@ -169,9 +169,37 @@
     "editor.defaultFormatter": "misogi.ruby-rubocop"
   },
   "ruby.rubocop.useBundler": true,
-  "editor.formatOnSave": true,
   "diffEditor.renderIndicators": false,
   "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "GitLive.Issue tracker integration": "Disabled",
+  "gitlens.menus": {
+    "editor": false,
+    "editorGroup": false,
+    "editorTab": false,
+    "explorer": false,
+    "scmGroupInline": {
+      "stash": true
+    },
+    "scmGroup": {
+      "compare": true,
+      "openClose": true,
+      "stash": true
+    },
+    "scmItem": {
+      "clipboard": true,
+      "compare": true,
+      "history": true,
+      "remote": false,
+      "stash": true
+    }
+  },
+  "editor.codeActionsOnSave": [],
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "json.maxItemsComputed": 50000,
+  "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 }

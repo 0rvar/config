@@ -1,2 +1,0 @@
-#!/bin/bash
-ssh orvar@orvar.me -t ./weechat
