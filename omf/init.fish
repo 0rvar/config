@@ -6,6 +6,8 @@ test -f $HOME/init.extra.fish
 abbr -a ga      git add
 abbr -a ga.     git add .
 abbr -a gb      git branch
+abbr -a gbs     git branch --sort=-committerdate
+abbr -a gbsn    "git branch --sort=-committerdate | head -n 10"
 abbr -a gc      git commit
 abbr -a gca     git commit --amend
 abbr -a gcp     git cherry-pick
