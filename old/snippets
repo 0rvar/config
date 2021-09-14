@@ -1,1 +1,0 @@
-"#442B82".to_s.slice(1,6).chars.each_slice(2).map do |n| "0x#{n.join}".to_i(16)/255.0 end

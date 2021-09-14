@@ -1,2 +1,0 @@
-#!/bin/bash
-subl $HOME/Dropbox/Journal $HOME/Dropbox/Journal/swap.txt

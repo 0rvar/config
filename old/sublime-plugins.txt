@@ -1,4 +1,0 @@
-Package Control
-GitGutter
-CoffeeScript
-Rails Related Files

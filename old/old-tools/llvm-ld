@@ -1,5 +1,0 @@
-#!/bin/bash
-# Compensate for the fact that newer versions 
-# of llvm have renamed llvm-ld to llvm-link which
-# does not do the same thing
-llvm-link "$@" -o=- | llc -o=a.s && gcc a.s -o a.out && rm -f a.s

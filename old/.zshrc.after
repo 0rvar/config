@@ -1,8 +1,0 @@
-# bin dir
-export PATH=$HOME/.bin:$PATH
-
-# svn-color
-alias svn=svn-color
-
-# cabal
-export PATH=$PATH:$HOME/.cabal/bin
