@@ -1,10 +1,13 @@
 * Adobe CC
 * Dropbox
-* Alfred
 * Gifox
 * Noizio
 * Slack
 * BetterSnapTool
 * FindSpace
+* Zoom
+* Todoist
+* 1Password
+* Macpass
 
 
