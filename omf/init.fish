@@ -1,6 +1,5 @@
 set DOTFILES_FOLDER (dirname (realpath (status --current-filename)))
 set DOTFILES_FOLDER (realpath $DOTFILES_FOLDER/..)
-echo $DOTFILES_FOLDER
 
 set -xg LANG en_US.UTF-8
 set -xg LC_ALL en_US.UTF-8
@@ -14,23 +13,25 @@ set -xg theme_short_path yes
 
 # Tools
 
-if type -q thefuck
-  thefuck --alias | source -
-end
+if status --is-interactive
+  if type -q thefuck
+    thefuck --alias | source -
+  end
 
-if type -q rbenv
-  status --is-interactive; and source (rbenv init -|psub)
-end
+  if type -q rbenv
+    status --is-interactive; and source (rbenv init -|psub)
+  end
 
-## Dir colors, ls
-if type -q vivid
-    set -xg LS_COLORS (vivid -m 8-bit generate molokai)
-end
+  ## Dir colors, ls
+  if type -q vivid
+      set -xg LS_COLORS (vivid -m 8-bit generate molokai)
+  end
 
-if type -q exa
-  alias ls exa
-  alias l "exa -l --group-directories-first --no-user --no-time --no-permissions --icons"
-  alias lst "l --git --git-ignore"
+  if type -q exa
+    alias ls exa
+    alias l "exa -l --group-directories-first --no-user --no-time --no-permissions --icons"
+    alias lst "l --git --git-ignore"
+  end
 end
 
 # Paths
