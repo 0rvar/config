@@ -1,6 +1,7 @@
 package bass
 package extract
 package foreign-env
+package fzf
 package gi
 package hash
 package https://github.com/FabioAntunes/fish-nvm
