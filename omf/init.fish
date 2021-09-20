@@ -11,6 +11,9 @@ set -xg PAGER 'less -R'
 # Short path
 set -xg theme_short_path yes
 
+# Supress fish message
+set fish_greeting
+
 # Tools
 
 if status --is-interactive
