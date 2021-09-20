@@ -37,7 +37,7 @@ end
 # Fish
 if type -q fish
   info "Setting up oh-my-fish"
-  set OMF_INSTALL_FILE (mktemp -t oh-my-fish-install)
+  set OMF_INSTALL_FILE (mktemp -t oh-my-fish-install.XXXXXXXXXX)
   curl -L https://get.oh-my.fish > $OMF_INSTALL_FILE
     and success "Download oh-my-fish"
     or abort "Download oh-my-fish"
