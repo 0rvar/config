@@ -1,4 +1,7 @@
 {
   "javascript.validate.enable": false,
-  "flow.useNPMPackagedFlow": true
+  "flow.useNPMPackagedFlow": true,
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true
 }
