@@ -14,18 +14,24 @@ const tsFiles = allFiles.filter((f) => f.toLocaleLowerCase().endsWith('.ts'));
 const jsFiles = allFiles.filter((f) => f.toLocaleLowerCase().endsWith('.js'));
 
 function processFiles(fileNames: Array<string>) {
-  const files = fileNames.map((fileName) => {
-    const contents = Deno.readTextFileSync(fileName);
-    const numLines = contents.split('\n').length;
-    const numWords = contents.split(' ').length;
-    const numChars = contents.length;
-    return {
-      fileName,
-      numLines,
-      numWords,
-      numChars,
-    };
-  });
+  const files = fileNames
+    .map((fileName) => {
+      try {
+        const contents = Deno.readTextFileSync(fileName);
+        const numLines = contents.split('\n').length;
+        const numWords = contents.split(' ').length;
+        const numChars = contents.length;
+        return {
+          fileName,
+          numLines,
+          numWords,
+          numChars,
+        };
+      } catch (e) {
+        return null;
+      }
+    })
+    .filter(notNull);
   const totalLines = files.reduce((acc, curr) => acc + curr.numLines, 0);
   const totalWords = files.reduce((acc, curr) => acc + curr.numWords, 0);
   const totalChars = files.reduce((acc, curr) => acc + curr.numChars, 0);
@@ -98,19 +104,30 @@ console.log(
 
 console.log();
 
+const notMuchLeft = js.files.length < 50;
+const numLargestFiles = notMuchLeft ? js.files.length : 10;
+
 const largestJsFiles = js.files
   .sort((a, b) => b.numLines - a.numLines)
-  .slice(0, 10);
+  .slice(0, numLargestFiles);
 console.log('Largest js files by lines:');
 largestJsFiles.forEach((f) =>
   console.log(`* ${f.fileName} (${f.numLines} lines)`)
 );
 
-console.log();
-console.log('Smallest non-flowed files by lines:');
-const smallestNonFlowedFiles = js.files
-  .sort((a, b) => a.numLines - b.numLines)
-  .slice(0, 10);
-smallestNonFlowedFiles.forEach((f) =>
-  console.log(`* ${f.fileName} (${f.numLines} lines)`)
-);
+if (!notMuchLeft) {
+  console.log();
+  console.log('Smallest non-flowed files by lines:');
+  const smallestJsFiles = js.files
+    .sort((a, b) => a.numLines - b.numLines)
+    .slice(0, 10);
+  smallestJsFiles.forEach((f) =>
+    console.log(`* ${f.fileName} (${f.numLines} lines)`)
+  );
+}
+
+function notNull<T extends string | number | boolean | object>(
+  item: T | null | undefined
+): item is T {
+  return item != null;
+}
