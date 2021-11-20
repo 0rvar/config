@@ -1,0 +1,35 @@
+fish
+ripgrep
+nvm
+exa
+fd
+bat
+thefuck
+git-interactive-rebase-tool
+git
+hyperfine
+htop
+readline
+git-delta
+
+tokei
+alfred
+brew tap homebrew/cask-fonts
+--cask font-fira-code
+--cask font-hack-nerd-font
+--cask rectangle
+bat
+curl
+dust
+ffmpeg
+hexyl
+imagemagick
+jq
+rargs
+ruby-build
+rbenv
+shared-mime-info
+vivid
+webtorrent-cli
+wget
+yarn
