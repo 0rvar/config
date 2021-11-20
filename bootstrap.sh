@@ -38,7 +38,7 @@ end
 if type -q fish
   info "Setting up oh-my-fish"
   set OMF_INSTALL_FILE (mktemp -t oh-my-fish-install.XXXXXXXXXX)
-  curl -L https://get.oh-my.fish > $OMF_INSTALL_FILE
+  curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > $OMF_INSTALL_FILE
     and success "Download oh-my-fish"
     or abort "Download oh-my-fish"
   fish $OMF_INSTALL_FILE --path=~/.local/share/omf --config=$DOTFILES_ROOT/omf --noninteractive -y
