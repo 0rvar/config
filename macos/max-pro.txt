@@ -11,7 +11,6 @@ hyperfine
 htop
 readline
 git-delta
-
 tokei
 alfred
 brew tap homebrew/cask-fonts
@@ -33,3 +32,4 @@ vivid
 webtorrent-cli
 wget
 yarn
+deno
