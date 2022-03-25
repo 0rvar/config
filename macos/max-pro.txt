@@ -14,8 +14,8 @@ git-delta
 tokei
 alfred
 brew tap homebrew/cask-fonts
---cask font-fira-code
---cask font-hack-nerd-font
+brew install --cask font-fira-code
+brew install --cask font-hack-nerd-font
 --cask rectangle
 bat
 curl

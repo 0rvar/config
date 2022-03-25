@@ -1,2 +1,13 @@
-#!/usr/bin/env bash
-git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse "$branch^{tree}") -p $mergeBase -m _)) == "-"* ]] && echo $branch; done
+#!/usr/bin/env fish
+
+set -l main_branch (string trim (git branch -l master main | sed 's/^* //'))
+git checkout -q $main_branch
+and set -l local_branches (git for-each-ref refs/heads/ "--format=%(refname:short)")
+
+and for branch in $local_branches
+  set -l mergeBase (git merge-base $main_branch $branch)
+  set -l cherry (git cherry $main_branch (git commit-tree (git rev-parse "$branch^{tree}") -p $mergeBase -m _))
+  if string match -q -- "- *" "$cherry"
+    echo $branch
+  end
+end
