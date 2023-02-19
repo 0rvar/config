@@ -4,6 +4,7 @@
 [user]
 	name = Orvar Segerström
 	email = orvarsegerstrom@gmail.com
+	signingkey = E2BD676B3F55C95CE1EA2EDA90E1E63F7FBBC23D
 
 [core]
 	autocrlf = false
@@ -15,6 +16,7 @@
 	renameLimit = 1000
 [push]
 	default = current
+	autoSetupRemote = true
 
 [pager]
 	diff = delta
@@ -30,3 +32,10 @@
 	line-numbers            = true
 [delta "interactive"]
 	keep-plus-minus-markers = false
+[init]
+	defaultBranch = master
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
