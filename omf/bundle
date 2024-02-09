@@ -1,10 +1,10 @@
 package bass
+package direnv
 package extract
 package foreign-env
 package fzf
 package gi
 package hash
-package nvm
 package peco
 package rustup
 package sudope
