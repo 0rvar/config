@@ -105,7 +105,7 @@ abbr -a ghpc    gh pr checkout
 abbr -a ghpd    gh pr diff
 abbr -a ghpo    gh pr view -w
 
-abbr -a lx      exa -1 --group-directories-first
+abbr -a lx      eza -1 --group-directories-first
 
 abbr -a be "bundle exec"
 abbr -a bn git rev-parse --abbrev-ref HEAD

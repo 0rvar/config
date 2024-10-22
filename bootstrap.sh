@@ -1,5 +1,8 @@
 #!/usr/bin/env fish
 
+set -e
+set -u
+
 function abort
     echo [(set_color --bold yellow) ABRT (set_color normal)] $argv
     exit 1
@@ -34,18 +37,15 @@ function link_file -d "links a file keeping a backup"
     or abort "could not link $old to $new"
 end
 
-# Fish
+# Fisher tbh
 if type -q fish
-  info "Setting up oh-my-fish"
-  set OMF_INSTALL_FILE (mktemp -t oh-my-fish-install.XXXXXXXXXX)
-  curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > $OMF_INSTALL_FILE
-    and success "Download oh-my-fish"
-    or abort "Download oh-my-fish"
-  fish $OMF_INSTALL_FILE --path=~/.local/share/omf --config=$DOTFILES_ROOT/omf --noninteractive -y
-    and success "Install oh-my-fish"
-    or abort "Install oh-my-fish"
-  rm $OMF_INSTALL_FILE
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+  rm $__fish_config_dir/fish_plugins
+  ln -s $DOTFILES_ROOT/fish/fish_plugins $__fish_config_dir/fish_plugins
+  ln -s $DOTFILES_ROOT/fish/init.fish $__fish_config_dir/conf.d/init.fish
+  fisher update
 end
+
 
 link_file $DOTFILES_ROOT/.gemrc $HOME/.gemrc
 link_file $DOTFILES_ROOT/.gitconfig $HOME/.gitconfig
