@@ -1,8 +1,8 @@
 set DOTFILES_FOLDER (dirname (realpath (status --current-filename)))
 set DOTFILES_FOLDER (realpath $DOTFILES_FOLDER/..)
 
-test -e $DOTFILES_FOLDER/omf/nix-env.fish
-  and source $DOTFILES_FOLDER/omf/nix-env.fish
+test -e $DOTFILES_FOLDER/fish/nix-env.fish
+  and source $DOTFILES_FOLDER/fish/nix-env.fish
 
 set -xg LANG en_US.UTF-8
 set -xg LC_ALL en_US.UTF-8
