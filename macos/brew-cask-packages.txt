@@ -18,5 +18,6 @@ makemkv
 ngrok
 omnidisksweeper
 rectangle
+sol
 utm
 vlc
