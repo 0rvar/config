@@ -1,5 +1,4 @@
 package bass
-package direnv
 package extract
 package foreign-env
 package fzf

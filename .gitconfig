@@ -6,6 +6,9 @@
 	email = orvarsegerstrom@gmail.com
 	signingkey = E2BD676B3F55C95CE1EA2EDA90E1E63F7FBBC23D
 
+[alias]
+  prune-branches = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
+
 [core]
 	autocrlf = false
 [commit]

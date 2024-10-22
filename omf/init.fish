@@ -1,6 +1,9 @@
 set DOTFILES_FOLDER (dirname (realpath (status --current-filename)))
 set DOTFILES_FOLDER (realpath $DOTFILES_FOLDER/..)
 
+test -e $DOTFILES_FOLDER/omf/nix-env.fish
+  and source $DOTFILES_FOLDER/omf/nix-env.fish
+
 set -xg LANG en_US.UTF-8
 set -xg LC_ALL en_US.UTF-8
 
@@ -12,7 +15,7 @@ set -xg PAGER 'less -R'
 set -xg theme_short_path yes
 
 # Supress fish message
-set fish_greeting
+set -U fish_greeting ""
 
 # Tools
 
@@ -30,20 +33,27 @@ if status --is-interactive
       set -xg LS_COLORS (vivid -m 8-bit generate molokai)
   end
 
-  if type -q exa
-    alias ls exa
-    alias l "exa -l --group-directories-first --no-user --no-time --no-permissions --icons"
+  if type -q eza
+    alias ls eza
+    alias l "eza -l --group-directories-first --no-user --no-time --no-permissions --icons"
     alias lst "l --git --git-ignore"
+  end
+
+  if command -v direnv > /dev/null
+    direnv hook fish | source
   end
 end
 
 # Paths
 
 ## Bin
-set -xg PATH $DOTFILES_FOLDER/work/.bin $PATH
-set -xg PATH $DOTFILES_FOLDER/.bin $PATH
+fish_add_path $DOTFILES_FOLDER/work/.bin
+fish_add_path $DOTFILES_FOLDER/.bin
 if test -d $HOME/.bin
-  set -xg PATH $HOME/.bin $PATH
+  fish_add_path $HOME/.bin
+end
+if test -d $HOME/.local/bin
+  fish_add_path $HOME/.local/bin
 end
 
 ## Rust
@@ -124,6 +134,14 @@ end
 
 function rip
   rg -C 10 -M 200 -p $argv | less -r
+end
+
+function envsource
+  for line in (cat $argv | grep -v '^#')
+    set item (string split -m 1 '=' $line)
+    set -x $item[1] $item[2]
+    echo "Exported key $item[1]"
+  end
 end
 
 test -f $HOME/.init.fish
