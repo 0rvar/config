@@ -1,4 +1,5 @@
 #!/usr/bin/env fish
+# why is this written in fish btw
 
 set -e
 set -u
