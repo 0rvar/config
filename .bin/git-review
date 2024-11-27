@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+#!/bin/bash
+
+# Get the specified tag or latest tag
+tag=${1:-$(git describe --tags --abbrev=0)}
+
+# Get list of commits since tag
+commits=($(git rev-list --reverse $tag..HEAD))
+current=0
+total=${#commits[@]}
+
+# Save terminal settings and configure for raw input
+old_tty=$(stty -g)
+stty raw -echo
+
+# Function to display commit
+show_commit() {
+  clear
+  git show -W "${commits[$current]}"
+  echo -e "\n[$((current + 1))/$total] n:next p:prev space:scroll x:quit c:copy"
+}
+
+# Handle mouse wheel scrolling
+printf "\e[?1000h"
+
+show_commit
+
+while true; do
+  read -r -n 1 char
+  case "$char" in
+  $'\x1b') # Handle escape sequences
+    read -r -n 2 next
+    if [[ $next == "[M" ]]; then # Mouse event
+      read -r -n 1 button
+      if [[ $(printf "%d" "'$button") -eq 97 ]]; then   # Scroll up
+        printf "\033[A"                                 # Move cursor up
+      elif [[ $(printf "%d" "'$button") -eq 96 ]]; then # Scroll down
+        printf "\033[B"                                 # Move cursor down
+      fi
+    fi
+    ;;
+  'n')
+    if ((current < total - 1)); then
+      ((current++))
+      show_commit
+    fi
+    ;;
+  'p')
+    if ((current > 0)); then
+      ((current--))
+      show_commit
+    fi
+    ;;
+  ' ')
+    printf "\033[B" # Move cursor down
+    ;;
+  'c')
+    echo "${commits[$current]}" | xclip -selection clipboard 2>/dev/null ||
+      echo "${commits[$current]}" | pbcopy 2>/dev/null
+    ;;
+  'x')
+    break
+    ;;
+  esac
+done
+
+# Restore terminal settings
+stty "$old_tty"
+printf "\e[?1000l"
+clear

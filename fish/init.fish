@@ -110,6 +110,8 @@ abbr -a lx      eza -1 --group-directories-first
 abbr -a be "bundle exec"
 abbr -a bn git rev-parse --abbrev-ref HEAD
 
+abbr -a p pnpm
+
 # Functions
 function pco
     git for-each-ref --sort=-committerdate refs/heads/ --format=%\(refname:short\) \
@@ -142,6 +144,35 @@ function envsource
     set -x $item[1] $item[2]
     echo "Exported key $item[1]"
   end
+end
+
+function ff720 -d "Resize video maintaining aspect ratio with 720p target"
+    # Expect two arguments
+    if test (count $argv) -ne 2
+        echo "Usage: smartresize input_file output_file"
+        return 1
+    end
+
+    set -l input $argv[1]
+    set -l output $argv[2]
+
+    # Get video dimensions using ffprobe
+    set -l dimensions (ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 $input)
+    set -l width (echo $dimensions | cut -d'x' -f1)
+    set -l height (echo $dimensions | cut -d'x' -f2)
+
+    # Calculate aspect ratio and determine scaling
+    if test $width -gt $height
+        # Landscape orientation: set width to 720
+        set scale "scale=-1:720"
+    else
+        # Portrait orientation: set height to 720
+        set scale "scale=720:-1"
+    end
+
+    # Run ffmpeg with determined scaling
+    ffmpeg -i $input -vf $scale -preset veryslow $output
+    dust $output
 end
 
 test -f $HOME/.init.fish
