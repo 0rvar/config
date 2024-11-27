@@ -11,6 +11,7 @@ WANTED_PACKAGES=(
   # Rust-based CLI tools
   bat       # cat with wings
   dust      # what if `du` was useful
+  duf       # also a `du` alternative, but whole-disk analysis
   eza       # nice `ls`
   fd        # like `find` but not horrifyingly bad
   hyperfine # benchmarking tool
