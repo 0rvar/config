@@ -22,6 +22,7 @@ WANTED_PACKAGES=(
   rqbit     # CLI torrent client
   tokei     # Code statistics
   bottom    # htop but in rust
+  zoxide    # automatic cd bookmarks. just `z my` or `z stuff` to cd to a commonly used folder named `my folder and stuff`
 
   # CLI tools written in lesser languages.
   # However, do not hold it against them, they are
