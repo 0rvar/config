@@ -20,17 +20,9 @@ set -U fish_greeting ""
 # Tools
 
 if status --is-interactive
-  if type -q thefuck
-    thefuck --alias | source -
-  end
-
-  if type -q rbenv
-    status --is-interactive; and source (rbenv init -|psub)
-  end
-
   ## Dir colors, ls
   if type -q vivid
-      set -xg LS_COLORS (vivid -m 8-bit generate molokai)
+      set -xg LS_COLORS (vivid generate molokai)
   end
 
   if type -q eza
@@ -45,6 +37,10 @@ if status --is-interactive
 
   if command -v zoxide > /dev/null
     zoxide init fish | source
+  end
+
+  if command -v atuin > /dev/null
+    atuin init fish | source
   end
 end
 
@@ -150,32 +146,30 @@ function envsource
   end
 end
 
-function ff720 -d "Resize video maintaining aspect ratio with 720p target"
-    # Expect two arguments
-    if test (count $argv) -ne 2
-        echo "Usage: smartresize input_file output_file"
+function ff720 --description 'Resize video maintaining aspect ratio with 720p target'
+    if test (count $argv) -lt 2
+        echo "Usage: ff720 input_file output_file [ffmpeg_args...]"
         return 1
     end
 
     set -l input $argv[1]
     set -l output $argv[2]
+    set -l extra_args $argv[3..-1]
 
-    # Get video dimensions using ffprobe
+    # Get video dimensions
     set -l dimensions (ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 $input)
     set -l width (echo $dimensions | cut -d'x' -f1)
     set -l height (echo $dimensions | cut -d'x' -f2)
 
-    # Calculate aspect ratio and determine scaling
+    # Calculate scaling
     if test $width -gt $height
-        # Landscape orientation: set width to 720
-        set scale "scale=-1:720"
+        set scale "scale=720:'-2'"
     else
-        # Portrait orientation: set height to 720
-        set scale "scale=720:-1"
+        set scale "scale='-2':720"
     end
 
-    # Run ffmpeg with determined scaling
-    ffmpeg -i $input -vf $scale -preset veryslow $output
+    # Run ffmpeg with extra args
+    ffmpeg -i $input -vf $scale -preset veryslow $extra_args $output
     dust $output
 end
 

@@ -23,6 +23,10 @@ WANTED_PACKAGES=(
   tokei     # Code statistics
   bottom    # htop but in rust
   zoxide    # automatic cd bookmarks. just `z my` or `z stuff` to cd to a commonly used folder named `my folder and stuff`
+  sd        # Search and replace. Weird how there is nothing like this in coreutils
+  yazi      # CLI file explorer and manager (blazing fast, if you were wondering)
+  vivid     # ls/fd/dust/etc colors beyond your wildest dreams - `set -xg LS_COLORS (vivid generate molokai)`
+  atuin     # an attempt at making shell history less boring and also optionally pipe it straight into the cloud
 
   # CLI tools written in lesser languages.
   # However, do not hold it against them, they are
