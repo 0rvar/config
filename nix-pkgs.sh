@@ -7,6 +7,7 @@ WANTED_PACKAGES=(
   nixfmt-rfc-style # recommended nix formatter in $current_year
   direnv           # use_flake
   nix-direnv       # faster use_flake with caching
+  comma            # Runs commands without installing them
 
   # Rust-based CLI tools
   starship  # Shell prompt gifted by the heavens unto the mortals
@@ -55,6 +56,7 @@ WANTED_PACKAGES=(
   # Devtools
   flyctl
   gh # github cli. use "gh pr create -w", "gh repo view -w" and "gh repo fork" a lot
+  podman
 )
 
 NIX_PROFILE_LIST=$(nix profile list)
