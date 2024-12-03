@@ -9,6 +9,7 @@ WANTED_PACKAGES=(
   nix-direnv       # faster use_flake with caching
 
   # Rust-based CLI tools
+  starship  # Shell prompt gifted by the heavens unto the mortals
   bat       # cat with wings
   dust      # what if `du` was useful
   duf       # also a `du` alternative, but whole-disk analysis

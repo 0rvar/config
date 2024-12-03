@@ -1,52 +1,57 @@
-#!/usr/bin/env fish
-# why is this written in fish btw
+#!/usr/bin/env bash
+set -euo pipefail
 
-set -e
-set -u
+# Colors for output formatting
+BOLD=$(tput bold)
+NORMAL=$(tput sgr0)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
 
-function abort
-    echo [(set_color --bold yellow) ABRT (set_color normal)] $argv
-    exit 1
-end
+abort() {
+  echo -e "[$BOLD$YELLOW ABRT $NORMAL] $*" >&2
+  exit 1
+}
 
-function info
-    echo [(set_color --bold) ' .. ' (set_color normal)] $argv
-end
+info() {
+  echo -e "[$BOLD .. $NORMAL] $*"
+}
 
-function success
-    echo [(set_color --bold green) ' OK ' (set_color normal)] $argv
-end
+success() {
+  echo -e "[$BOLD$GREEN OK $NORMAL] $*"
+}
 
-set DOTFILES_ROOT (dirname (realpath (status --current-filename)))
+# Get the directory where the script is located
+DOTFILES_ROOT="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
-function link_file -d "links a file keeping a backup"
-  echo $argv | read -l old new
-  if test -e $new
-    set newf (readlink $new)
-    if test "$newf" = "$old"
+link_file() {
+  local old="$1"
+  local new="$2"
+
+  if [[ -e "$new" ]]; then
+    local newf
+    newf=$(readlink "$new")
+    if [[ "$newf" == "$old" ]]; then
       success "skipped $old"
-      return
+      return 0
     else
-      mv $new $new.backup
-        and success moved $new to $new.backup
-        or abort "failed to backup $new to $new.backup"
-    end
-  end
-  mkdir -p (dirname $new)
-    and ln -sf $old $new
-    and success "linked $old to $new"
-    or abort "could not link $old to $new"
-end
+      if mv "$new" "$new.backup"; then
+        success "moved $new to $new.backup"
+      else
+        abort "failed to backup $new to $new.backup"
+      fi
+    fi
+  fi
 
-# Fisher tbh
-if type -q fish
-  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-  rm $__fish_config_dir/fish_plugins
-  ln -s $DOTFILES_ROOT/fish/fish_plugins $__fish_config_dir/fish_plugins
-  ln -s $DOTFILES_ROOT/fish/init.fish $__fish_config_dir/conf.d/init.fish
-  fisher update
-end
+  mkdir -p "$(dirname "$new")"
+  if ln -sf "$old" "$new"; then
+    success "linked $old to $new"
+  else
+    abort "could not link $old to $new"
+  fi
+}
 
-
-link_file $DOTFILES_ROOT/.gemrc $HOME/.gemrc
-link_file $DOTFILES_ROOT/.gitconfig $HOME/.gitconfig
+# Link configuration files
+link_file "$DOTFILES_ROOT/fish/config.fish" "${XDG_CONFIG_HOME:-$HOME/.config}/fish/conf.d/config.fish"
+link_file "$DOTFILES_ROOT/fish/starship.toml" "$HOME/.config/starship.toml"
+link_file "$DOTFILES_ROOT/.gitconfig" "$HOME/.gitconfig"
+link_file "$DOTFILES_ROOT/.gemrc" "$HOME/.gemrc"

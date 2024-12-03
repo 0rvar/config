@@ -31,6 +31,10 @@ if status --is-interactive
     alias lst "l --git --git-ignore"
   end
 
+  if command -v starship > /dev/null
+    starship init fish | source
+  end
+
   if command -v direnv > /dev/null
     direnv hook fish | source
   end
