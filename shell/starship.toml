@@ -3,7 +3,7 @@
 add_newline = true
 continuation_prompt = "[▸▹ ](dimmed white)"
 
-format = """($nix_shell$container$fill$git_metrics\n)$cmd_duration\
+format = """($container$fill$git_metrics\n)$cmd_duration\
 $hostname\
 $localip\
 $shlvl\
@@ -24,56 +24,8 @@ $git_branch\
 $git_commit\
 $git_state\
 $git_status\
-$hg_branch\
-$pijul_channel\
 $docker_context\
 $package\
-$c\
-$cmake\
-$cobol\
-$daml\
-$dart\
-$deno\
-$dotnet\
-$elixir\
-$elm\
-$erlang\
-$fennel\
-$golang\
-$guix_shell\
-$haskell\
-$haxe\
-$helm\
-$java\
-$julia\
-$kotlin\
-$gradle\
-$lua\
-$nim\
-$nodejs\
-$ocaml\
-$opa\
-$perl\
-$php\
-$pulumi\
-$purescript\
-$python\
-$raku\
-$rlang\
-$red\
-$ruby\
-$rust\
-$scala\
-$solidity\
-$swift\
-$terraform\
-$vlang\
-$vagrant\
-$zig\
-$buf\
-$conda\
-$meson\
-$spack\
 $memory_usage\
 $aws\
 $gcloud\
@@ -173,7 +125,7 @@ ignore_branches = ["main", "master"]
 only_attached = true
 style = "italic bright-blue"
 symbol = "[△](bold italic bright-blue)"
-truncation_length = 11
+truncation_length = 22
 truncation_symbol = "⋯"
 
 [git_metrics]
@@ -193,106 +145,9 @@ format = "([⎪$ahead_behind$staged$modified$untracked$renamed$deleted$conflicte
 modified = "[●◦](italic yellow)"
 renamed = "[◎◦](italic bright-blue)"
 staged = "[▪┤[$count](bold white)│](italic bright-cyan)"
-stashed = "[◃◈](italic white)"
+stashed = ""
 style = "bold italic bright-blue"
 untracked = "[◌◦](italic bright-yellow)"
-
-[deno]
-format = " [deno](italic) [∫ $version](green bold)"
-version_format = "${raw}"
-
-[lua]
-format = " [lua](italic) [${symbol}${version}]($style)"
-style = "bold bright-yellow"
-symbol = "⨀ "
-version_format = "${raw}"
-
-[nodejs]
-detect_extensions = []
-detect_files = ["package-lock.json", "yarn.lock"]
-detect_folders = ["node_modules"]
-format = " [node](italic) [◫ ($version)](bold bright-green)"
-version_format = "${raw}"
-
-[python]
-format = " [py](italic) [${symbol}${version}]($style)"
-style = "bold bright-yellow"
-symbol = "[⌉](bold bright-blue)⌊ "
-version_format = "${raw}"
-
-[ruby]
-format = " [rb](italic) [${symbol}${version}]($style)"
-style = "bold red"
-symbol = "◆ "
-version_format = "${raw}"
-
-[rust]
-format = " [rs](italic) [$symbol$version]($style)"
-style = "bold red"
-symbol = "⊃ "
-version_format = "${raw}"
-
-[package]
-format = " [pkg](italic dimmed) [$symbol$version]($style)"
-style = "dimmed yellow italic bold"
-symbol = "◨ "
-version_format = "${raw}"
-
-[swift]
-format = " [sw](italic) [${symbol}${version}]($style)"
-style = "bold bright-red"
-symbol = "◁ "
-version_format = "${raw}"
-
-[aws]
-disabled = true
-format = " [aws](italic) [$symbol $profile $region]($style)"
-style = "bold blue"
-symbol = "▲ "
-
-[buf]
-format = " [buf](italic) [$symbol $version $buf_version]($style)"
-symbol = "■ "
-
-[c]
-format = " [$symbol($version(-$name))]($style)"
-symbol = "ℂ "
-
-[conda]
-format = " conda [$symbol$environment]($style)"
-symbol = "◯ "
-
-[dart]
-format = " dart [$symbol($version )]($style)"
-symbol = "◁◅ "
-
-[docker_context]
-format = " docker [$symbol$context]($style)"
-symbol = "◧ "
-
-[elixir]
-format = " exs [$symbol $version OTP $otp_version ]($style)"
-symbol = "△ "
-
-[elm]
-format = " elm [$symbol($version )]($style)"
-symbol = "◩ "
-
-[golang]
-format = " go [$symbol($version )]($style)"
-symbol = "∩ "
-
-[haskell]
-format = " hs [$symbol($version )]($style)"
-symbol = "❯λ "
-
-[java]
-format = " java [${symbol}(${version} )]($style)"
-symbol = "∪ "
-
-[julia]
-format = " jl [$symbol($version )]($style)"
-symbol = "◎ "
 
 [memory_usage]
 format = " mem [${ram}( ${swap})]($style)"
