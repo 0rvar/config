@@ -19,9 +19,12 @@ info() {
 success() {
   echo -e "[$BOLD$GREEN OK $NORMAL] $*"
 }
+skip() {
+  echo -e "[$BOLD$GREEN -- $NORMAL] $*"
+}
 
 # Get the directory where the script is located
-DOTFILES_ROOT="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+CONFIG_ROOT="$(dirname "$(realpath "${BASH_SOURCE[0]}/..")")"
 
 link_file() {
   local old="$1"
@@ -31,7 +34,7 @@ link_file() {
     local newf
     newf=$(readlink "$new")
     if [[ "$newf" == "$old" ]]; then
-      success "skipped $old"
+      skip "skipped $old"
       return 0
     else
       if mv "$new" "$new.backup"; then
@@ -51,7 +54,7 @@ link_file() {
 }
 
 # Link configuration files
-link_file "$DOTFILES_ROOT/fish/config.fish" "${XDG_CONFIG_HOME:-$HOME/.config}/fish/conf.d/config.fish"
-link_file "$DOTFILES_ROOT/fish/starship.toml" "$HOME/.config/starship.toml"
-link_file "$DOTFILES_ROOT/.gitconfig" "$HOME/.gitconfig"
-link_file "$DOTFILES_ROOT/.gemrc" "$HOME/.gemrc"
+link_file "$CONFIG_ROOT/shell/config.fish" "${XDG_CONFIG_HOME:-$HOME/.config}/fish/conf.d/config.fish"
+link_file "$CONFIG_ROOT/shell/starship.toml" "$HOME/.config/starship.toml"
+link_file "$CONFIG_ROOT/.gitconfig" "$HOME/.gitconfig"
+link_file "$CONFIG_ROOT/.gemrc" "$HOME/.gemrc"

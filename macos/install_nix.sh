@@ -61,13 +61,13 @@ grep -q "hide_env_diff = true" ~/.config/direnv/direnv.toml || (
 shell_name=$(basename "$SHELL")
 if [ "$shell_name" = "fish" ]; then
   if ! fish -c "functions -q __direnv_export_eval" >/dev/null; then
-    echo "Adding direnv hook to fish shell (~/.config/fish/conf.d/direnv.fish)"
-    # Add to ~/.config/fish/conf.d/direnv.fish
-    mkdir -p ~/.config/fish/conf.d
-    touch ~/.config/fish/conf.d/direnv.fish
-    grep -q "direnv hook fish | source" ~/.config/fish/conf.d/direnv.fish ||
+    echo "Adding direnv hook to fish shell (~/.config/shell/conf.d/direnv.fish)"
+    # Add to ~/.config/shell/conf.d/direnv.fish
+    mkdir -p ~/.config/shell/conf.d
+    touch ~/.config/shell/conf.d/direnv.fish
+    grep -q "direnv hook fish | source" ~/.config/shell/conf.d/direnv.fish ||
       (
-        echo "direnv hook fish | source" >>~/.config/fish/conf.d/direnv.fish &&
+        echo "direnv hook fish | source" >>~/.config/shell/conf.d/direnv.fish &&
           DID_CHANGE_ENV=true
       )
   fi

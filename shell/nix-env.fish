@@ -38,14 +38,14 @@ if test -e $nix_profile_path
   # Replicate the logic from nixpkgs version of $__fish_data_dir/__fish_build_paths.fish.
   set -l __nix_profile_paths (string split ' ' -- $NIX_PROFILES)[-1..1]
   set -l __extra_completionsdir \
-    $__nix_profile_paths/etc/fish/completions \
-    $__nix_profile_paths/share/fish/vendor_completions.d
+    $__nix_profile_paths/etc/shell/completions \
+    $__nix_profile_paths/share/shell/vendor_completions.d
   set -l __extra_functionsdir \
-    $__nix_profile_paths/etc/fish/functions \
-    $__nix_profile_paths/share/fish/vendor_functions.d
+    $__nix_profile_paths/etc/shell/functions \
+    $__nix_profile_paths/share/shell/vendor_functions.d
   set -l __extra_confdir \
-    $__nix_profile_paths/etc/fish/conf.d \
-    $__nix_profile_paths/share/fish/vendor_conf.d \
+    $__nix_profile_paths/etc/shell/conf.d \
+    $__nix_profile_paths/share/shell/vendor_conf.d \
 
   ### Configure fish_function_path ###
   # Remove any of our extra paths that may already exist.
