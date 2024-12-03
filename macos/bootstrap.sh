@@ -32,7 +32,7 @@ link_file() {
 
   if [[ -e "$new" ]]; then
     local newf
-    newf=$(readlink "$new")
+    newf=$(readlink "$new" || echo "$new")
     if [[ "$newf" == "$old" ]]; then
       skip "skipped $old"
       return 0
@@ -56,5 +56,6 @@ link_file() {
 # Link configuration files
 link_file "$CONFIG_ROOT/shell/config.fish" "${XDG_CONFIG_HOME:-$HOME/.config}/fish/conf.d/config.fish"
 link_file "$CONFIG_ROOT/shell/starship.toml" "$HOME/.config/starship.toml"
+link_file "$CONFIG_ROOT/shell/atuin.toml" "$HOME/.config/atuin/config.toml"
 link_file "$CONFIG_ROOT/.gitconfig" "$HOME/.gitconfig"
 link_file "$CONFIG_ROOT/.gemrc" "$HOME/.gemrc"
