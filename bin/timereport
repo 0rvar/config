@@ -1,4 +1,8 @@
-#!/usr/bin/env node
+#! /usr/bin/env nix
+/*
+#! nix shell nixpkgs#nodejs_20 --command node
+*/
+
 const execSync = require("child_process").execSync;
 
 let day = new Date();
@@ -25,7 +29,7 @@ const dayNames = [
   "Thursday",
   "Friday",
   "Saturday",
-  "Sunday"
+  "Sunday",
 ];
 
 let gitFlags =
@@ -38,7 +42,7 @@ gitFlags += '"';
 for (let dayIndex = 0; dayIndex <= referenceDayIndex; dayIndex++) {
   const dayDiff = referenceDayIndex - dayIndex;
 
-  const createFromDiff = diff =>
+  const createFromDiff = (diff) =>
     new Date(day.getFullYear(), day.getMonth(), day.getDate() - diff);
   const since = createFromDiff(dayDiff);
   const until = createFromDiff(dayDiff - 1);
@@ -53,17 +57,15 @@ for (let dayIndex = 0; dayIndex <= referenceDayIndex; dayIndex++) {
   const output = execSync(command, { encoding: "utf-8" });
   output
     .split("\n[")
-    .filter(x => x.length > 1)
-    .forEach(line => {
+    .filter((x) => x.length > 1)
+    .forEach((line) => {
       if (!line.startsWith("[")) {
         line = "[" + line;
       }
-      const [originalCommitDate, originalCommitStamp] = line.match(
-        /\[(\d{10})\]/
-      );
-      const [originalAuthorDate, originalAuthorStamp] = line.match(
-        /<(\d{10})>/
-      );
+      const [originalCommitDate, originalCommitStamp] =
+        line.match(/\[(\d{10})\]/);
+      const [originalAuthorDate, originalAuthorStamp] =
+        line.match(/<(\d{10})>/);
 
       let logline = line.replace(
         originalCommitDate,
