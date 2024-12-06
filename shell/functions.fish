@@ -64,3 +64,8 @@ function ff720 --description 'Resize video maintaining aspect ratio with 720p ta
     ffmpeg -i $input -vf $scale -preset veryslow $extra_args $output
     dust $output
 end
+
+# Run copilot
+function q --description 'Run github copilot'
+    gh copilot suggest -t shell "$argv"
+end

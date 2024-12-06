@@ -52,3 +52,7 @@ end
 abbr -a be "bundle exec"
 abbr -a bn git rev-parse --abbrev-ref HEAD
 abbr -a p pnpm
+abbr -a pms "podman machine inspect | jq -r '.[0] | .State'"
+abbr -a pm "podman machine"
+
+abbr -a zapp "cd $HOME/develop/app"

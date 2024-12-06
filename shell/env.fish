@@ -5,7 +5,7 @@ source $DIR/nix-env.fish
 
 ## Rust
 if test -d $HOME/.cargo/bin
-  set -xg PATH $HOME/.cago/bin $PATH
+  fish_add_path $HOME/.cargo/bin
 end
 
 fish_add_path $CONFIG_ROOT/bin
