@@ -25,13 +25,14 @@ with lib;
         type = "gpt";
         partitions = {
           ESP = {
-            start = "1MiB";
-            end = cfg.mainDisk.espSize;
+            priority = 1;
+            name = "ESP";
+            start = "1M";
+            end = "128M";
             type = "EF00";
             content = {
               type = "filesystem";
               format = "vfat";
-              extraArgs = [ "-n BOOT" ];
               mountpoint = "/boot";
               mountOptions = [
                 "dmask=077"
@@ -40,8 +41,7 @@ with lib;
             };
           };
           root = {
-            start = cfg.mainDisk.espSize;
-            end = "100%";
+            size = "100%";
             content = {
               type = "btrfs";
               subvolumes =

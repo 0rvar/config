@@ -20,12 +20,6 @@ with lib;
         description = "Main disk device path";
       };
 
-      espSize = mkOption {
-        type = types.str;
-        default = "1024MiB";
-        description = "Size of EFI System Partition";
-      };
-
       swap = {
         enable = mkOption {
           type = types.bool;

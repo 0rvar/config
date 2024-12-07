@@ -7,10 +7,11 @@
   ...
 }:
 
-# Bring names from 'lib' into scope.
 with lib;
 {
-  # More to shared/disks ?
+  nixfiles.disks.mainDisk.device = "/dev/vda";
+
+  # Move to shared/disks ?
   boot.supportedFilesystems = {
     btrfs = true;
   };

@@ -21,9 +21,7 @@
     }@flakeInputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { inherit system; };
     in
     {
       formatter.${system} = pkgs.nixfmt-rfc-style;
@@ -40,7 +38,6 @@
               modules = [
                 {
                   networking.hostName = name;
-                  nixpkgs.overlays = [ (_: _: { nixfiles = self.packages.${system}; }) ];
                   sops.defaultSopsFile = ./hosts + "/${name}" + /secrets.yaml;
                 }
                 flakeInputs.disko.nixosModules.disko
@@ -65,7 +62,6 @@
           ]
           (
             system:
-
             let
               pkgs = import nixpkgs { inherit system; };
             in
@@ -88,7 +84,7 @@
                       ]
                     }
 
-                    nixfmt
+                    nixfmt /shared /hosts flake.nix
                   '';
 
                   secrets = mkApp "secrets" ''

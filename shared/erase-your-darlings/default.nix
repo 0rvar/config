@@ -4,9 +4,6 @@
 # services, all of my modules have their own `erase-your-darlings.nix` file
 # which makes any changes that they need.
 #
-# This requires a setting up ZFS in a specific way when first installing NixOS.
-# See the ["set up a new host"][] runbook.
-#
 # ["erase your darlings"]: https://grahamc.com/blog/erase-your-darlings/
 # ["set up a new host"]: ./runbooks/set-up-a-new-host.md
 { config, lib, ... }:
@@ -22,11 +19,6 @@ in
   ];
 
   config = mkIf cfg.enable {
-    # Wipe / on boot
-    boot.initrd.postDeviceCommands = mkAfter ''
-      zfs rollback -r ${cfg.rootSnapshot}
-    '';
-
     # Set /etc/machine-id, so that journalctl can access logs from
     # previous boots.
     environment.etc.machine-id = {
@@ -52,22 +44,8 @@ in
       }
     ];
 
-    services.samba.extraConfig = ''
-      log file = /var/log/samba/%m.log
-      private dir = ${toString cfg.persistDir}/var/lib/samba/private
-    '';
-
     systemd.tmpfiles.rules = [
       "L+ /etc/nixos - - - - ${toString cfg.persistDir}/etc/nixos"
     ];
-
-    systemd.services.prometheus.serviceConfig.BindPaths = "${toString cfg.persistDir}/var/lib/${config.services.prometheus.stateDir}:/var/lib/${config.services.prometheus.stateDir}";
-
-    # Needs real path, not a symlink
-    system.autoUpgrade.flake = mkForce "${cfg.persistDir}/etc/nixos";
-
-    services.caddy.dataDir = "${toString cfg.persistDir}/var/lib/caddy";
-    services.dockerRegistry.storagePath = "${toString cfg.persistDir}/var/lib/docker-registry";
-    services.syncthing.dataDir = "${toString cfg.persistDir}/var/lib/syncthing";
   };
 }

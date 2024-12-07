@@ -152,6 +152,6 @@ with lib;
     nixpkgs.config.allowBroken = true;
 
     # System-wide packages
-    environment.systemPackages = (import ./packages.nix).mkPackages pkgs;
+    environment.systemPackages = (import ./packages.nix { inherit pkgs; }).mkPackages pkgs;
   };
 }
