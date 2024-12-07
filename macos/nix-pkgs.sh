@@ -8,6 +8,7 @@ WANTED_PACKAGES=(
   direnv           # use_flake
   nix-direnv       # faster use_flake with caching
   comma            # Runs commands without installing them
+  nix-index        # Has nix-locate, find files from nix packages
 
   # Rust-based CLI tools
   starship  # Shell prompt gifted by the heavens unto the mortals
