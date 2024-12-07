@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -8,6 +8,7 @@
     };
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
@@ -15,6 +16,7 @@
       self,
       nixpkgs,
       sops-nix,
+      flake-utils,
       ...
     }@flakeInputs:
     let
@@ -24,7 +26,7 @@
       };
     in
     {
-      formatter.${system} = pkgs.nixpkgs-fmt;
+      formatter.${system} = pkgs.nixfmt-rfc-style;
 
       nixosConfigurations =
         let
@@ -41,7 +43,7 @@
                   nixpkgs.overlays = [ (_: _: { nixfiles = self.packages.${system}; }) ];
                   sops.defaultSopsFile = ./hosts + "/${name}" + /secrets.yaml;
                 }
-                inputs.disko.nixosModules.disko
+                flakeInputs.disko.nixosModules.disko
                 ./shared
                 (./hosts + "/${name}" + /configuration.nix)
                 (./hosts + "/${name}" + /hardware.nix)
@@ -55,40 +57,55 @@
           ];
         };
 
-      apps.${system} =
-        let
-          mkApp = name: script: {
-            type = "app";
-            program = toString (pkgs.writeShellScript "${name}.sh" script);
-          };
-        in
-        {
-          fmt = mkApp "fmt" ''
-            PATH=${
-              with pkgs;
-              lib.makeBinPath [
-                nix
-                git
-                nixfmt-rfc-style
-              ]
+      apps =
+        flake-utils.lib.eachSystemPassThrough
+          [
+            "x86_64-linux"
+            "aarch64-darwin"
+          ]
+          (
+            system:
+
+            let
+              pkgs = import nixpkgs { inherit system; };
+            in
+            {
+              ${system} =
+                let
+                  mkApp = name: script: {
+                    type = "app";
+                    program = toString (pkgs.writeShellScript "${name}.sh" script);
+                  };
+                in
+                {
+                  fmt = mkApp "fmt" ''
+                    PATH=${
+                      with pkgs;
+                      lib.makeBinPath [
+                        nix
+                        git
+                        nixfmt-rfc-style
+                      ]
+                    }
+
+                    nixfmt
+                  '';
+
+                  secrets = mkApp "secrets" ''
+                    PATH=${
+                      with pkgs;
+                      lib.makeBinPath [
+                        sops
+                        nettools
+                        vim
+                      ]
+                    }
+                    export EDITOR=vim
+
+                    ${pkgs.lib.fileContents ./scripts/secrets.sh}
+                  '';
+                };
             }
-
-            nixfmt
-          '';
-
-          secrets = mkApp "secrets" ''
-            PATH=${
-              with pkgs;
-              lib.makeBinPath [
-                sops
-                nettools
-                vim
-              ]
-            }
-            export EDITOR=vim
-
-            ${pkgs.lib.fileContents ./scripts/secrets.sh}
-          '';
-        };
+          );
     };
 }

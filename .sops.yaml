@@ -1,6 +1,8 @@
 keys:
+  - &orvar "age1420l9x43gmsawwjhs6a0c63ce8udf8f8k8pjyaaqs6m3ltn9t55ssgxq3n"
 
 creation_rules:
   - path_regex: hosts/snufkin/secrets(/[^/]+)?\.yaml$
     key_groups:
-      - "TODO"
+      - age:
+          - *orvar

@@ -27,7 +27,7 @@ nix run $nixosanywhere -- --flake '.#hostNameInConfig' nixos@[ip]
 Generate an age public key from the host SSH key:
 
 ```bash
-nix-shell -p ssh-to-age --run 'ssh-keyscan localhost | ssh-to-age'
+ssh-to-age -i $HOME/.ssh/id_ed25519.pub'
 ```
 
 Add a new section with this key to `/persist/etc/nixos/.sops.yaml`:

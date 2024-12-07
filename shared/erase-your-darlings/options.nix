@@ -46,10 +46,12 @@ with lib;
 
     machineId = mkOption {
       type = types.str;
-      example = "64b1b10f3bef4616a7faf5edf1ef3ca5";
+      example = "8d0944eaa7111a4e83832389a8a384e4";
       description = mdDoc ''
         An arbitrary 32-character hexadecimal string, used to identify the host.
         This is needed for journalctl logs from previous boots to be accessible.
+
+        `openssl rand -hex 16` can be used to generate a new one.
 
         See [the systemd documentation](https://www.freedesktop.org/software/systemd/man/machine-id.html).
       '';

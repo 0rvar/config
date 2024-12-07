@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   cfg = config.nixfiles.disks;
   eyd = config.nixfiles.eraseYourDarlings;
@@ -7,6 +7,7 @@ let
     "mode=755"
   ] ++ (lib.optional (cfg.rootTmpfsSize != null) "size=${cfg.rootTmpfsSize}");
 in
+with lib;
 {
   imports = [ ./options.nix ];
 
@@ -69,7 +70,7 @@ in
                   "@data" = {
                     # Storage of persistent data that should not be CoW
                     mountpoint = eyd.dataDir;
-                    inherit dataMountOptions;
+                    mountOptions = dataMountOptions;
                   };
                   "@var-log" = {
                     mountpoint = "/var/log";
@@ -84,12 +85,11 @@ in
                     inherit mountOptions;
                   };
                   "@swap" = mkIf cfg.mainDisk.swap.enable {
-                    mountpoint = "/swap";
+                    mountpoint = "/.swapvol";
                     inherit mountOptions;
-                    content = {
-                      type = "swap";
-                      size = cfg.mainDisk.swap.size;
-                    }
+                    swap = {
+                      swapfile.size = cfg.mainDisk.swap.size;
+                    };
                   };
                 };
               extraArgs = [
@@ -106,8 +106,5 @@ in
   fileSystems."/nix".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
 
-  services.zswap = {
-    enable = true;
-    algorithm = "zstd";
-  };
+  zramSwap.enable = true;
 }

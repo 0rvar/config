@@ -9,8 +9,9 @@
 with lib;
 {
   imports = [
-    ./base-packages.nix
     ./erase-your-darlings
+    ./disks
+    ./base-packages.nix
     ./oci-containers
   ];
 
@@ -20,7 +21,7 @@ with lib;
     #############################################################################
 
     # The NixOS release to be compatible with for stateful data such as databases.
-    system.stateVersion = "24.11";
+    system.stateVersion = "24.05";
 
     # Only keep the last 500MiB of systemd journal.
     services.journald.extraConfig = "SystemMaxUse=500M";
@@ -82,7 +83,8 @@ with lib;
 
     networking.firewall.enable = true;
     networking.firewall.allowPing = true;
-    networking.firewall.trustedInterfaces = if config.nixfiles.oci-containers.backend == "docker" then [ "docker0" ] else [ "podman" ];
+    networking.firewall.trustedInterfaces =
+      if config.nixfiles.oci-containers.backend == "docker" then [ "docker0" ] else [ "podman" ];
     services.fail2ban.enable = true;
 
     #############################################################################
@@ -132,7 +134,7 @@ with lib;
         "wheel"
       ];
       group = "users";
-      initialPassword = "breadbread";
+      initialPassword = "nixlixzix";
       shell = pkgs.fish;
 
       packages = with pkgs; [
@@ -140,14 +142,16 @@ with lib;
       ];
 
       openssh.authorizedKeys.keys = [
-        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDecA77QT8/Ol9mSyg8hVajumh0YzKMRz+CnRdpHQ4568yQrF4wQLHzQc5obSbAvi/iYX4vdjnce7L4eN3W6su0geDw/jCDD/lI732hAfA/LI6bxWKSjv+RxkbR26PjkVSCR2yunJhQHSEBT2qB9JLHDOF+wjoDfvGxqj/1854wMhPNeXLNqLAPGWdvJS+4/NSy7Eh0WjWYO5dPXpZzXwbYltJFr/VPDxGCgQH6D0ERYfr0ldXBHbvFprpn4uwPSUiu9tFoF/7WlzP/zrQgqhFtLrVyA5pFpTTPsrQawFGFDNYcPVdq0GvKF+EuUzR2ZXaEwmX4KtUMXDPV+Nl1wHiT orvar@Orvars-MacBook-Pro.local"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUsW3xavYlqUnTbLXcuDXZk4T5Y4aYEwknP6bbGWAB2 orvarsegerstrom@gmail.com"
       ];
     };
 
     # Allow packages with non-free licenses.
     nixpkgs.config.allowUnfree = true;
 
+    nixpkgs.config.allowBroken = true;
+
     # System-wide packages
     environment.systemPackages = (import ./packages.nix).mkPackages pkgs;
-  }
+  };
 }
