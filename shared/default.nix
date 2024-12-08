@@ -9,6 +9,7 @@
 with lib;
 {
   imports = [
+    ./sops.nix
     ./impermanence.nix
     ./disks.nix
     ./base-packages.nix

@@ -24,12 +24,6 @@ in
   ];
 
   config = {
-    users.mutableUsers = mkForce false;
-    users.extraUsers.orvar.initialPassword = mkForce null;
-    users.extraUsers.orvar.hashedPasswordFile = config.sops.secrets."users/orvar".path;
-    sops.secrets."users/orvar".neededForUsers = true;
-    sops.age.keyFile = cfg.sopsKeyFile;
-
     # Persist state in `cfg.persistDir`
     services.openssh.hostKeys = [
       {
@@ -48,6 +42,7 @@ in
         directories = [
           "/var/lib/systemd"
           "/var/lib/nixos"
+          "/etc/nixos"
           # "/var/log" # /var/log is already mounted to a btrfs subvolume
           "/srv"
         ];
@@ -90,14 +85,6 @@ in
       description = mdDoc ''
         Directory for persistent data that should not be CoW.
         For things like VM disk images, databases, and persistent containers.
-      '';
-    };
-
-    sopsKeyFile = mkOption {
-      type = types.path;
-      default = "/persist/key.txt";
-      description = mdDoc ''
-        Path to the sops key file used to decrypt the `orvarPasswordFile`.
       '';
     };
   };

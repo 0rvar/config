@@ -9,6 +9,7 @@
 
 with lib;
 {
+  nixfiles.sops.enable = false;
   nixfiles.disks.mainDisk.device = "/dev/vda";
   nixfiles.disks.mainDisk.swap.size = "1G";
 
@@ -27,19 +28,19 @@ with lib;
   };
 
   # Netdata
-  networking.firewall.allowedTCPPorts = [ 19999 ];
-  services.netdata = {
-    enable = true;
-    config = {
-      global = {
-        "memory mode" = "ram";
-        "debug log" = "none";
-        "access log" = "none";
-        "error log" = "syslog";
-      };
-    };
-  };
-  services.netdata.package = pkgs.netdata.override {
-    withCloudUi = true;
-  };
+  # networking.firewall.allowedTCPPorts = [ 19999 ];
+  # services.netdata = {
+  #   enable = true;
+  #   config = {
+  #     global = {
+  #       "memory mode" = "ram";
+  #       "debug log" = "none";
+  #       "access log" = "none";
+  #       "error log" = "syslog";
+  #     };
+  #   };
+  # };
+  # services.netdata.package = pkgs.netdata.override {
+  #   withCloudUi = true;
+  # };
 }

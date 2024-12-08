@@ -40,8 +40,7 @@ nix run .#secrets <host>
 
 ```sh
 ssh nixos@[ip] # Test that you can SSH into the installer on the host
-export nixosanywhere="github:nix-community/nixos-anywhere"
-nix run $nixosanywhere -- --flake '.#hostNameInConfig' nixos@[ip]
+nix run github:nix-community/nixos-anywhere -- --flake '.#hostNameInConfig' nixos@[ip]
 
 ```
 

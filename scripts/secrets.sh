@@ -7,3 +7,4 @@ else
 fi
 
 sops "$SECRETS_FILE"
+sops updatekeys "$SECRETS_FILE"
