@@ -8,7 +8,7 @@ VM_NAME="nixos"
 VM_IMAGE="$VM_DIR/$VM_NAME.img"
 ISO_URL="https://channels.nixos.org/nixos-24.05/latest-nixos-minimal-x86_64-linux.iso"
 ISO_FILE="$VM_DIR/nixos-minimal.iso"
-IMAGE_SIZE="20G"
+IMAGE_SIZE="64G"
 
 # Create VM directory if it doesn't exist
 mkdir -p "$VM_DIR"
@@ -53,9 +53,9 @@ fi
 QEMU_CMD=", qemu-system-x86_64 \
     -accel tcg \
     -smp 4 \
-    -m 4G \
-    -drive file=$VM_IMAGE,if=virtio,format=raw \
-    -nic user,hostfwd=tcp::2222-:22 \
+    -m 8G \
+    -drive file=$VM_IMAGE,if=virtio,format=raw,cache=writeback \
+    -nic user,hostfwd=tcp::2222-:22,model=virtio-net-pci \
     -display default \
     -device virtio-vga \
     -device virtio-keyboard \

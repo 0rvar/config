@@ -9,8 +9,8 @@
 with lib;
 {
   imports = [
-    ./erase-your-darlings
-    ./disks
+    ./impermanence.nix
+    ./disks.nix
     ./base-packages.nix
     ./oci-containers
   ];
@@ -74,8 +74,8 @@ with lib;
     time.timeZone = "Europe/Stockholm";
 
     # Keyboard
-    console.keyMap = "se-latin1";
-    services.xserver.xkb.layout = "se";
+    console.keyMap = "sv-latin1";
+    services.xserver.xkb.layout = "sv";
 
     #############################################################################
     ## Firewall

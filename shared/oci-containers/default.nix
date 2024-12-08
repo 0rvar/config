@@ -132,7 +132,6 @@ in
 {
   imports = [
     ./options.nix
-    ./erase-your-darlings.nix
   ];
 
   config = {
@@ -151,5 +150,7 @@ in
       (mapAttrs' mkNetworkService (filterAttrs shouldNetworkService allContainers))
       (if cfg.backend == "podman" then mapAttrs' mkPodService cfg.pods else { })
     ];
+
+    nixfiles.oci-containers.volumeBaseDir = "${toString eyd.dataDir}/oci-volumes";
   };
 }

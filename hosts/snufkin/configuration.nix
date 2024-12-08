@@ -10,11 +10,7 @@
 with lib;
 {
   nixfiles.disks.mainDisk.device = "/dev/vda";
-
-  # Move to shared/disks ?
-  boot.supportedFilesystems = {
-    btrfs = true;
-  };
+  nixfiles.disks.mainDisk.swap.size = "1G";
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -22,16 +18,28 @@ with lib;
   # Enable memtest
   boot.loader.systemd-boot.memtest86.enable = true;
 
-  nixfiles.eraseYourDarlings.enable = true;
-  nixfiles.eraseYourDarlings.machineId = "2961e7896d4d53f7bd5d0ba438074371";
-  nixfiles.eraseYourDarlings.orvarPasswordFile = config.sops.secrets."users/orvar".path;
-  sops.secrets."users/orvar".neededForUsers = true;
-
   virtualisation.libvirtd.enable = true;
 
   services.victoriametrics = {
     enable = true;
     listenAddress = "127.0.0.1:8428";
     retentionPeriod = 1200;
+  };
+
+  # Netdata
+  networking.firewall.allowedTCPPorts = [ 19999 ];
+  services.netdata = {
+    enable = true;
+    config = {
+      global = {
+        "memory mode" = "ram";
+        "debug log" = "none";
+        "access log" = "none";
+        "error log" = "syslog";
+      };
+    };
+  };
+  services.netdata.package = pkgs.netdata.override {
+    withCloudUi = true;
   };
 }

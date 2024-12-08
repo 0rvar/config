@@ -17,20 +17,10 @@ ip addr # Get ip address for the host
 On your local machine:
 
 ```sh
-ssh nixos@[ip] # Test that you can SSH into the installer on the host
-export nixosanywhere="github:nix-community/nixos-anywhere"
-nix run $nixosanywhere -- --flake '.#hostNameInConfig' nixos@[ip]
+ssh-keyscan host | ssh-to-age # Add this to the `~/.sops.yaml` file
 ```
 
-## First boot
-
-Generate an age public key from the host SSH key:
-
-```bash
-ssh-to-age -i $HOME/.ssh/id_ed25519.pub'
-```
-
-Add a new section with this key to `/persist/etc/nixos/.sops.yaml`:
+Add a new section with this key to `.sops.yaml`:
 
 ```yaml
 creation_rules:
@@ -45,7 +35,22 @@ creation_rules:
 Add a `users/orvar` secret with the hashed user password:
 
 ```bash
-nix run .#secrets
+nix run .#secrets <host>
+```
+
+```sh
+ssh nixos@[ip] # Test that you can SSH into the installer on the host
+export nixosanywhere="github:nix-community/nixos-anywhere"
+nix run $nixosanywhere -- --flake '.#hostNameInConfig' nixos@[ip]
+
+```
+
+## First boot
+
+Generate an age public key from the host SSH key:
+
+```bash
+ssh-to-age -i $HOME/.ssh/id_ed25519.pub'
 ```
 
 Copy the host SSH keys to `/etc/persist`:
@@ -54,16 +59,6 @@ Copy the host SSH keys to `/etc/persist`:
 mkdir /persist/etc/ssh
 cp /etc/ssh/ssh_host_rsa_key /persist/etc/ssh/ssh_host_rsa_key
 cp /etc/ssh/ssh_host_ed25519_key /persist/etc/ssh/ssh_host_ed25519_key
-```
-
-Enable `nixfiles.eraseYourDarlings`:
-
-```nix
-{
-  nixfiles.eraseYourDarlings.enable = true;
-  nixfiles.eraseYourDarlings.orvarPasswordFile = config.sops.secrets."users/orvar".path;
-  sops.secrets."users/orvar".neededForUsers = true;
-}
 ```
 
 Then:
