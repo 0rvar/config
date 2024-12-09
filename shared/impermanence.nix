@@ -52,6 +52,21 @@ in
       };
     };
 
+    system.activationScripts.createPersistDirs = {
+      deps = [ ]; # Run early
+      text =
+        let
+          # Extract all directories from environment.persistence."/persist"
+          persistDirs = config.environment.persistence.${toString cfg.persistDir}.directories;
+          # Create a mkdir command for each directory object, using its dirPath
+          mkPersistDir = dirObj: "mkdir -p ${cfg.persistDir}${dirObj.directory}";
+        in
+        ''
+          # Create all persist directories
+          ${concatMapStringsSep "\n" mkPersistDir persistDirs}
+        '';
+    };
+
     system.activationScripts.persistent-dirs.text =
       let
         mkHomePersist =

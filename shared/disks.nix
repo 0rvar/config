@@ -24,81 +24,95 @@ with lib;
         device = cfg.mainDisk.device;
         content = {
           type = "gpt";
-          partitions = {
-            ESP = {
-              priority = 1;
-              name = "ESP";
-              start = "1M";
-              end = "128M";
-              type = "EF00";
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = [
-                  "dmask=077"
-                  "fmask=177"
-                ];
+          partitions =
+            (
+              if cfg.mainDisk.boot.mode == "legacy" then
+                {
+                  boot = {
+                    name = "boot";
+                    label = "BOOT";
+                    type = "EF02"; # for grub MBR
+                    size = "1M";
+                  };
+                }
+              else
+                {
+                }
+            )
+            // {
+              ESP = {
+                name = "ESP";
+                size = "512M";
+                type = "EF00";
+                content = {
+                  type = "filesystem";
+                  format = "vfat";
+                  mountpoint = "/boot";
+                  mountOptions = [
+                    "dmask=077"
+                    "fmask=177"
+                  ];
+                };
               };
-            };
-            root = {
-              size = "100%";
-              content = {
-                type = "btrfs";
-                subvolumes =
-                  let
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime" # Reduces disk writes
-                      "discard=async" # TRIM support
-                    ];
-                    dataMountOptions = [
-                      # No CoW for these directories
-                      # We want to avoid write amplification for things like:
-                      # * VM disk images
-                      # * Databases
-                      # * Persistent containers
-                      # 
-                      "noatime" # Reduces disk writes
-                      "discard=async" # TRIM support
-                    ];
-                  in
-                  {
-                    "@persist" = {
-                      mountpoint = impermanenceCfg.persistDir;
-                      inherit mountOptions;
-                    };
-                    "@data" = {
-                      # Storage of persistent data that should not be CoW
-                      mountpoint = impermanenceCfg.dataDir;
-                      mountOptions = dataMountOptions;
-                    };
-                    "@var-log" = {
-                      mountpoint = "/var/log";
-                      inherit mountOptions;
-                    };
-                    "@nix" = {
-                      mountpoint = "/nix";
-                      inherit mountOptions;
-                    };
-                    "@tmp" = {
-                      mountpoint = "/tmp";
-                      inherit mountOptions;
-                    };
-                    "@swap" = mkIf cfg.mainDisk.swap.enable {
-                      mountpoint = "/.swapvol";
-                      inherit mountOptions;
-                      swap = {
-                        swapfile.size = cfg.mainDisk.swap.size;
+
+              root = {
+                size = "100%";
+                content = {
+                  type = "btrfs";
+                  subvolumes =
+                    let
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime" # Reduces disk writes
+                        "discard=async" # TRIM support
+                      ];
+                      dataMountOptions = [
+                        # No CoW for these directories
+                        # We want to avoid write amplification for things like:
+                        # * VM disk images
+                        # * Databases
+                        # * Persistent containers
+                        # 
+                        "noatime" # Reduces disk writes
+                        "discard=async" # TRIM support
+                      ];
+                    in
+                    {
+                      "@persist" = {
+                        mountpoint = impermanenceCfg.persistDir;
+                        inherit mountOptions;
+                      };
+                      "@data" = {
+                        # Storage of persistent data that should not be CoW
+                        mountpoint = impermanenceCfg.dataDir;
+                        mountOptions = dataMountOptions;
+                      };
+                      "@var-log" = {
+                        mountpoint = "/var/log";
+                        inherit mountOptions;
+                      };
+                      "@nix" = {
+                        mountpoint = "/nix";
+                        inherit mountOptions;
+                      };
+                      "@tmp" = {
+                        mountpoint = "/tmp";
+                        inherit mountOptions;
+                      };
+                      "@swap" = mkIf cfg.mainDisk.swap.enable {
+                        mountpoint = "/.swapvol";
+                        inherit mountOptions;
+                        swap = {
+                          swapfile.size = cfg.mainDisk.swap.size;
+                        };
                       };
                     };
-                  };
-                extraArgs = [
-                  "--label system"
-                ];
+                  extraArgs = [
+                    "--label system"
+                  ];
+                };
               };
             };
-          };
         };
       };
     };
@@ -108,6 +122,15 @@ with lib;
     fileSystems."/var/log".neededForBoot = true;
 
     zramSwap.enable = true;
+
+    boot.loader = {
+      grub = {
+        enable = cfg.mainDisk.boot.mode == "legacy";
+        efiSupport = false;
+      };
+      systemd-boot.enable = cfg.mainDisk.boot.mode == "uefi";
+      systemd-boot.memtest86.enable = cfg.mainDisk.boot.mode == "uefi";
+    };
   };
 
   options.nixfiles.disks = {
@@ -127,6 +150,17 @@ with lib;
         type = types.str;
         example = "/dev/sda";
         description = "Main disk device path";
+      };
+
+      boot = {
+        mode = mkOption {
+          type = types.enum [
+            "uefi"
+            "legacy"
+          ];
+          default = "uefi";
+          description = "Boot mode to use (UEFI or legacy BIOS). Set to 'legacy' for VPS providers that don't support UEFI boot.";
+        };
       };
 
       swap = {

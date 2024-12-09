@@ -12,12 +12,7 @@ with lib;
   nixfiles.sops.enable = false;
   nixfiles.disks.mainDisk.device = "/dev/vda";
   nixfiles.disks.mainDisk.swap.size = "1G";
-
-  # Bootloader
-  boot.loader.systemd-boot.enable = true;
-
-  # Enable memtest
-  boot.loader.systemd-boot.memtest86.enable = true;
+  nixfiles.disks.mainDisk.boot.mode = "legacy";
 
   virtualisation.libvirtd.enable = true;
 
