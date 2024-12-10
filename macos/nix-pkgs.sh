@@ -11,6 +11,7 @@ WANTED_PACKAGES=($(nix eval --impure --raw --expr "
 "))
 WANTED_PACKAGES+=(
   fish
+  nix-index
 
   yt-dlp
   ffmpeg_7-full

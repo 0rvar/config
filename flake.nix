@@ -1,16 +1,22 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    flake-utils.url = "github:numtide/flake-utils";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     impermanence = {
       url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -21,6 +27,7 @@
       nixpkgs,
       sops-nix,
       flake-utils,
+      nix-index-database,
       ...
     }@flakeInputs:
     let
@@ -49,6 +56,8 @@
                 (./hosts + "/${name}" + /configuration.nix)
                 (./hosts + "/${name}" + /hardware.nix)
                 sops-nix.nixosModules.sops
+                nix-index-database.nixosModules.nix-index
+                { programs.nix-index-database.comma.enable = true; }
               ] ++ extraModules;
             };
         in

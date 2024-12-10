@@ -154,5 +154,7 @@ with lib;
 
     # System-wide packages
     environment.systemPackages = (import ./packages.nix { inherit pkgs; }).mkPackages pkgs;
+
+    programs.command-not-found.enable = false; # Doesn't work with flakes (we'll use nix-index instead)
   };
 }
