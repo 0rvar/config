@@ -12,15 +12,15 @@ with lib;
   nixfiles.sops.enable = false;
   nixfiles.disks.mainDisk.device = "/dev/vda";
   nixfiles.disks.mainDisk.swap.size = "1G";
-  nixfiles.disks.mainDisk.boot.mode = "legacy";
+  # nixfiles.disks.mainDisk.boot.mode = "legacy";
 
   virtualisation.libvirtd.enable = true;
 
-  services.victoriametrics = {
-    enable = true;
-    listenAddress = "127.0.0.1:8428";
-    retentionPeriod = 1200;
-  };
+  # services.victoriametrics = {
+  #   enable = true;
+  #   listenAddress = "127.0.0.1:8428";
+  #   retentionPeriod = 1200;
+  # };
 
   # Netdata
   # networking.firewall.allowedTCPPorts = [ 19999 ];

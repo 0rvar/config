@@ -40,7 +40,7 @@ nix run .#secrets <host>
 
 ```sh
 ssh nixos@[ip] # Test that you can SSH into the installer on the host
-nix run github:nix-community/nixos-anywhere -- --flake '.#hostNameInConfig' nixos@[ip]
+nix run github:nix-community/nixos-anywhere -- --flake '.#hostNameInConfig' nixos@[ip] --build-on-remote --generate-hardware-config nixos-generate-config ./hosts/snufkin/<host>>.nix
 
 ```
 
