@@ -1,20 +1,33 @@
 # Set up a new host
 
-```admonish info
-See also [the NixOS installation instructions](https://nixos.org/manual/nixos/stable/index.html#ch-installation).
-```
-
 ## Install NixOS on physical host
+
+First, ensure that sops is turned off for the initial installation:
+
+```nix
+{
+  nixfiles.sops.enable = false;
+}
+```
 
 Fire up the live USB and run this on the host:
 
 ```sh
-lsblk # Ensure config for the host matches the disk in the nix config, eg nvme0n1
+lsblk # Ensure we have the right disk name in the host config, eg nvme0n1 (or vda on VMs)
 passwd # Set a password for the `nixos` user
-ip addr # Get ip address for the host
+ip addr # Get ip address for the host, if applicable
 ```
 
 On your local machine:
+
+```sh
+ssh nixos@[ip] # Test that you can SSH into the installer on the host
+nix run github:nix-community/nixos-anywhere -- --flake '.#[host]' nixos@[ip] --build-on-remote --generate-hardware-config nixos-generate-config ./hosts/[host]/hardware.nix
+```
+
+## First boot
+
+Verify things are working after reboot, then
 
 ```sh
 ssh-keyscan host | ssh-to-age # Add this to the `~/.sops.yaml` file
@@ -25,7 +38,7 @@ Add a new section with this key to `.sops.yaml`:
 ```yaml
 creation_rules:
   ...
-  - path_regex: hosts/<hostname>/secrets(/[^/]+)?\.yaml$
+  - path_regex: hosts/[host]/secrets(/[^/]+)?\.yaml$
     key_groups:
       - age:
           - *orvar
@@ -35,30 +48,32 @@ creation_rules:
 Add a `users/orvar` secret with the hashed user password:
 
 ```bash
+, mkpasswd -s
 nix run .#secrets <host>
 ```
 
-```sh
-ssh nixos@[ip] # Test that you can SSH into the installer on the host
-nix run github:nix-community/nixos-anywhere -- --flake '.#hostNameInConfig' nixos@[ip] --build-on-remote --generate-hardware-config nixos-generate-config ./hosts/snufkin/<host>>.nix
+Now we can enable SOPS and rebuild:
+
+```nix
+{
+  nixfiles.sops.enable = true;
+}
+```
+
+Then, let's rebuild remotely:
+
+```bash
+, nixos-rebuild \
+  --flake .#[host] \
+  --build-host [ip] \
+  --target-host [ip] \
+  --use-remote-sudo \
+  --fast \
+  switch
 
 ```
 
 ## First boot
-
-Generate an age public key from the host SSH key:
-
-```bash
-ssh-to-age -i $HOME/.ssh/id_ed25519.pub'
-```
-
-Copy the host SSH keys to `/etc/persist`:
-
-```bash
-mkdir /persist/etc/ssh
-cp /etc/ssh/ssh_host_rsa_key /persist/etc/ssh/ssh_host_rsa_key
-cp /etc/ssh/ssh_host_ed25519_key /persist/etc/ssh/ssh_host_ed25519_key
-```
 
 Then:
 
@@ -67,10 +82,11 @@ Then:
 
 ## Optional: Generate SSH key
 
-Generate an ed25519 SSH key:
+Generate an ed25519 SSH key to use with SOPS:
 
 ```bash
 ssh-keygen -t ed25519
+, ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/Library/Application\ Support/sops/age/keys.txt
 ```
 
 **If the host should be able to interact with GitHub:** add the public key to

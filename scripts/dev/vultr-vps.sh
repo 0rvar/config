@@ -1,5 +1,15 @@
 #!/usr/bin/env fish
 
+function envsource
+  for line in (cat $argv | grep -v '^#')
+    set item (string split -m 1 '=' $line)
+    set -gx $item[1] $item[2]
+    echo "Exported key $item[1]"
+  end
+end
+set -l DIR (dirname (status -f))
+envsource $DIR/../../.env
+
 set -g VPS_NAME nixos-test
 
 # Function to check command status and exit if failed
@@ -46,7 +56,7 @@ end
 # Create the instance
 set -l instance_creation_output (vultr-cli instance create \
     --region sto \
-    --plan "vhp-4c-16gb-amd" \
+    --plan "vhp-8c-16gb-amd" \
     --os 1743 \
     --host $VPS_NAME \
     --label $VPS_NAME \

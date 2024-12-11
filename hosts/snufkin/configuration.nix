@@ -9,12 +9,12 @@
 
 with lib;
 {
-  nixfiles.sops.enable = false;
+  nixfiles.sops.enable = true;
   nixfiles.disks.mainDisk.device = "/dev/vda";
   nixfiles.disks.mainDisk.swap.size = "1G";
   # nixfiles.disks.mainDisk.boot.mode = "legacy";
 
-  virtualisation.libvirtd.enable = true;
+  # virtualisation.libvirtd.enable = true;
 
   # services.victoriametrics = {
   #   enable = true;
