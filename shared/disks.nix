@@ -1,7 +1,14 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  flakeInputs,
+  ...
+}:
 let
   cfg = config.nixfiles.disks;
   impermanenceCfg = config.nixfiles.impermanence;
+  persistDir = impermanenceCfg.persistDir;
+  dataDir = impermanenceCfg.dataDir;
   tmpfsMountOptions = [
     "defaults"
     "mode=755"
@@ -9,6 +16,9 @@ let
 in
 with lib;
 {
+  imports = [
+    flakeInputs.disko.nixosModules.disko
+  ];
   config = {
     boot.supportedFilesystems = {
       btrfs = true;
@@ -79,12 +89,12 @@ with lib;
                     in
                     {
                       "@persist" = {
-                        mountpoint = impermanenceCfg.persistDir;
+                        mountpoint = persistDir;
                         inherit mountOptions;
                       };
                       "@data" = {
                         # Storage of persistent data that should not be CoW
-                        mountpoint = impermanenceCfg.dataDir;
+                        mountpoint = dataDir;
                         mountOptions = dataMountOptions;
                       };
                       "@var-log" = {
@@ -117,7 +127,7 @@ with lib;
       };
     };
 
-    fileSystems."/persist".neededForBoot = true;
+    fileSystems."${persistDir}".neededForBoot = true;
     fileSystems."/nix".neededForBoot = true;
     fileSystems."/var/log".neededForBoot = true;
 

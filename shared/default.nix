@@ -14,6 +14,8 @@ with lib;
     ./disks.nix
     ./base-packages.nix
     ./oci-containers
+    ./nix-index.nix
+    ./home.nix
   ];
 
   config = {
@@ -119,33 +121,6 @@ with lib;
     services.dockerRegistry.port = 46453;
     services.dockerRegistry.enableDelete = config.services.dockerRegistry.enable;
     services.dockerRegistry.enableGarbageCollect = config.services.dockerRegistry.enable;
-
-    #############################################################################
-    ## User accounts
-    #############################################################################
-
-    programs.fish.enable = true;
-
-    users.extraUsers.orvar = {
-      uid = 1000;
-      description = "Orvar Segerström <orvarsegerstrom@gmail.com>";
-      isNormalUser = true;
-      extraGroups = [
-        config.nixfiles.oci-containers.backend
-        "wheel"
-      ];
-      group = "users";
-      initialPassword = "nixlixzix";
-      shell = pkgs.fish;
-
-      packages = with pkgs; [
-        # Prefer system packages tbh fr fr no cap
-      ];
-
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUsW3xavYlqUnTbLXcuDXZk4T5Y4aYEwknP6bbGWAB2 orvarsegerstrom@gmail.com"
-      ];
-    };
 
     # Allow packages with non-free licenses.
     nixpkgs.config.allowUnfree = true;

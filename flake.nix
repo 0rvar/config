@@ -19,15 +19,16 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      sops-nix,
-      flake-utils,
-      nix-index-database,
       ...
     }@flakeInputs:
     let
@@ -51,70 +52,18 @@
                   networking.hostName = name;
                   sops.defaultSopsFile = ./hosts + "/${name}" + /secrets.yaml;
                 }
-                flakeInputs.disko.nixosModules.disko
                 ./shared
                 (./hosts + "/${name}" + /configuration.nix)
                 (./hosts + "/${name}" + /hardware.nix)
-                sops-nix.nixosModules.sops
-                nix-index-database.nixosModules.nix-index
-                { programs.nix-index-database.comma.enable = true; }
               ] ++ extraModules;
             };
         in
         {
-          snufkin = mkNixosConfiguration "snufkin" [
-            "${nixpkgs}/nixos/modules/installer/scan/not-detected.nix"
-          ];
+          snufkin = mkNixosConfiguration "snufkin" [ ];
         };
 
-      apps =
-        flake-utils.lib.eachSystemPassThrough
-          [
-            "x86_64-linux"
-            "aarch64-darwin"
-          ]
-          (
-            system:
-            let
-              pkgs = import nixpkgs { inherit system; };
-            in
-            {
-              ${system} =
-                let
-                  mkApp = name: script: {
-                    type = "app";
-                    program = toString (pkgs.writeShellScript "${name}.sh" script);
-                  };
-                in
-                {
-                  fmt = mkApp "fmt" ''
-                    PATH=${
-                      with pkgs;
-                      lib.makeBinPath [
-                        nix
-                        git
-                        nixfmt-rfc-style
-                      ]
-                    }
-
-                    nixfmt /shared /hosts flake.nix
-                  '';
-
-                  secrets = mkApp "secrets" ''
-                    PATH=${
-                      with pkgs;
-                      lib.makeBinPath [
-                        sops
-                        nettools
-                        vim
-                      ]
-                    }
-                    export EDITOR=vim
-
-                    ${pkgs.lib.fileContents ./scripts/secrets.sh}
-                  '';
-                };
-            }
-          );
+      apps = import ./apps.nix {
+        inherit (flakeInputs) flake-utils nixpkgs;
+      };
     };
 }

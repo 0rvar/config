@@ -12,6 +12,9 @@ let
   persistDir = config.nixfiles.impermanence.persistDir;
 in
 {
+  imports = [
+    flakeInputs.sops-nix.nixosModules.sops
+  ];
   config =
     {
       sops.age = {
