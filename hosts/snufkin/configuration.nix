@@ -9,10 +9,9 @@
 
 with lib;
 {
-  nixfiles.sops.enable = true;
-  nixfiles.disks.mainDisk.device = "/dev/vda";
-  nixfiles.disks.mainDisk.swap.size = "1G";
-  # nixfiles.disks.mainDisk.boot.mode = "legacy";
+  nixfiles.sops.enable = false;
+  nixfiles.disks.mainDisk.device = "/dev/nvme0n1";
+  nixfiles.disks.mainDisk.swap.size = "16G";
 
   # virtualisation.libvirtd.enable = true;
 

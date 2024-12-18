@@ -56,10 +56,14 @@ in
       deps = [ ]; # Run early
       text =
         let
-          # Extract all directories from environment.persistence."/persist"
           persistDirs = config.environment.persistence.${toString cfg.persistDir}.directories;
-          # Create a mkdir command for each directory object, using its dirPath
-          mkPersistDir = dirObj: "mkdir -p ${cfg.persistDir}${dirObj.directory}";
+          mkPersistDir = dirObj: ''
+            if [ ! -d "${cfg.persistDir}${dirObj.directory}" ]; then
+              mkdir -p ${cfg.persistDir}${dirObj.directory}
+              chown ${dirObj.user}:root ${cfg.persistDir}${dirObj.directory}
+              chmod ${dirObj.mode} ${cfg.persistDir}${dirObj.directory}
+            fi
+          '';
         in
         ''
           # Create all persist directories

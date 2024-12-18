@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   flakeInputs,
@@ -13,6 +14,8 @@ in
   ];
 
   config = {
+    programs.fish.enable = true;
+
     users.extraUsers.orvar = {
       uid = 1000;
       description = "Orvar Segerström <orvarsegerstrom@gmail.com>";
@@ -23,6 +26,7 @@ in
       ];
       group = "users";
       initialPassword = "nixlixzix";
+      shell = pkgs.fish;
 
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUsW3xavYlqUnTbLXcuDXZk4T5Y4aYEwknP6bbGWAB2 orvarsegerstrom@gmail.com"
@@ -35,11 +39,19 @@ in
           directory = "/home/orvar/develop";
           user = "orvar";
           mode = "0700";
+          defaultPerms = {
+            mode = "0700";
+            user = "orvar";
+          };
         }
         {
           directory = "/home/orvar/.ssh";
           user = "orvar";
           mode = "0700";
+          defaultPerms = {
+            mode = "0700";
+            user = "orvar";
+          };
         }
       ];
     };
@@ -66,9 +78,7 @@ in
             ".config/atuin/config.toml".source = config.lib.file.mkOutOfStoreSymlink "/home/orvar/develop/config/shell/atuin.toml";
           };
 
-          # Enable the programs so they're installed
           programs = {
-            fish.enable = true;
             starship.enable = true;
             atuin.enable = true;
           };
