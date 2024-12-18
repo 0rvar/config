@@ -7,13 +7,16 @@
   ...
 }:
 
+let
+  persistDir = config.nixfiles.impermanence.persistDir;
+in
 with lib;
 {
-  nixfiles.sops.enable = false;
+  nixfiles.sops.enable = true;
   nixfiles.disks.mainDisk.device = "/dev/nvme0n1";
   nixfiles.disks.mainDisk.swap.size = "16G";
 
-  # virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   # services.victoriametrics = {
   #   enable = true;
@@ -21,20 +24,31 @@ with lib;
   #   retentionPeriod = 1200;
   # };
 
+  #
   # Netdata
-  # networking.firewall.allowedTCPPorts = [ 19999 ];
-  # services.netdata = {
-  #   enable = true;
-  #   config = {
-  #     global = {
-  #       "memory mode" = "ram";
-  #       "debug log" = "none";
-  #       "access log" = "none";
-  #       "error log" = "syslog";
-  #     };
-  #   };
-  # };
-  # services.netdata.package = pkgs.netdata.override {
-  #   withCloudUi = true;
-  # };
+  #
+  networking.firewall.allowedTCPPorts = [ 19999 ];
+  services.netdata = {
+    enable = true;
+    config = {
+      global = {
+        "memory mode" = "ram";
+        "debug log" = "none";
+        "access log" = "none";
+        "error log" = "syslog";
+      };
+    };
+  };
+  services.netdata.package = pkgs.netdata.override {
+    withCloudUi = true;
+  };
+  environment.persistence.${persistDir} = {
+    directories = [
+      {
+        directory = "/var/lib/netdata";
+        user = "netdata";
+        mode = "750";
+      }
+    ];
+  };
 }
