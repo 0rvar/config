@@ -14,6 +14,7 @@ with lib;
     ./disks.nix
     ./base-packages.nix
     ./oci-containers
+    ./netdata.nix
     ./nix-index.nix
     ./home.nix
   ];

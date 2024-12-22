@@ -17,38 +17,11 @@ with lib;
   nixfiles.disks.mainDisk.swap.size = "16G";
 
   virtualisation.libvirtd.enable = true;
+  nixfiles.netdata.enable = true;
 
   # services.victoriametrics = {
   #   enable = true;
   #   listenAddress = "127.0.0.1:8428";
   #   retentionPeriod = 1200;
   # };
-
-  #
-  # Netdata
-  #
-  networking.firewall.allowedTCPPorts = [ 19999 ];
-  services.netdata = {
-    enable = true;
-    config = {
-      global = {
-        "memory mode" = "ram";
-        "debug log" = "none";
-        "access log" = "none";
-        "error log" = "syslog";
-      };
-    };
-  };
-  services.netdata.package = pkgs.netdata.override {
-    withCloudUi = true;
-  };
-  environment.persistence.${persistDir} = {
-    directories = [
-      {
-        directory = "/var/lib/netdata";
-        user = "netdata";
-        mode = "750";
-      }
-    ];
-  };
 }
