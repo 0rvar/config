@@ -14,6 +14,7 @@ in
   ];
   config = {
     programs.fish.enable = true;
+    documentation.man.generateCaches = false; # Ugh
 
     users.extraUsers.orvar = {
       uid = 1000;
@@ -31,6 +32,17 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUsW3xavYlqUnTbLXcuDXZk4T5Y4aYEwknP6bbGWAB2 orvarsegerstrom@gmail.com"
       ];
     };
+    security.sudo.extraRules = [
+      {
+        users = [ "orvar" ];
+        commands = [
+          {
+            command = "ALL";
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }
+    ];
 
     home-manager = {
       useGlobalPkgs = true;

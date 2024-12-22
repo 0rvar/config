@@ -13,8 +13,12 @@ in
 with lib;
 {
   config = mkIf config.nixfiles.netdata.enable {
-    # For fan speed monitoring
-    environment.systemPackages = [ pkgs.lm_sensors ];
+    environment.systemPackages = with pkgs; [
+      lm_sensors
+      smartmontools
+      ioping
+      python3
+    ];
     boot.kernelModules = [ "coretemp" ];
     # Netdata port
     networking.firewall.allowedTCPPorts = [ 19999 ];
@@ -32,22 +36,32 @@ with lib;
           "access log" = "none";
           "error log" = "syslog";
         };
+        "plugin:sensors" = {
+          "command options" = "force";
+        };
       };
-      python.enable = true;
-      python.extraPackages = ps: [
-        ps.docker
-        ps.pysensors
-      ];
-    };
-    # Use new cloud ui
-    services.netdata.package = pkgs.netdata.override {
-      withCloudUi = true;
+      python = {
+        enable = true;
+        recommendedPythonPackages = true;
+        extraPackages = ps: [
+          ps.docker
+          ps.pysensors
+        ];
+      };
+      package = pkgs.netdata.override {
+        withCloudUi = true;
+      };
     };
     # Persist netdata database
     environment.persistence.${persistDir} = {
       directories = [
         {
           directory = "/var/lib/netdata";
+          user = "netdata";
+          mode = "750";
+        }
+        {
+          directory = "/var/cache/netdata";
           user = "netdata";
           mode = "750";
         }

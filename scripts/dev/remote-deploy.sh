@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-, nixos-rebuild \
-  --flake .#$1 \
-  --build-host $VPS_IP \
-  --target-host $VPS_IP \
-  --use-remote-sudo \
-  --fast \
-  switch
+# Check $1
+if [ -z "$1" ]; then
+  echo "Please provide the environment to deploy to."
+  exit 1
+fi
+
+nix run .#deploy -- -s .#$1

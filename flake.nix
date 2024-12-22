@@ -71,7 +71,7 @@
         sshUser = "orvar";
         remoteBuild = true;
         fastConnection = true;
-        interactiveSudo = true;
+        # interactiveSudo = true;
         profiles.system = {
           user = "root";
           path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.snufkin;
