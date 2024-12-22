@@ -17,7 +17,20 @@ with lib;
   nixfiles.disks.mainDisk.swap.size = "16G";
 
   virtualisation.libvirtd.enable = true;
+
   nixfiles.netdata.enable = true;
+  boot.kernelModules = [ "intel_dptf_thermal" ]; # For fan speed monitoring
+
+  # DHCPd is slow
+  networking.useDHCP = false;
+  networking.useNetworkd = true;
+  systemd.network = {
+    enable = true;
+    networks."10-wan" = {
+      matchConfig.Name = "enp*"; # Adjust interface pattern as needed
+      networkConfig.DHCP = "yes";
+    };
+  };
 
   # services.victoriametrics = {
   #   enable = true;

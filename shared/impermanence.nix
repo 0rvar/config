@@ -60,8 +60,6 @@ in
           mkPersistDir = dirObj: ''
             if [ ! -d "${cfg.persistDir}${dirObj.directory}" ]; then
               mkdir -p ${cfg.persistDir}${dirObj.directory}
-              chown ${dirObj.user}:root ${cfg.persistDir}${dirObj.directory}
-              chmod ${dirObj.mode} ${cfg.persistDir}${dirObj.directory}
             fi
           '';
         in

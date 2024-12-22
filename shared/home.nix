@@ -12,7 +12,6 @@ in
   imports = [
     flakeInputs.home-manager.nixosModules.home-manager
   ];
-
   config = {
     programs.fish.enable = true;
 
@@ -33,35 +32,15 @@ in
       ];
     };
 
-    environment.persistence.${persistDir} = {
-      directories = [
-        {
-          directory = "/home/orvar/develop";
-          user = "orvar";
-          mode = "0700";
-          defaultPerms = {
-            mode = "0700";
-            user = "orvar";
-          };
-        }
-        {
-          directory = "/home/orvar/.ssh";
-          user = "orvar";
-          mode = "0700";
-          defaultPerms = {
-            mode = "0700";
-            user = "orvar";
-          };
-        }
-      ];
-    };
-
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
       users.orvar =
         { config, ... }:
         {
+          imports = [
+            flakeInputs.impermanence.homeManagerModules.impermanence
+          ];
           home.stateVersion = "24.05";
 
           # Git config directly in nix
@@ -76,6 +55,16 @@ in
             ".config/fish/conf.d/config.fish".source = config.lib.file.mkOutOfStoreSymlink "/home/orvar/develop/config/shell/config.fish";
             ".config/starship.toml".source = config.lib.file.mkOutOfStoreSymlink "/home/orvar/develop/config/shell/starship.toml";
             ".config/atuin/config.toml".source = config.lib.file.mkOutOfStoreSymlink "/home/orvar/develop/config/shell/atuin.toml";
+          };
+
+          home.persistence."${persistDir}/home/orvar" = {
+            directories = [
+              "develop"
+              ".ssh"
+              ".local/share/atuin"
+            ];
+            files = [ ];
+            # allowOther = true;
           };
 
           programs = {

@@ -1,6 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -29,6 +33,8 @@
     {
       self,
       nixpkgs,
+      flake-utils,
+      deploy-rs,
       ...
     }@flakeInputs:
     let
@@ -62,8 +68,28 @@
           snufkin = mkNixosConfiguration "snufkin" [ ];
         };
 
+      deploy.nodes.snufkin = {
+        hostname = "snufkin.home";
+        sshUser = "orvar";
+        remoteBuild = true;
+        fastConnection = true;
+        interactiveSudo = true;
+        profiles.system = {
+          user = "root";
+          path = deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.snufkin;
+        };
+      };
+
+      # Add deployment checks
+      # CAN'T do this on mac host
+      # checks =
+      #   if system == "x86_64-linux" then
+      #     builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib
+      #   else
+      #     null;
+
       apps = import ./apps.nix {
-        inherit (flakeInputs) flake-utils nixpkgs;
+        inherit (flakeInputs) deploy-rs flake-utils nixpkgs;
       };
     };
 }

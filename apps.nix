@@ -1,4 +1,8 @@
-{ flake-utils, nixpkgs }:
+{
+  flake-utils,
+  nixpkgs,
+  deploy-rs,
+}:
 flake-utils.lib.eachSystemPassThrough
   [
     "x86_64-linux"
@@ -44,6 +48,11 @@ flake-utils.lib.eachSystemPassThrough
 
             ${pkgs.lib.fileContents ./scripts/secrets.sh}
           '';
+
+          deploy = {
+            type = "app";
+            program = "${deploy-rs.packages.${system}.default}/bin/deploy";
+          };
         };
     }
   )
