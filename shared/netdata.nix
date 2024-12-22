@@ -33,6 +33,11 @@ with lib;
           "error log" = "syslog";
         };
       };
+      python.enable = true;
+      python.extraPackages = ps: [
+        ps.docker
+        ps.pysensors
+      ];
     };
     # Use new cloud ui
     services.netdata.package = pkgs.netdata.override {

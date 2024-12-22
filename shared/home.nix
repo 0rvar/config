@@ -41,7 +41,7 @@ in
           imports = [
             flakeInputs.impermanence.homeManagerModules.impermanence
           ];
-          home.stateVersion = "24.05";
+          home.stateVersion = "24.11";
 
           # Git config directly in nix
           programs.git = {
@@ -64,7 +64,7 @@ in
               ".local/share/atuin"
             ];
             files = [ ];
-            # allowOther = true;
+            allowOther = false;
           };
 
           programs = {
