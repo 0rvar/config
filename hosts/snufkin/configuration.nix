@@ -30,6 +30,7 @@ with lib;
       matchConfig.Name = "enp*"; # Adjust interface pattern as needed
       networkConfig.DHCP = "yes";
     };
+    wait-online.anyInterface = true;
   };
 
   # services.victoriametrics = {
