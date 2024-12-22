@@ -128,6 +128,7 @@ with lib;
     };
 
     fileSystems."${persistDir}".neededForBoot = true;
+    fileSystems."${dataDir}".neededForBoot = true;
     fileSystems."/nix".neededForBoot = true;
     fileSystems."/var/log".neededForBoot = true;
 

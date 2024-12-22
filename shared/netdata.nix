@@ -17,9 +17,9 @@ with lib;
       lm_sensors
       smartmontools
       ioping
-      python3
+      # python3
     ];
-    boot.kernelModules = [ "coretemp" ];
+    # boot.kernelModules = [ "coretemp" ];
     # Netdata port
     networking.firewall.allowedTCPPorts = [ 19999 ];
     # Netdata configuration
@@ -36,18 +36,16 @@ with lib;
           "access log" = "none";
           "error log" = "syslog";
         };
-        "plugin:sensors" = {
-          "command options" = "force";
-        };
       };
-      python = {
-        enable = true;
-        recommendedPythonPackages = true;
-        extraPackages = ps: [
-          ps.docker
-          ps.pysensors
-        ];
-      };
+      # python = {
+      #   enable = true;
+      #   recommendedPythonPackages = true;
+      #   extraPackages = ps: [
+      #     ps.docker
+      #     ps.pysensors
+      #     ps.psycopg2
+      #   ];
+      # };
       package = pkgs.netdata.override {
         withCloudUi = true;
       };
@@ -58,11 +56,13 @@ with lib;
         {
           directory = "/var/lib/netdata";
           user = "netdata";
+          group = "netdata";
           mode = "750";
         }
         {
           directory = "/var/cache/netdata";
           user = "netdata";
+          group = "netdata";
           mode = "750";
         }
       ];

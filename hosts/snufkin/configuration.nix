@@ -9,6 +9,7 @@
 
 let
   persistDir = config.nixfiles.impermanence.persistDir;
+  dataDir = config.nixfiles.impermanence.dataDir;
 in
 with lib;
 {

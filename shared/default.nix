@@ -11,6 +11,7 @@ with lib;
   imports = [
     ./sops.nix
     ./impermanence.nix
+    ./monitoring.nix
     ./disks.nix
     ./base-packages.nix
     ./oci-containers
