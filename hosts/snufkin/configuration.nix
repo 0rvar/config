@@ -20,7 +20,10 @@ with lib;
   virtualisation.libvirtd.enable = true;
 
   nixfiles.netdata.enable = true;
-  boot.kernelModules = [ "intel_dptf_thermal" ]; # For fan speed monitoring
+  boot.kernelModules = [
+    "coretemp"
+  ];
+  services.thermald.enable = true;
 
   # DHCPd is slow
   networking.useDHCP = false;

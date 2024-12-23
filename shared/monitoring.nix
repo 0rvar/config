@@ -17,6 +17,11 @@ let
   '';
 in
 {
+  environment.systemPackages = with pkgs; [
+    lm_sensors
+    dmidecode
+    acpi
+  ];
   services.prometheus.exporters.node = {
     enable = true;
     enabledCollectors = [
@@ -64,12 +69,6 @@ in
     };
   };
 
-  # # Grafana for visualization
-  # users.users.grafana = {
-  #   isSystemUser = true;
-  #   group = "grafana";
-  # };
-  # users.groups.grafana = { };
   services.grafana = {
     enable = true;
     dataDir = "${dataDir}/grafana";
@@ -113,13 +112,4 @@ in
       directory = "/var/lib/private/victoriametrics";
     }
   ];
-
-  # system.activationScripts.createPersistentStorageDirs = {
-  #   text = ''
-  #     mkdir -p /var/lib/data/var/lib/victoriametrics
-  #     mkdir -p /var/lib/data/var/lib/grafana
-  #     chown -R victoriametrics:victoriametrics /var/lib/data/var/lib/victoriametrics
-  #     chown -R grafana:grafana /var/lib/data/var/lib/grafana
-  #   '';
-  # };
 }
