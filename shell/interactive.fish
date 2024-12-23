@@ -17,4 +17,6 @@ end
 
 if command -v atuin > /dev/null
   atuin init fish | source
+else 
+  echo "atuin not found"
 end
